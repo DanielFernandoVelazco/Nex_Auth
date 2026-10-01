@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={"darkMode":"class","theme":{"extend":{"colors":{"surface-dim":"#d2d9f4","background":"#faf8ff","surface-container-lowest":"#ffffff","secondary-fixed-dim":"#c0c1ff","on-primary-container":"#dad7ff","surface-container-highest":"#dae2fd","surface-container-low":"#f2f3ff","inverse-surface":"#283044","inverse-primary":"#c3c0ff","on-tertiary-fixed":"#002113","secondary-container":"#6063ee","on-surface":"#131b2e","primary":"#3525cd","surface-bright":"#faf8ff","surface-variant":"#dae2fd","error-container":"#ffdad6","primary-fixed-dim":"#c3c0ff","secondary":"#4648d4","surface":"#faf8ff","on-secondary-container":"#fffbff","on-secondary":"#ffffff","primary-container":"#4f46e5","tertiary-fixed-dim":"#4edea3","tertiary-fixed":"#6ffbbe","inverse-on-surface":"#eef0ff","on-error":"#ffffff","on-primary":"#ffffff","on-tertiary-fixed-variant":"#005236","on-primary-fixed-variant":"#3323cc","on-primary-fixed":"#0f0069","primary-fixed":"#e2dfff","on-error-container":"#93000a","outline":"#777587","error":"#ba1a1a","tertiary-container":"#006e4b","on-background":"#131b2e","on-secondary-fixed":"#07006c","tertiary":"#005338","on-tertiary":"#ffffff","surface-container":"#eaedff","outline-variant":"#c7c4d8","on-tertiary-container":"#67f4b7","on-secondary-fixed-variant":"#2f2ebe","surface-container-high":"#e2e7ff","surface-tint":"#4d44e3","on-surface-variant":"#464555","secondary-fixed":"#e1e0ff"},"borderRadius":{"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"},"spacing":{"margin":"1rem","space-sm":"0.5rem","space-xl":"2rem","space-lg":"1.25rem","space-md":"0.75rem","margin-desktop":"2rem","gutter-desktop":"1.5rem","gutter":"1rem","space-xs":"0.25rem"},"fontFamily":{"body-lg":["Inter"],"body-sm":["Inter"],"label-code-lg":["JetBrains Mono"],"label-code-md":["JetBrains Mono"],"headline-xl":["Inter"],"headline-sm":["Inter"],"body-md":["Inter"],"label-code-sm":["JetBrains Mono"],"label-caps":["Inter"],"headline-lg":["Inter"],"headline-xl-mobile":["Inter"],"headline-md":["Inter"]},"fontSize":{"body-lg":["15px",{"lineHeight":"22px","fontWeight":"400"}],"body-sm":["12px",{"lineHeight":"16px","fontWeight":"400"}],"label-code-lg":["13px",{"lineHeight":"18px","fontWeight":"500"}],"label-code-md":["12px",{"lineHeight":"16px","fontWeight":"500"}],"headline-xl":["30px",{"lineHeight":"38px","letterSpacing":"-0.02em","fontWeight":"700"}],"headline-sm":["15px",{"lineHeight":"20px","letterSpacing":"-0.005em","fontWeight":"600"}],"body-md":["13px",{"lineHeight":"18px","fontWeight":"400"}],"label-code-sm":["11px",{"lineHeight":"14px","fontWeight":"400"}],"label-caps":["11px",{"lineHeight":"14px","letterSpacing":"0.05em","fontWeight":"600"}],"headline-lg":["22px",{"lineHeight":"28px","letterSpacing":"-0.015em","fontWeight":"600"}],"headline-xl-mobile":["24px",{"lineHeight":"32px","letterSpacing":"-0.015em","fontWeight":"700"}],"headline-md":["18px",{"lineHeight":"24px","letterSpacing":"-0.01em","fontWeight":"600"}]}}}}</script></head><body class="bg-background font-body-md text-on-surface antialiased"><aside class="fixed left-0 top-0 h-full w-64 bg-surface-container-low z-50 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="flex flex-col"><div class="h-16 px-space-md flex items-center gap-space-sm bg-surface-container-low"><img alt="AuthShield IAM Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1W5sWrYLwg4JJdSnB-yQ8_7vM2Uml6B3LfgUBHy2335817tjlcSC0TYKmzNOKRXmlPfjO7jCDwKleR_b1H1oVrmBP3_2PBJSqG2Cuvlfy3oGqKqecvdQR5jMKZ8D6pmFZgsbplLS-jWzgFrakZjTfCGWcPIV8CRKmVjUZla4BHxCLaOygQuTwue76aCxOK_DbLFw9qj96fFSJ9w6YO7DBjljFX-ga2k-bg2R306ENdR_7u9JnXG0TXuQYA"/><div class="flex flex-col"><span class="font-headline-sm text-headline-sm text-on-surface leading-tight tracking-tight">AuthShield</span><span class="font-label-caps text-label-caps text-outline uppercase tracking-wider">IAM Console</span></div></div><div class="px-space-md py-space-sm"><div class="flex items-center justify-between px-space-sm py-space-xs bg-surface-container-lowest rounded-lg shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="flex items-center gap-space-xs"><span class="w-2 h-2 rounded-full bg-tertiary-container"></span><span class="font-label-code-sm text-label-code-sm text-on-surface font-medium">Production</span><span class="text-outline font-label-code-sm text-label-code-sm">·</span><span class="font-label-code-sm text-label-code-sm text-on-surface-variant">us-east-1</span></div><span class="material-symbols-outlined text-[16px] text-outline">unfold_more</span></div></div><div class="px-space-md py-space-xs"><button class="w-full flex items-center justify-between px-space-sm py-space-xs rounded-lg bg-surface-container-high text-on-surface-variant hover:text-on-surface transition-colors" type="button"><div class="flex items-center gap-space-xs"><span class="material-symbols-outlined text-[18px]">search</span><span class="font-body-sm text-body-sm">Search IAM...</span></div><kbd class="font-label-code-sm text-label-code-sm bg-surface-container-lowest text-on-surface-variant px-1 rounded shadow-[0_1px_8px_rgba(0,0,0,0.04)]">⌘K</kbd></button></div><nav class="flex flex-col gap-space-xs px-space-sm mt-space-sm" data-active-classes="bg-primary-container text-on-primary font-headline-sm rounded-lg"><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="overview" href="#"><span class="material-symbols-outlined text-[20px]">grid_view</span><span>Overview</span></a><a aria-current="page" class="flex items-center gap-space-sm px-space-md py-space-sm transition-colors bg-primary-container text-on-primary font-headline-sm rounded-lg" data-path="applications" href="#"><span class="material-symbols-outlined text-[20px]">apps</span><span>Applications</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="user-directory" href="#"><span class="material-symbols-outlined text-[20px]">group</span><span>User Directory</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="authentication-and-security" href="#"><span class="material-symbols-outlined text-[20px]">security</span><span>Authentication &amp; Security</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="monitoring-and-logs" href="#"><span class="material-symbols-outlined text-[20px]">terminal</span><span>Monitoring &amp; Logs</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="settings-and-api-keys" href="#"><span class="material-symbols-outlined text-[20px]">key</span><span>Settings &amp; API Keys</span></a></nav></div><div class="p-space-md bg-surface-container-low"><div class="p-space-sm bg-surface-container-lowest rounded-lg shadow-[0_1px_8px_rgba(0,0,0,0.04)] flex flex-col gap-space-xs"><div class="flex items-center justify-between"><span class="font-label-caps text-label-caps uppercase text-outline">System Status</span><span class="font-label-code-sm text-label-code-sm text-tertiary-container font-medium">Operational</span></div><div class="w-full bg-surface-container-high h-1 rounded-full overflow-hidden"><div class="bg-tertiary-container h-full w-full"></div></div><span class="font-label-code-sm text-label-code-sm text-on-surface-variant">v4.18.2-core</span></div></div></aside><div class="pl-64"><header class="fixed top-0 left-64 right-0 h-16 bg-surface-container-lowest/90 backdrop-blur-xl z-40 shadow-[0_1px_8px_rgba(0,0,0,0.04)] flex items-center justify-between px-space-lg"><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs bg-surface-container-low px-space-sm py-space-xs rounded-lg"><span class="material-symbols-outlined text-[18px] text-outline">corporate_fare</span><span class="font-label-code-md text-label-code-md text-on-surface font-medium">acme-corp-prod</span><span class="material-symbols-outlined text-[16px] text-outline">expand_more</span></div><div class="hidden lg:flex items-center gap-space-xs text-outline font-body-sm text-body-sm"><span class="w-1 h-1 rounded-full bg-outline-variant"></span><span>Region: AWS us-east-1</span></div></div><div class="flex items-center gap-space-lg"><nav class="hidden md:flex items-center gap-space-md" data-active-classes="bg-primary-container text-on-primary font-headline-sm rounded-lg"><a class="font-body-md text-body-md text-on-surface-variant hover:text-on-surface transition-colors" data-path="documentation" href="#">Documentation</a><a class="font-body-md text-body-md text-on-surface-variant hover:text-on-surface transition-colors" data-path="compliance-audit" href="#">Compliance</a></nav><div class="relative flex items-center"><button class="p-space-xs rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" type="button"><span class="material-symbols-outlined text-[20px]">notifications</span></button><span class="absolute top-1 right-1 w-2 h-2 rounded-full bg-error"></span></div><div class="flex items-center gap-space-sm pl-space-sm"><div class="flex flex-col items-end hidden sm:flex"><span class="font-headline-sm text-headline-sm text-on-surface leading-tight">Sofia Alarcón</span><span class="font-label-caps text-label-caps text-on-surface-variant">Security Admin</span></div><img alt="Profile" class="w-8 h-8 rounded-full object-cover shadow-[0_1px_8px_rgba(0,0,0,0.04)]" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAj5efYoLCU1do6orPnp83hEjsQKp0d-6VUsT60s0bKTwrA1trGDs3N6K8PkpuTuLiA3ze6lbWrFEusMkd-yVvqmc4LaLnlMVWA_xGkSdfaZygRhjsZh-FbrWI3z_xRF_vz03l0deWZg67b2jrUA2zHhN_c7xbXaHCetwDHKF4bBiz3vf2tSaCdbrUZSSzduHjG2o-o_VkdWDnJcfbNRRmq84ENzcD0TDnzWRkypcB0aEu8eI7_OpOj"/></div></div></header><main class="relative w-full pt-16 bg-background px-gutter-desktop min-h-screen"><div class="flex flex-col w-full pb-space-xl">
+<!-- Subtle decorative ambient background glows -->
+<div class="relative w-full overflow-hidden">
+<div class="absolute -top-24 right-10 w-96 h-96 bg-primary/5 rounded-full blur-3xl pointer-events-none"></div>
+<div class="absolute top-48 left-1/3 w-80 h-80 bg-secondary-container/5 rounded-full blur-2xl pointer-events-none"></div>
+<!-- Header Section -->
+<div class="py-space-lg flex flex-col xl:flex-row xl:items-end justify-between gap-space-md">
+<div class="flex flex-col gap-space-xs max-w-2xl">
+<div class="flex items-center gap-space-xs">
+<span class="font-label-caps text-label-caps text-primary uppercase tracking-wider bg-surface-container-high px-space-xs py-0.5 rounded-lg">OAuth2 &amp; OIDC Core</span>
+<span class="font-label-code-sm text-label-code-sm text-outline">v2.4 API Gateway</span>
+</div>
+<h1 class="font-headline-xl text-headline-xl text-on-surface">Aplicaciones &amp; Clientes API</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Gestiona clientes OAuth2 / OpenID Connect, credenciales y dominios autorizados para tus servicios federados.</p>
+</div>
+<div class="flex flex-wrap items-center gap-space-sm">
+<button class="flex items-center gap-space-xs px-space-md py-space-sm bg-surface-container-lowest text-on-surface rounded-lg shadow-sm hover:bg-surface-container-low transition-all" type="button">
+<span class="material-symbols-outlined text-[18px] text-outline">file_download</span>
+<span class="font-headline-sm text-headline-sm">Exportar Reporte</span>
+</button>
+<button class="flex items-center gap-space-xs px-space-md py-space-sm bg-primary-container text-on-primary rounded-lg shadow-md hover:bg-primary transition-all" type="button">
+<span class="material-symbols-outlined text-[20px]">add</span>
+<span class="font-headline-sm text-headline-sm">+ Registrar Nueva Aplicación</span>
+</button>
+</div>
+</div>
+<!-- Filtering & Search Bar -->
+<div class="mt-space-sm p-space-sm bg-surface-container-lowest rounded-xl shadow-sm flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-xs overflow-x-auto pb-1 lg:pb-0">
+<button class="px-space-md py-space-xs rounded-lg font-headline-sm text-headline-sm bg-primary-container text-on-primary whitespace-nowrap shadow-sm" type="button">Todas (18)</button>
+<button class="px-space-md py-space-xs rounded-lg font-headline-sm text-headline-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high whitespace-nowrap transition-colors" type="button">SPA (7)</button>
+<button class="px-space-md py-space-xs rounded-lg font-headline-sm text-headline-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high whitespace-nowrap transition-colors" type="button">Regular Web (5)</button>
+<button class="px-space-md py-space-xs rounded-lg font-headline-sm text-headline-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high whitespace-nowrap transition-colors" type="button">Machine-to-Machine (4)</button>
+<button class="px-space-md py-space-xs rounded-lg font-headline-sm text-headline-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high whitespace-nowrap transition-colors" type="button">Native Mobile (2)</button>
+</div>
+<div class="flex items-center gap-space-sm">
+<div class="relative flex-1 sm:w-80">
+<span class="material-symbols-outlined absolute left-space-sm top-1/2 -translate-y-1/2 text-[18px] text-outline">search</span>
+<input class="w-full pl-9 pr-space-md py-space-xs bg-surface-container-low text-on-surface placeholder:text-outline rounded-lg text-body-md font-body-md focus:bg-surface-container-lowest focus:outline-none focus:ring-1 focus:ring-primary shadow-inner" placeholder="Filtrar por nombre o Client ID..." type="text"/>
+</div>
+<button class="p-space-xs bg-surface-container-high text-on-surface-variant hover:text-on-surface rounded-lg" type="button">
+<span class="material-symbols-outlined text-[20px]">filter_list</span>
+</button>
+</div>
+</div>
+<!-- Application Catalog Grid -->
+<div class="mt-space-lg grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-space-md">
+<!-- Card 1: Acme Web Portal (Selected State) -->
+<div class="group bg-surface-container-lowest rounded-xl shadow-md p-space-md flex flex-col justify-between transition-all cursor-pointer relative ring-2 ring-primary">
+<span class="absolute top-2 right-2 text-[10px] font-label-caps uppercase bg-primary text-on-primary px-2 py-0.5 rounded-full">Activa · Seleccionada</span>
+<div>
+<div class="flex items-start gap-space-sm">
+<div class="w-10 h-10 rounded-xl bg-surface-container-high flex items-center justify-center text-primary shrink-0 shadow-sm">
+<span class="material-symbols-outlined text-[24px]">web</span>
+</div>
+<div class="flex flex-col min-w-0 pr-12">
+<h3 class="font-headline-sm text-headline-sm text-on-surface truncate">Acme Web Portal</h3>
+<span class="font-label-code-sm text-label-code-sm text-on-surface-variant">SPA · React / Next.js</span>
+</div>
+</div>
+<div class="mt-space-md flex flex-col gap-space-xs">
+<span class="font-label-caps text-label-caps text-outline uppercase">Client ID</span>
+<div class="flex items-center justify-between bg-surface-container-low px-space-sm py-1 rounded-lg">
+<code class="font-label-code-sm text-label-code-sm text-on-surface truncate">app_clnt_8f92a10b48e3</code>
+<button class="text-outline hover:text-primary p-0.5 rounded transition-colors" onclick="navigator.clipboard.writeText('app_clnt_8f92a10b48e3')" title="Copiar Client ID" type="button">
+<span class="material-symbols-outlined text-[15px]">content_copy</span>
+</button>
+</div>
+</div>
+<div class="mt-space-sm flex flex-col gap-1">
+<span class="font-label-caps text-label-caps text-outline uppercase">Dominio Principal</span>
+<span class="font-label-code-sm text-label-code-sm text-on-surface truncate flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-tertiary-container">lock</span>
+              https://app.acme.com
+            </span>
+</div>
+</div>
+<div class="mt-space-md pt-space-sm bg-surface-container-low -mx-space-md -mb-space-md px-space-md pb-space-sm rounded-b-xl flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps text-outline uppercase">Logins (24h)</span>
+<span class="font-label-code-md text-label-code-md text-on-surface font-semibold">124,400</span>
+</div>
+<div class="flex items-center gap-1 bg-surface-container-lowest px-2 py-0.5 rounded-lg text-tertiary-container">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary-container animate-pulse"></span>
+<span class="font-label-caps text-label-caps font-bold">99.98%</span>
+</div>
+</div>
+</div>
+<!-- Card 2: Acme Mobile App -->
+<div class="group bg-surface-container-lowest rounded-xl shadow-sm hover:shadow-md p-space-md flex flex-col justify-between transition-all cursor-pointer">
+<div>
+<div class="flex items-start justify-between">
+<div class="flex items-start gap-space-sm">
+<div class="w-10 h-10 rounded-xl bg-surface-container-high flex items-center justify-center text-secondary shrink-0 shadow-sm">
+<span class="material-symbols-outlined text-[24px]">smartphone</span>
+</div>
+<div class="flex flex-col min-w-0">
+<h3 class="font-headline-sm text-headline-sm text-on-surface truncate">Acme Mobile App</h3>
+<span class="font-label-code-sm text-label-code-sm text-on-surface-variant">Native PKCE · iOS/Android</span>
+</div>
+</div>
+<span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[11px] font-label-caps bg-surface-container-high text-tertiary-container font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary-container"></span> Activa
+            </span>
+</div>
+<div class="mt-space-md flex flex-col gap-space-xs">
+<span class="font-label-caps text-label-caps text-outline uppercase">Client ID</span>
+<div class="flex items-center justify-between bg-surface-container-low px-space-sm py-1 rounded-lg">
+<code class="font-label-code-sm text-label-code-sm text-on-surface truncate">app_clnt_91ba73c1d904</code>
+<button class="text-outline hover:text-primary p-0.5 rounded transition-colors" onclick="navigator.clipboard.writeText('app_clnt_91ba73c1d904')" title="Copiar Client ID" type="button">
+<span class="material-symbols-outlined text-[15px]">content_copy</span>
+</button>
+</div>
+</div>
+<div class="mt-space-sm flex flex-col gap-1">
+<span class="font-label-caps text-label-caps text-outline uppercase">URI Scheme</span>
+<span class="font-label-code-sm text-label-code-sm text-on-surface truncate flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-outline">link</span>
+              acmeapp://auth/callback
+            </span>
+</div>
+</div>
+<div class="mt-space-md pt-space-sm bg-surface-container-low -mx-space-md -mb-space-md px-space-md pb-space-sm rounded-b-xl flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps text-outline uppercase">Logins (24h)</span>
+<span class="font-label-code-md text-label-code-md text-on-surface font-semibold">88,120</span>
+</div>
+<span class="font-label-code-sm text-label-code-sm text-on-surface-variant">v3.4.1 client</span>
+</div>
+</div>
+<!-- Card 3: Billing & Payments Microservice -->
+<div class="group bg-surface-container-lowest rounded-xl shadow-sm hover:shadow-md p-space-md flex flex-col justify-between transition-all cursor-pointer">
+<div>
+<div class="flex items-start justify-between">
+<div class="flex items-start gap-space-sm">
+<div class="w-10 h-10 rounded-xl bg-surface-container-high flex items-center justify-center text-primary-container shrink-0 shadow-sm">
+<span class="material-symbols-outlined text-[24px]">dns</span>
+</div>
+<div class="flex flex-col min-w-0">
+<h3 class="font-headline-sm text-headline-sm text-on-surface truncate">Billing Microservice</h3>
+<span class="font-label-code-sm text-label-code-sm text-on-surface-variant">Machine-to-Machine</span>
+</div>
+</div>
+<span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[11px] font-label-caps bg-surface-container-high text-tertiary-container font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary-container"></span> Activa
+            </span>
+</div>
+<div class="mt-space-md flex flex-col gap-space-xs">
+<span class="font-label-caps text-label-caps text-outline uppercase">Client ID</span>
+<div class="flex items-center justify-between bg-surface-container-low px-space-sm py-1 rounded-lg">
+<code class="font-label-code-sm text-label-code-sm text-on-surface truncate">m2m_srv_44a9e201b2ff</code>
+<button class="text-outline hover:text-primary p-0.5 rounded transition-colors" onclick="navigator.clipboard.writeText('m2m_srv_44a9e201b2ff')" title="Copiar Client ID" type="button">
+<span class="material-symbols-outlined text-[15px]">content_copy</span>
+</button>
+</div>
+</div>
+<div class="mt-space-sm flex flex-col gap-1">
+<span class="font-label-caps text-label-caps text-outline uppercase">Scopes Asignados</span>
+<div class="flex flex-wrap gap-1 mt-0.5">
+<span class="px-1.5 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-label-code-sm text-[10px]">read:invoices</span>
+<span class="px-1.5 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-label-code-sm text-[10px]">write:charges</span>
+</div>
+</div>
+</div>
+<div class="mt-space-md pt-space-sm bg-surface-container-low -mx-space-md -mb-space-md px-space-md pb-space-sm rounded-b-xl flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps text-outline uppercase">Token Requests</span>
+<span class="font-label-code-md text-label-code-md text-on-surface font-semibold">1.4M / día</span>
+</div>
+<span class="material-symbols-outlined text-[16px] text-tertiary-container">verified_user</span>
+</div>
+</div>
+<!-- Card 4: Legacy Partner Portal -->
+<div class="group bg-surface-container-lowest rounded-xl shadow-sm hover:shadow-md p-space-md flex flex-col justify-between transition-all cursor-pointer">
+<div>
+<div class="flex items-start justify-between">
+<div class="flex items-start gap-space-sm">
+<div class="w-10 h-10 rounded-xl bg-surface-container-high flex items-center justify-center text-outline shrink-0 shadow-sm">
+<span class="material-symbols-outlined text-[24px]">language</span>
+</div>
+<div class="flex flex-col min-w-0">
+<h3 class="font-headline-sm text-headline-sm text-on-surface truncate">Legacy Partner Portal</h3>
+<span class="font-label-code-sm text-label-code-sm text-on-surface-variant">Regular Web App</span>
+</div>
+</div>
+<span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[11px] font-label-caps bg-surface-container-highest text-secondary-container font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span> Staging
+            </span>
+</div>
+<div class="mt-space-md flex flex-col gap-space-xs">
+<span class="font-label-caps text-label-caps text-outline uppercase">Client ID</span>
+<div class="flex items-center justify-between bg-surface-container-low px-space-sm py-1 rounded-lg">
+<code class="font-label-code-sm text-label-code-sm text-on-surface truncate">app_clnt_11c088ef231a</code>
+<button class="text-outline hover:text-primary p-0.5 rounded transition-colors" onclick="navigator.clipboard.writeText('app_clnt_11c088ef231a')" title="Copiar Client ID" type="button">
+<span class="material-symbols-outlined text-[15px]">content_copy</span>
+</button>
+</div>
+</div>
+<div class="mt-space-sm flex flex-col gap-1">
+<span class="font-label-caps text-label-caps text-outline uppercase">Dominio Staging</span>
+<span class="font-label-code-sm text-label-code-sm text-on-surface-variant truncate">https://partners.staging.acme.io</span>
+</div>
+</div>
+<div class="mt-space-md pt-space-sm bg-surface-container-low -mx-space-md -mb-space-md px-space-md pb-space-sm rounded-b-xl flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps text-outline uppercase">Auth Flow</span>
+<span class="font-label-code-sm text-label-code-sm text-on-surface">Auth Code + Secret</span>
+</div>
+<span class="material-symbols-outlined text-[18px] text-outline">history</span>
+</div>
+</div>
+</div>
+<!-- Detailed Configuration Canvas / Application Workspace -->
+<div class="mt-space-xl bg-surface-container-lowest rounded-xl shadow-lg overflow-hidden">
+<!-- Workspace Sub-Header with App Identity & Breadcrumbs -->
+<div class="p-space-lg bg-surface-container-low flex flex-col md:flex-row md:items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-md">
+<div class="w-12 h-12 rounded-xl bg-primary-container text-on-primary flex items-center justify-center shadow-md">
+<span class="material-symbols-outlined text-[28px]">web</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs">
+<span class="font-headline-md text-headline-md text-on-surface font-semibold">Acme Web Portal</span>
+<span class="px-2 py-0.5 rounded-full font-label-caps text-[10px] bg-surface-container-lowest text-tertiary-container shadow-sm font-bold flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary-container"></span> TLS 1.3 Verificado
+              </span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Client ID: <code class="font-label-code-sm text-primary font-medium">app_clnt_8f92a10b48e3</code> · Tipo: SPA OIDC RFC 8252</span>
+</div>
+</div>
+<div class="flex items-center gap-space-sm self-start md:self-auto">
+<span class="font-label-code-sm text-label-code-sm text-on-surface-variant bg-surface-container-high px-space-sm py-1 rounded-lg">Creado hace 3 meses por @s.alarcon</span>
+<button class="p-space-xs bg-surface-container-lowest text-on-surface-variant hover:text-on-surface rounded-lg shadow-sm" type="button">
+<span class="material-symbols-outlined text-[20px]">more_vert</span>
+</button>
+</div>
+</div>
+<!-- Settings Navigation Tabs -->
+<div class="px-space-lg bg-surface-container-lowest flex items-center gap-space-lg overflow-x-auto shadow-sm">
+<button class="py-space-md font-headline-sm text-headline-sm text-primary flex items-center gap-space-xs border-b-2 border-primary -mb-[2px] transition-colors whitespace-nowrap" type="button">
+<span class="material-symbols-outlined text-[18px]">tune</span>
+          Configuración Rápida
+        </button>
+<button class="py-space-md font-headline-sm text-headline-sm text-on-surface-variant hover:text-on-surface flex items-center gap-space-xs transition-colors whitespace-nowrap" type="button">
+<span class="material-symbols-outlined text-[18px]">key</span>
+          Credenciales
+        </button>
+<button class="py-space-md font-headline-sm text-headline-sm text-on-surface-variant hover:text-on-surface flex items-center gap-space-xs transition-colors whitespace-nowrap" type="button">
+<span class="material-symbols-outlined text-[18px]">link</span>
+          URLs &amp; Dominios
+        </button>
+<button class="py-space-md font-headline-sm text-headline-sm text-on-surface-variant hover:text-on-surface flex items-center gap-space-xs transition-colors whitespace-nowrap" type="button">
+<span class="material-symbols-outlined text-[18px]">token</span>
+          Grant Types &amp; Tokens
+        </button>
+</div>
+<!-- Main Config Split Pane -->
+<div class="p-space-lg grid grid-cols-1 lg:grid-cols-12 gap-space-xl">
+<!-- Left: Form Controls (7 cols) -->
+<div class="lg:col-span-7 flex flex-col gap-space-lg">
+<!-- Section 1: Tenant Identity & Cryptography -->
+<div class="flex flex-col gap-space-sm">
+<span class="font-headline-sm text-headline-sm text-on-surface">Credenciales del Cliente</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Estas cadenas identifican tu aplicación ante los servidores de autorización de AuthShield.</p>
+<!-- Domain Field -->
+<div class="flex flex-col gap-space-xs mt-1">
+<label class="font-label-caps text-label-caps text-on-surface-variant uppercase">Dominio de Autenticación (Issuer Domain)</label>
+<div class="relative flex items-center">
+<input class="w-full bg-surface-container-low text-on-surface font-label-code-md text-label-code-md px-space-md py-space-xs rounded-lg select-all focus:outline-none" readonly="" type="text" value="auth.acme.com"/>
+<span class="absolute right-space-sm flex items-center gap-1 bg-surface-container-lowest px-2 py-0.5 rounded font-label-code-sm text-tertiary-container shadow-sm">
+<span class="material-symbols-outlined text-[14px]">verified</span> SSL Activo
+                </span>
+</div>
+</div>
+<!-- Client ID Field -->
+<div class="flex flex-col gap-space-xs">
+<label class="font-label-caps text-label-caps text-on-surface-variant uppercase">Client ID</label>
+<div class="flex items-center gap-space-xs">
+<div class="relative flex-1">
+<input class="w-full bg-surface-container-low text-on-surface font-label-code-md text-label-code-md px-space-md py-space-xs rounded-lg select-all focus:outline-none" id="client-id-input" readonly="" type="text" value="app_clnt_8f92a10b48e3"/>
+</div>
+<button class="px-space-md py-space-xs bg-surface-container-high hover:bg-surface-container-highest text-on-surface rounded-lg font-headline-sm text-headline-sm flex items-center gap-1 transition-colors" id="copy-client-btn" onclick="navigator.clipboard.writeText('app_clnt_8f92a10b48e3'); this.innerHTML = '&lt;span class=\'material-symbols-outlined text-[16px] text-tertiary-container\'&gt;check&lt;/span&gt; Copiado!'; setTimeout(() =&gt; { this.innerHTML = '&lt;span class=\'material-symbols-outlined text-[16px]\'&gt;content_copy&lt;/span&gt; Copiar'; }, 2000);" type="button">
+<span class="material-symbols-outlined text-[16px]">content_copy</span> Copiar
+                </button>
+</div>
+</div>
+<!-- Client Secret Field -->
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<label class="font-label-caps text-label-caps text-on-surface-variant uppercase">Client Secret (Firma PKCE &amp; Webhook Sign)</label>
+<span class="font-label-code-sm text-label-code-sm text-outline">Última rotación: 14 días</span>
+</div>
+<div class="flex items-center gap-space-xs">
+<div class="relative flex-1">
+<input class="w-full bg-surface-container-low text-on-surface font-label-code-md text-label-code-md px-space-md py-space-xs rounded-lg select-all focus:outline-none tracking-wider" id="client-secret-input" readonly="" type="password" value="sec_prod_live_90x1f88a2e4b9c10d3f82aa0"/>
+<button class="absolute right-space-sm top-1/2 -translate-y-1/2 text-outline hover:text-on-surface transition-colors" onclick="const input = document.getElementById('client-secret-input'); const icon = document.getElementById('toggle-secret-icon'); if (input.type === 'password') { input.type = 'text'; icon.textContent = 'visibility_off'; } else { input.type = 'password'; icon.textContent = 'visibility'; }" title="Mostrar/Ocultar" type="button">
+<span class="material-symbols-outlined text-[18px]" id="toggle-secret-icon">visibility</span>
+</button>
+</div>
+<button class="px-space-md py-space-xs bg-surface-container-high hover:bg-surface-container-highest text-on-surface rounded-lg font-headline-sm text-headline-sm flex items-center gap-1 transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px]">sync</span> Rotar Secreto
+                </button>
+</div>
+<p class="font-body-sm text-body-sm text-outline">Nunca expongas este valor en repositorios públicos o bundles de navegador sin backend seguro.</p>
+</div>
+</div>
+<!-- Section 2: Application URLs -->
+<div class="flex flex-col gap-space-sm pt-space-md">
+<span class="font-headline-sm text-headline-sm text-on-surface">Configuración de Dominios y Redirecciones</span>
+<!-- Allowed Callback URLs -->
+<div class="flex flex-col gap-space-xs">
+<label class="font-label-caps text-label-caps text-on-surface-variant uppercase">Allowed Callback URLs</label>
+<textarea class="w-full bg-surface-container-low text-on-surface font-label-code-md text-label-code-md p-space-sm rounded-lg focus:outline-none focus:ring-1 focus:ring-primary shadow-inner resize-y" rows="2">https://app.acme.com/api/auth/callback
+https://staging.acme.com/callback</textarea>
+<span class="font-body-sm text-body-sm text-on-surface-variant">URLs permitidas tras la autenticación exitosa (separadas por salto de línea). Soporta comodines en subdominios de staging.</span>
+</div>
+<!-- Allowed Logout URLs -->
+<div class="flex flex-col gap-space-xs mt-1">
+<label class="font-label-caps text-label-caps text-on-surface-variant uppercase">Allowed Logout URLs</label>
+<textarea class="w-full bg-surface-container-low text-on-surface font-label-code-md text-label-code-md p-space-sm rounded-lg focus:outline-none focus:ring-1 focus:ring-primary shadow-inner resize-none" rows="1">https://app.acme.com/login, https://app.acme.com/logout-success</textarea>
+</div>
+<!-- Allowed Web Origins (CORS) -->
+<div class="flex flex-col gap-space-xs mt-1">
+<label class="font-label-caps text-label-caps text-on-surface-variant uppercase">Allowed Web Origins (CORS)</label>
+<div class="flex items-center gap-2">
+<input class="w-full bg-surface-container-low text-on-surface font-label-code-md text-label-code-md px-space-md py-space-xs rounded-lg focus:outline-none focus:ring-1 focus:ring-primary shadow-inner" type="text" value="https://app.acme.com, https://admin.acme.com"/>
+</div>
+</div>
+</div>
+<!-- Section 3: Token Expiration & Refresh Rotation -->
+<div class="flex flex-col gap-space-sm pt-space-md">
+<span class="font-headline-sm text-headline-sm text-on-surface">Expiración y Ciclo de Vida del Token</span>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-space-md">
+<div class="flex flex-col gap-space-xs bg-surface-container-low p-space-sm rounded-xl">
+<label class="font-label-caps text-label-caps text-on-surface-variant uppercase">ID &amp; Access Token TTL (Segundos)</label>
+<div class="flex items-center gap-2">
+<input class="w-full bg-surface-container-lowest text-on-surface font-label-code-md text-label-code-md px-space-sm py-1 rounded-lg" type="number" value="3600"/>
+<span class="font-label-code-sm text-label-code-sm text-outline whitespace-nowrap">~ 1 hora</span>
+</div>
+</div>
+<div class="flex flex-col gap-space-xs bg-surface-container-low p-space-sm rounded-xl">
+<label class="font-label-caps text-label-caps text-on-surface-variant uppercase">Refresh Token Absolute TTL</label>
+<div class="flex items-center gap-2">
+<input class="w-full bg-surface-container-lowest text-on-surface font-label-code-md text-label-code-md px-space-sm py-1 rounded-lg" type="number" value="2592000"/>
+<span class="font-label-code-sm text-label-code-sm text-outline whitespace-nowrap">~ 30 días</span>
+</div>
+</div>
+</div>
+<!-- Refresh Token Rotation Toggle -->
+<div class="mt-space-xs p-space-md bg-surface-container-low rounded-xl flex items-center justify-between">
+<div class="flex flex-col gap-0.5">
+<div class="flex items-center gap-space-xs">
+<span class="font-headline-sm text-headline-sm text-on-surface">Rotación Automática de Refresh Tokens</span>
+<span class="bg-primary/10 text-primary px-1.5 py-0.5 rounded font-label-code-sm text-[10px] font-semibold">Recomendado SPA</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Invalida inmediatamente el refresh token anterior al emitir un nuevo juego de credenciales, mitigando ataques de repetición.</p>
+</div>
+<label class="relative inline-flex items-center cursor-pointer shrink-0 ml-4">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-container"></div>
+</label>
+</div>
+</div>
+</div>
+<!-- Right: Code Snippets & Quick Integration Panel (5 cols) -->
+<div class="lg:col-span-5 flex flex-col gap-space-md">
+<div class="bg-inverse-surface rounded-xl p-space-md text-inverse-on-surface shadow-xl flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[20px] text-tertiary-fixed">code</span>
+<span class="font-headline-sm text-headline-sm text-white">SDK Quickstart</span>
+</div>
+<div class="flex items-center gap-1 bg-surface-container-high/20 p-0.5 rounded-lg">
+<button class="px-2 py-0.5 font-label-code-sm text-label-code-sm bg-primary-container text-white rounded font-medium" type="button">Node.js</button>
+<button class="px-2 py-0.5 font-label-code-sm text-label-code-sm text-surface-dim hover:text-white transition-colors" type="button">Python</button>
+<button class="px-2 py-0.5 font-label-code-sm text-label-code-sm text-surface-dim hover:text-white transition-colors" type="button">cURL</button>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-surface-dim">Inicializa el cliente de autenticación con PKCE habilitado en tu runtime web:</p>
+<div class="relative bg-black/40 rounded-lg p-space-md overflow-x-auto">
+<pre class="font-label-code-sm text-label-code-sm text-tertiary-fixed-dim leading-relaxed"><code><span class="text-secondary-fixed-dim">import</span> { AuthShieldClient } <span class="text-secondary-fixed-dim">from</span> <span class="text-tertiary-fixed">'@authshield/nextjs'</span>;
+
+<span class="text-secondary-fixed-dim">export const</span> auth = <span class="text-secondary-fixed-dim">new</span> <span class="text-white">AuthShieldClient</span>({
+  domain: <span class="text-tertiary-fixed">'auth.acme.com'</span>,
+  clientId: <span class="text-tertiary-fixed">'app_clnt_8f92a10b48e3'</span>,
+  redirectUri: <span class="text-tertiary-fixed">'https://app.acme.com/callback'</span>,
+  audience: <span class="text-tertiary-fixed">'https://api.acme.com/v1'</span>,
+  scope: <span class="text-tertiary-fixed">'openid profile email offline_access'</span>,
+  useRefreshTokens: <span class="text-secondary-fixed-dim">true</span>
+});</code></pre>
+<button class="absolute top-2 right-2 px-2 py-1 bg-surface-container-high/30 hover:bg-surface-container-high/50 text-white rounded font-label-code-sm text-[10px] transition-colors" onclick="navigator.clipboard.writeText(`import { AuthShieldClient } from '@authshield/nextjs';\n\nexport const auth = new AuthShieldClient({\n  domain: 'auth.acme.com',\n  clientId: 'app_clnt_8f92a10b48e3',\n  redirectUri: 'https://app.acme.com/callback',\n  audience: 'https://api.acme.com/v1',\n  scope: 'openid profile email offline_access',\n  useRefreshTokens: true\n});`); this.textContent = 'Copiado!'; setTimeout(() =&gt; this.textContent = 'Copiar', 2000);" type="button">Copiar</button>
+</div>
+<div class="flex items-center gap-space-xs text-surface-dim font-label-code-sm text-[11px] pt-1">
+<span class="material-symbols-outlined text-[14px] text-tertiary-fixed">info</span>
+<span>Soporta renderizado del lado del servidor (SSR) y Middleware de Next.js Edge.</span>
+</div>
+</div>
+<!-- Real-Time Metrics & Security Status Visualizer -->
+<div class="bg-surface-container-low rounded-xl p-space-md flex flex-col gap-space-md">
+<span class="font-headline-sm text-headline-sm text-on-surface">Métricas de Conexión en Vivo</span>
+<div class="flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-headline-xl text-headline-xl text-on-surface font-bold">99.98%</span>
+<span class="font-label-caps text-label-caps text-outline uppercase">Tasa de Autorización Exitosa</span>
+</div>
+<!-- SVG Sparkline for authorization volume -->
+<div class="w-36 h-12">
+<svg class="w-full h-full" fill="none" viewbox="0 0 144 48">
+<path d="M 0 36 C 20 34, 30 18, 50 22 C 70 26, 85 10, 100 12 C 120 14, 130 4, 144 2" fill="none" stroke="#4f46e5" stroke-linecap="round" stroke-width="2.5"></path>
+<path d="M 0 36 C 20 34, 30 18, 50 22 C 70 26, 85 10, 100 12 C 120 14, 130 4, 144 2 L 144 48 L 0 48 Z" fill="url(#sparkline-gradient)" opacity="0.2"></path>
+<defs>
+<lineargradient id="sparkline-gradient" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#4f46e5"></stop>
+<stop offset="100%" stop-color="#4f46e5" stop-opacity="0"></stop>
+</lineargradient>
+</defs>
+</svg>
+</div>
+</div>
+<!-- Granular Token Distribution -->
+<div class="flex flex-col gap-space-xs">
+<div class="flex justify-between font-label-code-sm text-label-code-sm text-on-surface-variant">
+<span>PKCE Code Exchanges</span>
+<span class="text-on-surface font-semibold">108.2k (87%)</span>
+</div>
+<div class="w-full bg-surface-container-highest h-1.5 rounded-full overflow-hidden">
+<div class="bg-primary-container h-full w-[87%] rounded-full"></div>
+</div>
+</div>
+<div class="flex flex-col gap-space-xs">
+<div class="flex justify-between font-label-code-sm text-label-code-sm text-on-surface-variant">
+<span>Refresh Token Grants</span>
+<span class="text-on-surface font-semibold">16.2k (13%)</span>
+</div>
+<div class="w-full bg-surface-container-highest h-1.5 rounded-full overflow-hidden">
+<div class="bg-secondary-container h-full w-[13%] rounded-full"></div>
+</div>
+</div>
+<!-- Security Audit Stamp -->
+<div class="pt-space-sm flex items-center gap-space-sm bg-surface-container-lowest p-space-sm rounded-lg">
+<span class="material-symbols-outlined text-tertiary-container text-[20px]">format_image_left</span>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-on-surface text-[13px]">OWASP Top 10 Compliance</span>
+<span class="font-body-sm text-body-sm text-outline">Sin vectores detectados de clickjacking o open redirect.</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Action Footer -->
+<div class="p-space-lg bg-surface-container-low flex flex-col sm:flex-row items-center justify-between gap-space-md">
+<button class="w-full sm:w-auto px-space-md py-space-sm rounded-lg text-error hover:bg-error-container/50 font-headline-sm text-headline-sm flex items-center justify-center gap-space-xs transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">delete_forever</span>
+          Eliminar Aplicación
+        </button>
+<div class="flex items-center gap-space-sm w-full sm:w-auto justify-end">
+<button class="w-full sm:w-auto px-space-md py-space-sm bg-surface-container-lowest text-on-surface-variant hover:text-on-surface rounded-lg font-headline-sm text-headline-sm transition-colors shadow-sm" type="button">
+            Descartar Cambios
+          </button>
+<button class="w-full sm:w-auto px-space-xl py-space-sm bg-primary-container text-on-primary rounded-lg font-headline-sm text-headline-sm shadow-md hover:bg-primary transition-all flex items-center justify-center gap-space-xs" type="button">
+<span class="material-symbols-outlined text-[18px]">save</span>
+            Guardar Cambios
+          </button>
+</div>
+</div>
+</div>
+</div>
+</div></main></div></body></html>
