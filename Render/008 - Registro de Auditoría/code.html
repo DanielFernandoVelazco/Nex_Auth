@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={"darkMode":"class","theme":{"extend":{"colors":{"surface-dim":"#d2d9f4","background":"#faf8ff","surface-container-lowest":"#ffffff","secondary-fixed-dim":"#c0c1ff","on-primary-container":"#dad7ff","surface-container-highest":"#dae2fd","surface-container-low":"#f2f3ff","inverse-surface":"#283044","inverse-primary":"#c3c0ff","on-tertiary-fixed":"#002113","secondary-container":"#6063ee","on-surface":"#131b2e","primary":"#3525cd","surface-bright":"#faf8ff","surface-variant":"#dae2fd","error-container":"#ffdad6","primary-fixed-dim":"#c3c0ff","secondary":"#4648d4","surface":"#faf8ff","on-secondary-container":"#fffbff","on-secondary":"#ffffff","primary-container":"#4f46e5","tertiary-fixed-dim":"#4edea3","tertiary-fixed":"#6ffbbe","inverse-on-surface":"#eef0ff","on-error":"#ffffff","on-primary":"#ffffff","on-tertiary-fixed-variant":"#005236","on-primary-fixed-variant":"#3323cc","on-primary-fixed":"#0f0069","primary-fixed":"#e2dfff","on-error-container":"#93000a","outline":"#777587","error":"#ba1a1a","tertiary-container":"#006e4b","on-background":"#131b2e","on-secondary-fixed":"#07006c","tertiary":"#005338","on-tertiary":"#ffffff","surface-container":"#eaedff","outline-variant":"#c7c4d8","on-tertiary-container":"#67f4b7","on-secondary-fixed-variant":"#2f2ebe","surface-container-high":"#e2e7ff","surface-tint":"#4d44e3","on-surface-variant":"#464555","secondary-fixed":"#e1e0ff"},"borderRadius":{"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"},"spacing":{"margin":"1rem","space-sm":"0.5rem","space-xl":"2rem","space-lg":"1.25rem","space-md":"0.75rem","margin-desktop":"2rem","gutter-desktop":"1.5rem","gutter":"1rem","space-xs":"0.25rem"},"fontFamily":{"body-lg":["Inter"],"body-sm":["Inter"],"label-code-lg":["JetBrains Mono"],"label-code-md":["JetBrains Mono"],"headline-xl":["Inter"],"headline-sm":["Inter"],"body-md":["Inter"],"label-code-sm":["JetBrains Mono"],"label-caps":["Inter"],"headline-lg":["Inter"],"headline-xl-mobile":["Inter"],"headline-md":["Inter"]},"fontSize":{"body-lg":["15px",{"lineHeight":"22px","fontWeight":"400"}],"body-sm":["12px",{"lineHeight":"16px","fontWeight":"400"}],"label-code-lg":["13px",{"lineHeight":"18px","fontWeight":"500"}],"label-code-md":["12px",{"lineHeight":"16px","fontWeight":"500"}],"headline-xl":["30px",{"lineHeight":"38px","letterSpacing":"-0.02em","fontWeight":"700"}],"headline-sm":["15px",{"lineHeight":"20px","letterSpacing":"-0.005em","fontWeight":"600"}],"body-md":["13px",{"lineHeight":"18px","fontWeight":"400"}],"label-code-sm":["11px",{"lineHeight":"14px","fontWeight":"400"}],"label-caps":["11px",{"lineHeight":"14px","letterSpacing":"0.05em","fontWeight":"600"}],"headline-lg":["22px",{"lineHeight":"28px","letterSpacing":"-0.015em","fontWeight":"600"}],"headline-xl-mobile":["24px",{"lineHeight":"32px","letterSpacing":"-0.015em","fontWeight":"700"}],"headline-md":["18px",{"lineHeight":"24px","letterSpacing":"-0.01em","fontWeight":"600"}]}}}}</script></head><body class="bg-background font-body-md text-on-surface antialiased"><aside class="fixed left-0 top-0 h-full w-64 bg-surface-container-low z-50 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="flex flex-col"><div class="h-16 px-space-md flex items-center gap-space-sm bg-surface-container-low"><img alt="NexAuth Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1W5sWrYLwg4JJdSnB-yQ8_7vM2Uml6B3LfgUBHy2335817tjlcSC0TYKmzNOKRXmlPfjO7jCDwKleR_b1H1oVrmBP3_2PBJSqG2Cuvlfy3oGqKqecvdQR5jMKZ8D6pmFZgsbplLS-jWzgFrakZjTfCGWcPIV8CRKmVjUZla4BHxCLaOygQuTwue76aCxOK_DbLFw9qj96fFSJ9w6YO7DBjljFX-ga2k-bg2R306ENdR_7u9JnXG0TXuQYA"/><div class="flex flex-col"><span class="font-headline-sm text-headline-sm text-on-surface leading-tight tracking-tight">NexAuth</span><span class="font-label-caps text-label-caps text-outline uppercase tracking-wider">IAM Console</span></div></div><div class="px-space-md py-space-sm"><div class="flex items-center justify-between px-space-sm py-space-xs bg-surface-container-lowest rounded-lg shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="flex items-center gap-space-xs"><span class="w-2 h-2 rounded-full bg-tertiary-container"></span><span class="font-label-code-sm text-label-code-sm text-on-surface font-medium">Production</span><span class="text-outline font-label-code-sm text-label-code-sm">·</span><span class="font-label-code-sm text-label-code-sm text-on-surface-variant">us-east-1</span></div><span class="material-symbols-outlined text-[16px] text-outline">unfold_more</span></div></div><div class="px-space-md py-space-xs"><button class="w-full flex items-center justify-between px-space-sm py-space-xs rounded-lg bg-surface-container-high text-on-surface-variant hover:text-on-surface transition-colors" type="button"><div class="flex items-center gap-space-xs"><span class="material-symbols-outlined text-[18px]">search</span><span class="font-body-sm text-body-sm">Search IAM...</span></div><kbd class="font-label-code-sm text-label-code-sm bg-surface-container-lowest text-on-surface-variant px-1 rounded shadow-[0_1px_8px_rgba(0,0,0,0.04)]">⌘K</kbd></button></div><nav class="flex flex-col gap-space-xs px-space-sm mt-space-sm overflow-y-auto" data-active-classes="bg-primary-container text-on-primary font-headline-sm rounded-lg"><a class="flex items-center px-space-md py-space-sm rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="dashboard" href="#">Dashboard</a><a class="flex items-center px-space-md py-space-sm rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="users" href="#">Users</a><a class="flex items-center px-space-md py-space-sm rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="roles" href="#">Roles</a><a class="flex items-center px-space-md py-space-sm rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="permissions" href="#">Permissions</a><a class="flex items-center px-space-md py-space-sm rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="applications" href="#">Applications</a><a class="flex items-center px-space-md py-space-sm rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="api-keys" href="#">API Keys</a><a class="flex items-center px-space-md py-space-sm rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="sessions" href="#">Sessions</a><a aria-current="page" class="flex items-center px-space-md py-space-sm transition-colors bg-primary-container text-on-primary font-headline-sm rounded-lg" data-path="audit-logs" href="#">Audit Logs</a><a class="flex items-center px-space-md py-space-sm rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="security" href="#">Security</a><a class="flex items-center px-space-md py-space-sm rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="settings" href="#">Settings</a></nav></div><div class="p-space-md bg-surface-container-low"><div class="p-space-sm bg-surface-container-lowest rounded-lg shadow-[0_1px_8px_rgba(0,0,0,0.04)] flex flex-col gap-space-xs"><div class="flex items-center justify-between"><span class="font-label-caps text-label-caps uppercase text-outline">System Status</span><span class="font-label-code-sm text-label-code-sm text-tertiary-container font-medium">Operational</span></div><div class="w-full bg-surface-container-high h-1 rounded-full overflow-hidden"><div class="bg-tertiary-container h-full w-full"></div></div><span class="font-label-code-sm text-label-code-sm text-on-surface-variant">v4.18.2-core</span></div></div></aside><div class="pl-64"><header class="fixed top-0 left-64 right-0 h-16 bg-surface-container-lowest/90 backdrop-blur-xl z-40 shadow-[0_1px_8px_rgba(0,0,0,0.04)] flex items-center justify-between px-space-lg"><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs bg-surface-container-low px-space-sm py-space-xs rounded-lg"><span class="material-symbols-outlined text-[18px] text-outline">corporate_fare</span><span class="font-label-code-md text-label-code-md text-on-surface font-medium">nexauth-corp-prod</span><span class="material-symbols-outlined text-[16px] text-outline">expand_more</span></div><div class="hidden lg:flex items-center gap-space-xs text-outline font-body-sm text-body-sm"><span class="w-1 h-1 rounded-full bg-outline-variant"></span><span>Region: AWS us-east-1</span></div></div><div class="flex items-center gap-space-lg"><nav class="hidden md:flex items-center gap-space-md" data-active-classes="bg-primary-container text-on-primary font-headline-sm rounded-lg"><a class="font-body-md text-body-md text-on-surface-variant hover:text-on-surface transition-colors" data-path="documentation" href="#">Documentation</a><a class="font-body-md text-body-md text-on-surface-variant hover:text-on-surface transition-colors" data-path="compliance-audit" href="#">Compliance</a></nav><div class="relative flex items-center"><button class="p-space-xs rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" type="button"><span class="material-symbols-outlined text-[20px]">notifications</span></button><span class="absolute top-1 right-1 w-2 h-2 rounded-full bg-error"></span></div><div class="flex items-center gap-space-sm pl-space-sm"><div class="flex flex-col items-end hidden sm:flex"><span class="font-headline-sm text-headline-sm text-on-surface leading-tight">Sofia Alarcón</span><span class="font-label-caps text-label-caps text-on-surface-variant">Security Admin</span></div><img alt="Profile" class="w-8 h-8 rounded-full object-cover shadow-[0_1px_8px_rgba(0,0,0,0.04)]" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAj5efYoLCU1do6orPnp83hEjsQKp0d-6VUsT60s0bKTwrA1trGDs3N6K8PkpuTuLiA3ze6lbWrFEusMkd-yVvqmc4LaLnlMVWA_xGkSdfaZygRhjsZh-FbrWI3z_xRF_vz03l0deWZg67b2jrUA2zHhN_c7xbXaHCetwDHKF4bBiz3vf2tSaCdbrUZSSzduHjG2o-o_VkdWDnJcfbNRRmq84ENzcD0TDnzWRkypcB0aEu8eI7_OpOj"/></div></div></header><main class="relative w-full pt-16 bg-background px-gutter-desktop min-h-screen"><div class="flex flex-col w-full">
+<div class="flex flex-col gap-space-lg mb-space-xl">
+<div class="flex flex-col xl:flex-row xl:items-center justify-between gap-space-md">
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center gap-space-xs">
+<span class="font-label-caps text-label-caps uppercase tracking-wider text-primary">Compliance Core Engine</span>
+<span class="text-outline font-label-code-sm text-label-code-sm">/</span>
+<span class="font-label-code-sm text-label-code-sm text-on-surface-variant">SHA-256 Merkle Verification Active</span>
+</div>
+<h1 class="font-headline-xl text-headline-xl text-on-surface tracking-tight">Registro de Auditoría &amp; Trazabilidad de Cumplimiento</h1>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-3xl">
+          Ledger inmutable en tiempo real verificado criptográficamente. Exportación sincrónica con backends SIEM empresariales y retención forense WORM para regulaciones SOC2 Tipo II, ISO 27001 e HIPAA.
+        </p>
+</div>
+<div class="flex flex-wrap items-center gap-space-sm">
+<div class="flex items-center bg-surface-container-high rounded-lg p-1 shadow-sm">
+<button class="px-space-sm py-1 rounded text-on-surface font-headline-sm text-label-code-sm bg-surface-container-lowest shadow-sm transition-all" onclick="setTimeframe(this, '24h')">Últimas 24h</button>
+<button class="px-space-sm py-1 rounded text-on-surface-variant hover:text-on-surface font-headline-sm text-label-code-sm transition-all" onclick="setTimeframe(this, '7d')">7d</button>
+<button class="px-space-sm py-1 rounded text-on-surface-variant hover:text-on-surface font-headline-sm text-label-code-sm transition-all" onclick="setTimeframe(this, '30d')">30d</button>
+<button class="px-space-sm py-1 rounded text-on-surface-variant hover:text-on-surface font-headline-sm text-label-code-sm transition-all flex items-center gap-1" onclick="setTimeframe(this, 'custom')">
+<span>Personalizado</span>
+<span class="material-symbols-outlined text-[14px]">calendar_today</span>
+</button>
+</div>
+<div class="relative inline-block text-left" id="exportMenuContainer">
+<button class="flex items-center gap-space-xs bg-primary text-on-primary hover:bg-secondary px-space-md py-space-sm rounded-lg font-headline-sm text-headline-sm shadow-md transition-colors" id="exportDropdownBtn" onclick="toggleExportMenu()">
+<span class="material-symbols-outlined text-[18px]">output</span>
+<span>Exportar JSON / SIEM</span>
+<span class="material-symbols-outlined text-[16px]">arrow_drop_down</span>
+</button>
+<div class="hidden absolute right-0 mt-2 w-72 rounded-xl bg-surface-container-lowest p-space-xs shadow-xl z-50" id="exportDropdownMenu">
+<div class="px-space-sm py-space-xs">
+<span class="font-label-caps text-label-caps text-outline uppercase tracking-wider">Formatos de Descarga</span>
+</div>
+<button class="w-full text-left flex items-center gap-space-sm px-space-sm py-space-xs rounded-lg hover:bg-surface-container-high text-on-surface transition-colors" onclick="simulateExport('NDJSON Stream')">
+<span class="material-symbols-outlined text-primary text-[20px]">terminal</span>
+<div class="flex flex-col">
+<span class="font-body-md text-body-md font-medium">NDJSON Inmutable</span>
+<span class="font-label-code-sm text-label-code-sm text-on-surface-variant">Con firmas PKCS#7 por lote</span>
+</div>
+</button>
+<button class="w-full text-left flex items-center gap-space-sm px-space-sm py-space-xs rounded-lg hover:bg-surface-container-high text-on-surface transition-colors" onclick="simulateExport('Splunk HEC')">
+<span class="material-symbols-outlined text-secondary text-[20px]">webhook</span>
+<div class="flex flex-col">
+<span class="font-body-md text-body-md font-medium">Splunk HEC Webhook</span>
+<span class="font-label-code-sm text-label-code-sm text-on-surface-variant">Reenviar a Splunk Enterprise</span>
+</div>
+</button>
+<button class="w-full text-left flex items-center gap-space-sm px-space-sm py-space-xs rounded-lg hover:bg-surface-container-high text-on-surface transition-colors" onclick="simulateExport('Datadog Logs API')">
+<span class="material-symbols-outlined text-tertiary text-[20px]">sync_alt</span>
+<div class="flex flex-col">
+<span class="font-body-md text-body-md font-medium">Datadog Logs API</span>
+<span class="font-label-code-sm text-label-code-sm text-on-surface-variant">Ingesta directa v2 con tags</span>
+</div>
+</button>
+</div>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-space-md">
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-label-caps uppercase text-outline">Eventos Ingeridos (24h)</span>
+<span class="material-symbols-outlined text-primary text-[20px]">receipt_long</span>
+</div>
+<div class="flex items-baseline gap-space-xs mt-space-sm">
+<span class="font-headline-lg text-headline-lg text-on-surface">1,489,204</span>
+<span class="font-label-code-sm text-label-code-sm text-tertiary">+12.4%</span>
+</div>
+<div class="w-full bg-surface-container h-1 rounded-full overflow-hidden mt-space-sm">
+<div class="bg-primary h-full w-[82%]"></div>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-label-caps uppercase text-outline">Anomalías Detectadas</span>
+<span class="material-symbols-outlined text-error text-[20px]">shield_with_heart</span>
+</div>
+<div class="flex items-baseline gap-space-xs mt-space-sm">
+<span class="font-headline-lg text-headline-lg text-error">42</span>
+<span class="font-label-code-sm text-label-code-sm text-error font-medium">Requieren Revisión</span>
+</div>
+<div class="w-full bg-surface-container h-1 rounded-full overflow-hidden mt-space-sm">
+<div class="bg-error h-full w-[35%]"></div>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-label-caps uppercase text-outline">Integridad Criptográfica</span>
+<span class="material-symbols-outlined text-tertiary-container text-[20px]">verified</span>
+</div>
+<div class="flex items-baseline gap-space-xs mt-space-sm">
+<span class="font-headline-lg text-headline-lg text-tertiary-container">100.00%</span>
+<span class="font-label-code-sm text-label-code-sm text-tertiary font-medium">Merkle Root Valid</span>
+</div>
+<div class="w-full bg-surface-container h-1 rounded-full overflow-hidden mt-space-sm">
+<div class="bg-tertiary-container h-full w-full"></div>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-label-caps uppercase text-outline">Tasa de Fallos de Auth</span>
+<span class="material-symbols-outlined text-secondary text-[20px]">lock_reset</span>
+</div>
+<div class="flex items-baseline gap-space-xs mt-space-sm">
+<span class="font-headline-lg text-headline-lg text-on-surface">0.084%</span>
+<span class="font-label-code-sm text-label-code-sm text-on-surface-variant font-medium">Baseline Óptimo</span>
+</div>
+<div class="w-full bg-surface-container h-1 rounded-full overflow-hidden mt-space-sm">
+<div class="bg-secondary-container h-full w-[14%]"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-surface-container-lowest rounded-xl shadow-sm p-space-md flex flex-col gap-space-md mb-space-lg">
+<div class="relative flex items-center">
+<div class="absolute left-3 text-outline flex items-center">
+<span class="material-symbols-outlined text-[18px]">terminal</span>
+</div>
+<input class="w-full bg-surface-container-low pl-10 pr-24 py-space-sm rounded-lg text-on-surface font-label-code-md text-label-code-md focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary focus:outline-none transition-all placeholder-outline" id="auditFilterQuery" placeholder="Ej: action:role.permission_changed actor.ip:192.168.* status:failed severity:critical" type="text" value="action:login.* status:all severity:all env:production"/>
+<div class="absolute right-2 flex items-center gap-1">
+<button class="p-1 text-on-surface-variant hover:text-on-surface rounded" onclick="clearQuery()">
+<span class="material-symbols-outlined text-[16px]">close</span>
+</button>
+<button class="bg-primary hover:bg-secondary text-on-primary px-space-sm py-1 rounded text-label-code-sm font-medium flex items-center gap-1 transition-colors" onclick="applyFilters()">
+<span>Ejecutar</span>
+<span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</button>
+</div>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-space-sm">
+<div class="flex flex-col gap-1">
+<label class="font-label-caps text-label-caps text-outline uppercase">Tipo de Evento</label>
+<select class="bg-surface-container-low text-on-surface font-label-code-sm text-label-code-sm rounded-lg px-space-sm py-space-xs focus:ring-1 focus:ring-primary focus:outline-none" id="filterEventType" onchange="updateQueryParam('action', this.value)">
+<option value="all">Todos los eventos</option>
+<option value="login.success">login.success</option>
+<option value="user.password_reset">user.password_reset</option>
+<option value="api_key.rotated">api_key.rotated</option>
+<option value="role.permission_changed">role.permission_changed</option>
+<option value="anomaly.ip_blocked">anomaly.ip_blocked</option>
+</select>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-caps text-label-caps text-outline uppercase">Severidad</label>
+<select class="bg-surface-container-low text-on-surface font-label-code-sm text-label-code-sm rounded-lg px-space-sm py-space-xs focus:ring-1 focus:ring-primary focus:outline-none" id="filterSeverity" onchange="updateQueryParam('severity', this.value)">
+<option value="all">Cualquier Severidad</option>
+<option value="info">Info</option>
+<option value="warning">Warning</option>
+<option value="critical">Critical</option>
+</select>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-caps text-label-caps text-outline uppercase">Estado</label>
+<select class="bg-surface-container-low text-on-surface font-label-code-sm text-label-code-sm rounded-lg px-space-sm py-space-xs focus:ring-1 focus:ring-primary focus:outline-none" id="filterStatus" onchange="updateQueryParam('status', this.value)">
+<option value="all">Success &amp; Failed</option>
+<option value="success">Success</option>
+<option value="failed">Failed</option>
+</select>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-caps text-label-caps text-outline uppercase">Actor / Identidad</label>
+<div class="relative">
+<input class="w-full bg-surface-container-low text-on-surface font-label-code-sm text-label-code-sm rounded-lg px-space-sm py-space-xs focus:ring-1 focus:ring-primary focus:outline-none" id="filterActor" oninput="debounceFilter('actor', this.value)" placeholder="Usuario o Key ID" type="text"/>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-caps text-label-caps text-outline uppercase">Filtro de Red (IP)</label>
+<div class="relative">
+<input class="w-full bg-surface-container-low text-on-surface font-label-code-sm text-label-code-sm rounded-lg px-space-sm py-space-xs focus:ring-1 focus:ring-primary focus:outline-none" id="filterIP" oninput="debounceFilter('ip', this.value)" placeholder="CIDR o IP exacta" type="text"/>
+</div>
+</div>
+</div>
+<div class="flex items-center justify-between pt-space-xs">
+<div class="flex items-center gap-space-xs flex-wrap">
+<span class="font-label-caps text-label-caps text-outline uppercase">Filtros rápidos:</span>
+<button class="px-2 py-0.5 rounded-full bg-error-container text-on-error-container font-label-code-sm text-label-code-sm hover:opacity-80 transition-opacity" onclick="quickFilter('severity:critical')">severity:critical</button>
+<button class="px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-label-code-sm text-label-code-sm hover:text-on-surface transition-colors" onclick="quickFilter('action:anomaly.ip_blocked')">anomaly.ip_blocked</button>
+<button class="px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-label-code-sm text-label-code-sm hover:text-on-surface transition-colors" onclick="quickFilter('action:role.permission_changed')">role.permission_changed</button>
+<button class="px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-label-code-sm text-label-code-sm hover:text-on-surface transition-colors" onclick="quickFilter('status:failed')">status:failed</button>
+</div>
+<div class="flex items-center gap-space-xs text-outline font-label-code-sm text-label-code-sm">
+<span class="w-2 h-2 rounded-full bg-tertiary-container animate-pulse"></span>
+<span>Streaming logs en directo (12.4 msg/s)</span>
+</div>
+</div>
+</div>
+<div class="bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden flex flex-col">
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead class="bg-surface-container-low">
+<tr>
+<th class="py-space-sm px-space-md font-label-caps text-label-caps text-outline uppercase tracking-wider w-10"></th>
+<th class="py-space-sm px-space-md font-label-caps text-label-caps text-outline uppercase tracking-wider">Timestamp (UTC + μs)</th>
+<th class="py-space-sm px-space-md font-label-caps text-label-caps text-outline uppercase tracking-wider">Severidad</th>
+<th class="py-space-sm px-space-md font-label-caps text-label-caps text-outline uppercase tracking-wider">Evento Técnico</th>
+<th class="py-space-sm px-space-md font-label-caps text-label-caps text-outline uppercase tracking-wider">Actor / Identidad</th>
+<th class="py-space-sm px-space-md font-label-caps text-label-caps text-outline uppercase tracking-wider">Origen (IP &amp; Geo)</th>
+<th class="py-space-sm px-space-md font-label-caps text-label-caps text-outline uppercase tracking-wider">Target / Recurso</th>
+<th class="py-space-sm px-space-md font-label-caps text-label-caps text-outline uppercase tracking-wider text-right">Estado</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container-low" id="auditTableBody">
+<tr class="hover:bg-surface-container-low/60 cursor-pointer transition-colors" onclick="toggleRowExpansion('row-1')">
+<td class="py-space-sm px-space-md text-center text-outline">
+<span class="material-symbols-outlined text-[18px] transition-transform duration-200" id="icon-row-1">chevron_right</span>
+</td>
+<td class="py-space-sm px-space-md">
+<span class="font-label-code-sm text-label-code-sm text-on-surface font-medium block">2025-05-18 14:32:09.849201</span>
+<span class="font-label-code-sm text-label-code-sm text-outline">12s atrás</span>
+</td>
+<td class="py-space-sm px-space-md">
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-error-container text-on-error-container font-label-code-sm text-label-code-sm font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-error"></span>
+                Critical
+              </span>
+</td>
+<td class="py-space-sm px-space-md">
+<div class="flex items-center gap-1.5">
+<span class="font-label-code-md text-label-code-md text-primary font-semibold">anomaly.ip_blocked</span>
+<button class="text-outline hover:text-on-surface" onclick="event.stopPropagation(); copyText('anomaly.ip_blocked')" title="Copiar Evento">
+<span class="material-symbols-outlined text-[14px]">content_copy</span>
+</button>
+</div>
+</td>
+<td class="py-space-sm px-space-md">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded bg-surface-container-high flex items-center justify-center font-label-code-sm text-label-code-sm font-bold text-on-surface-variant">SYS</div>
+<div class="flex flex-col">
+<span class="font-body-md text-body-md font-medium text-on-surface">Shield AI Sentinel</span>
+<span class="font-label-code-sm text-label-code-sm text-outline">agent_id: ag_0994</span>
+</div>
+</div>
+</td>
+<td class="py-space-sm px-space-md">
+<div class="flex flex-col">
+<span class="font-label-code-md text-label-code-md text-on-surface">198.51.100.44</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-1">
+<span>🇷🇺 San Petersburgo, RU</span>
+<span class="text-outline">·</span>
+<span class="text-error font-medium">TOR Exit Node</span>
+</span>
+</div>
+</td>
+<td class="py-space-sm px-space-md">
+<div class="flex flex-col">
+<span class="font-label-code-sm text-label-code-sm text-on-surface">waf_rule: brute_force_block</span>
+<span class="font-label-code-sm text-label-code-sm text-outline">realm: enterprise-us-east</span>
+</div>
+</td>
+<td class="py-space-sm px-space-md text-right">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-code-sm text-label-code-sm font-semibold">
+<span class="material-symbols-outlined text-[12px]">check</span>
+                Bloqueado
+              </span>
+</td>
+</tr>
+<tr class="hidden bg-inverse-surface" id="detail-row-1">
+<td class="p-0" colspan="8">
+<div class="p-space-lg flex flex-col gap-space-md text-inverse-on-surface">
+<div class="flex items-center justify-between pb-space-xs border-b border-surface-container-highest/20">
+<div class="flex items-center gap-space-sm">
+<span class="font-label-caps text-label-caps uppercase text-secondary-fixed-dim">Detalles Forenses de Criptografía &amp; Contexto HTTP</span>
+<span class="font-label-code-sm text-label-code-sm bg-surface-container-highest/20 px-2 py-0.5 rounded text-inverse-on-surface">Merkle Leaf #8294022</span>
+</div>
+<div class="flex items-center gap-space-sm">
+<button class="flex items-center gap-1 px-space-sm py-1 rounded bg-surface-container-highest/20 hover:bg-surface-container-highest/30 font-label-code-sm text-label-code-sm text-inverse-on-surface transition-colors" onclick="copyJson('json-payload-1')">
+<span class="material-symbols-outlined text-[14px]">content_copy</span>
+<span>Copiar JSON Crudo</span>
+</button>
+<button class="flex items-center gap-1 px-space-sm py-1 rounded bg-surface-container-highest/20 hover:bg-surface-container-highest/30 font-label-code-sm text-label-code-sm text-inverse-on-surface transition-colors">
+<span class="material-symbols-outlined text-[14px]">verified_user</span>
+<span>Verificar Hash</span>
+</button>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-space-md">
+<div class="flex flex-col gap-space-xs">
+<span class="font-label-caps text-label-caps text-outline uppercase">Firma Criptográfica</span>
+<div class="bg-surface-container-lowest/5 p-space-sm rounded-lg font-label-code-sm text-label-code-sm flex flex-col gap-1">
+<div class="text-outline">HMAC-SHA256 Payload:</div>
+<span class="break-all text-secondary-fixed">8a4f10cd93a105cbe04a4309e53094bbca19fdfb28e67f78103d3c75d40026e1</span>
+<div class="text-outline mt-1">Prev Block Merkle Root:</div>
+<span class="break-all text-outline-variant">33a9c72e4521bc19e3bbdf43831b084931a7bc8100ffdc01783457aee299f123</span>
+</div>
+</div>
+<div class="flex flex-col gap-space-xs">
+<span class="font-label-caps text-label-caps text-outline uppercase">Cabeceras y Contexto de Red</span>
+<div class="bg-surface-container-lowest/5 p-space-sm rounded-lg font-label-code-sm text-label-code-sm flex flex-col gap-1">
+<div><span class="text-outline">ASN:</span> AS44050 (St. Petersburg DC)</div>
+<div><span class="text-outline">JA3 Fingerprint:</span> <span class="text-secondary-fixed">771,4865-4866-4867,0-23-65281,29-23-24</span></div>
+<div><span class="text-outline">TLS Version:</span> TLSv1.3 / Cipher: AES_128_GCM</div>
+<div><span class="text-outline">Request ID:</span> req_8849202a0b81c</div>
+</div>
+</div>
+<div class="flex flex-col gap-space-xs">
+<span class="font-label-caps text-label-caps text-outline uppercase">Mitigación Aplicada</span>
+<div class="bg-surface-container-lowest/5 p-space-sm rounded-lg font-label-code-sm text-label-code-sm flex flex-col gap-1">
+<div><span class="text-outline">Policy:</span> Automated Geo &amp; Threat Intelligence WAF</div>
+<div><span class="text-outline">Trigger:</span> 120 credential attempts in 4.2 seconds</div>
+<div><span class="text-outline">Blacklist TTL:</span> 86,400 segundos (24h)</div>
+<div><span class="text-outline">Receptor Notificado:</span> SecOps PagerDuty Incident #8392</div>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-space-xs">
+<span class="font-label-caps text-label-caps text-outline uppercase">Payload JSON Crudo Estructurado</span>
+<div class="bg-[#020617] p-space-md rounded-lg overflow-x-auto">
+<pre class="font-label-code-sm text-label-code-sm text-emerald-400 leading-relaxed font-normal" id="json-payload-1"><code>{
+  <span class="text-indigo-300">"event_id"</span>: <span class="text-amber-300">"evt_98319f001-c81"</span>,
+  <span class="text-indigo-300">"timestamp_utc"</span>: <span class="text-amber-300">"2025-05-18T14:32:09.849201Z"</span>,
+  <span class="text-indigo-300">"severity"</span>: <span class="text-rose-400">"CRITICAL"</span>,
+  <span class="text-indigo-300">"action"</span>: <span class="text-amber-300">"anomaly.ip_blocked"</span>,
+  <span class="text-indigo-300">"status"</span>: <span class="text-amber-300">"SUCCESS"</span>,
+  <span class="text-indigo-300">"actor"</span>: {
+    <span class="text-indigo-300">"type"</span>: <span class="text-amber-300">"system_agent"</span>,
+    <span class="text-indigo-300">"identifier"</span>: <span class="text-amber-300">"Shield AI Sentinel"</span>,
+    <span class="text-indigo-300">"agent_id"</span>: <span class="text-amber-300">"ag_0994"</span>
+  },
+  <span class="text-indigo-300">"network"</span>: {
+    <span class="text-indigo-300">"client_ip"</span>: <span class="text-amber-300">"198.51.100.44"</span>,
+    <span class="text-indigo-300">"country"</span>: <span class="text-amber-300">"RU"</span>,
+    <span class="text-indigo-300">"city"</span>: <span class="text-amber-300">"St Petersburg"</span>,
+    <span class="text-indigo-300">"asn"</span>: 44050,
+    <span class="text-indigo-300">"user_agent"</span>: <span class="text-amber-300">"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/115.0 [Hydra BruteForce/9.2]"</span>
+  },
+  <span class="text-indigo-300">"target"</span>: {
+    <span class="text-indigo-300">"resource_type"</span>: <span class="text-amber-300">"iam.realm"</span>,
+    <span class="text-indigo-300">"resource_id"</span>: <span class="text-amber-300">"enterprise-us-east"</span>,
+    <span class="text-indigo-300">"mitigation"</span>: <span class="text-amber-300">"drop_traffic_and_block"</span>
+  },
+  <span class="text-indigo-300">"merkle_verification"</span>: {
+    <span class="text-indigo-300">"tree_depth"</span>: 24,
+    <span class="text-indigo-300">"leaf_index"</span>: 8294022,
+    <span class="text-indigo-300">"digest"</span>: <span class="text-amber-300">"sha256:8a4f10cd93a105cbe04a4309e53094bbca19fdfb28e67f78103d3c75d40026e1"</span>
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low/60 cursor-pointer transition-colors" onclick="toggleRowExpansion('row-2')">
+<td class="py-space-sm px-space-md text-center text-outline">
+<span class="material-symbols-outlined text-[18px] transition-transform duration-200" id="icon-row-2">chevron_right</span>
+</td>
+<td class="py-space-sm px-space-md">
+<span class="font-label-code-sm text-label-code-sm text-on-surface font-medium block">2025-05-18 14:31:42.102941</span>
+<span class="font-label-code-sm text-label-code-sm text-outline">39s atrás</span>
+</td>
+<td class="py-space-sm px-space-md">
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface font-label-code-sm text-label-code-sm font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                Warning
+              </span>
+</td>
+<td class="py-space-sm px-space-md">
+<div class="flex items-center gap-1.5">
+<span class="font-label-code-md text-label-code-md text-secondary font-semibold">role.permission_changed</span>
+<button class="text-outline hover:text-on-surface" onclick="event.stopPropagation(); copyText('role.permission_changed')" title="Copiar Evento">
+<span class="material-symbols-outlined text-[14px]">content_copy</span>
+</button>
+</div>
+</td>
+<td class="py-space-sm px-space-md">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded bg-primary-container text-on-primary flex items-center justify-center font-label-code-sm text-label-code-sm font-bold">SA</div>
+<div class="flex flex-col">
+<span class="font-body-md text-body-md font-medium text-on-surface">sofia.alarcon@nexauth.com</span>
+<span class="font-label-code-sm text-label-code-sm text-outline">role: Security Admin</span>
+</div>
+</div>
+</td>
+<td class="py-space-sm px-space-md">
+<div class="flex flex-col">
+<span class="font-label-code-md text-label-code-md text-on-surface">201.243.19.11</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-1">
+<span>🇲🇽 CDMX, MX</span>
+<span class="text-outline">·</span>
+<span class="text-tertiary-container font-medium">Corp VPN</span>
+</span>
+</div>
+</td>
+<td class="py-space-sm px-space-md">
+<div class="flex flex-col">
+<span class="font-label-code-sm text-label-code-sm text-on-surface">role: BillingOps_Dev</span>
+<span class="font-label-code-sm text-label-code-sm text-outline">+kms:decrypt, -iam:list</span>
+</div>
+</td>
+<td class="py-space-sm px-space-md text-right">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-code-sm text-label-code-sm font-semibold">
+<span class="material-symbols-outlined text-[12px]">check</span>
+                Success
+              </span>
+</td>
+</tr>
+<tr class="hidden bg-inverse-surface" id="detail-row-2">
+<td class="p-0" colspan="8">
+<div class="p-space-lg flex flex-col gap-space-md text-inverse-on-surface">
+<div class="flex items-center justify-between pb-space-xs border-b border-surface-container-highest/20">
+<div class="flex items-center gap-space-sm">
+<span class="font-label-caps text-label-caps uppercase text-secondary-fixed-dim">Modificación de Privilegios RBAC Forense</span>
+<span class="font-label-code-sm text-label-code-sm bg-surface-container-highest/20 px-2 py-0.5 rounded text-inverse-on-surface">Merkle Leaf #8294021</span>
+</div>
+<button class="flex items-center gap-1 px-space-sm py-1 rounded bg-surface-container-highest/20 hover:bg-surface-container-highest/30 font-label-code-sm text-label-code-sm text-inverse-on-surface transition-colors" onclick="copyJson('json-payload-2')">
+<span class="material-symbols-outlined text-[14px]">content_copy</span>
+<span>Copiar JSON Crudo</span>
+</button>
+</div>
+<div class="bg-[#020617] p-space-md rounded-lg overflow-x-auto">
+<pre class="font-label-code-sm text-label-code-sm text-emerald-400 leading-relaxed font-normal" id="json-payload-2"><code>{
+  <span class="text-indigo-300">"event_id"</span>: <span class="text-amber-300">"evt_98319f000-b77"</span>,
+  <span class="text-indigo-300">"timestamp_utc"</span>: <span class="text-amber-300">"2025-05-18T14:31:42.102941Z"</span>,
+  <span class="text-indigo-300">"severity"</span>: <span class="text-amber-400">"WARNING"</span>,
+  <span class="text-indigo-300">"action"</span>: <span class="text-amber-300">"role.permission_changed"</span>,
+  <span class="text-indigo-300">"actor"</span>: {
+    <span class="text-indigo-300">"user_id"</span>: <span class="text-amber-300">"usr_sofia_alarcon_prod"</span>,
+    <span class="text-indigo-300">"email"</span>: <span class="text-amber-300">"sofia.alarcon@nexauth.com"</span>,
+    <span class="text-indigo-300">"session_auth"</span>: <span class="text-amber-300">"mfa_webauthn_fido2"</span>
+  },
+  <span class="text-indigo-300">"diff"</span>: {
+    <span class="text-indigo-300">"target_role"</span>: <span class="text-amber-300">"BillingOps_Dev"</span>,
+    <span class="text-indigo-300">"permissions_added"</span>: [<span class="text-amber-300">"kms:decrypt"</span>],
+    <span class="text-indigo-300">"permissions_removed"</span>: [<span class="text-amber-300">"iam:list"</span>]
+  },
+  <span class="text-indigo-300">"compliance"</span>: {
+    <span class="text-indigo-300">"ticket_ref"</span>: <span class="text-amber-300">"SEC-44910"</span>,
+    <span class="text-indigo-300">"approved_by"</span>: <span class="text-amber-300">"ciso_approvals_bot"</span>
+  }
+}</code></pre>
+</div>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low/60 cursor-pointer transition-colors" onclick="toggleRowExpansion('row-3')">
+<td class="py-space-sm px-space-md text-center text-outline">
+<span class="material-symbols-outlined text-[18px] transition-transform duration-200" id="icon-row-3">chevron_right</span>
+</td>
+<td class="py-space-sm px-space-md">
+<span class="font-label-code-sm text-label-code-sm text-on-surface font-medium block">2025-05-18 14:28:15.553109</span>
+<span class="font-label-code-sm text-label-code-sm text-outline">4m atrás</span>
+</td>
+<td class="py-space-sm px-space-md">
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-label-code-sm text-label-code-sm font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-outline"></span>
+                Info
+              </span>
+</td>
+<td class="py-space-sm px-space-md">
+<div class="flex items-center gap-1.5">
+<span class="font-label-code-md text-label-code-md text-on-surface font-semibold">api_key.rotated</span>
+<button class="text-outline hover:text-on-surface" onclick="event.stopPropagation(); copyText('api_key.rotated')" title="Copiar Evento">
+<span class="material-symbols-outlined text-[14px]">content_copy</span>
+</button>
+</div>
+</td>
+<td class="py-space-sm px-space-md">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded bg-surface-container-high flex items-center justify-center font-label-code-sm text-label-code-sm font-bold text-on-surface-variant">KEY</div>
+<div class="flex flex-col">
+<span class="font-body-md text-body-md font-medium text-on-surface">srv-lambda-sync</span>
+<span class="font-label-code-sm text-label-code-sm text-outline">key_id: nak_883011..</span>
+</div>
+</div>
+</td>
+<td class="py-space-sm px-space-md">
+<div class="flex flex-col">
+<span class="font-label-code-md text-label-code-md text-on-surface">54.210.82.119</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-1">
+<span>🇺🇸 Virginia, US</span>
+<span class="text-outline">·</span>
+<span class="text-tertiary-container font-medium">AWS VPC-09f</span>
+</span>
+</div>
+</td>
+<td class="py-space-sm px-space-md">
+<div class="flex flex-col">
+<span class="font-label-code-sm text-label-code-sm text-on-surface">key: nak_991209_sec</span>
+<span class="font-label-code-sm text-label-code-sm text-outline">Grace period: 48h activo</span>
+</div>
+</td>
+<td class="py-space-sm px-space-md text-right">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-code-sm text-label-code-sm font-semibold">
+<span class="material-symbols-outlined text-[12px]">check</span>
+                Success
+              </span>
+</td>
+</tr>
+<tr class="hidden bg-inverse-surface" id="detail-row-3">
+<td class="p-0" colspan="8">
+<div class="p-space-lg flex flex-col gap-space-md text-inverse-on-surface">
+<div class="flex items-center justify-between pb-space-xs border-b border-surface-container-highest/20">
+<span class="font-label-caps text-label-caps uppercase text-secondary-fixed-dim">Rotación Criptográfica de Credenciales M2M</span>
+<button class="flex items-center gap-1 px-space-sm py-1 rounded bg-surface-container-highest/20 hover:bg-surface-container-highest/30 font-label-code-sm text-label-code-sm text-inverse-on-surface transition-colors" onclick="copyJson('json-payload-3')">
+<span class="material-symbols-outlined text-[14px]">content_copy</span>
+<span>Copiar JSON Crudo</span>
+</button>
+</div>
+<div class="bg-[#020617] p-space-md rounded-lg overflow-x-auto">
+<pre class="font-label-code-sm text-label-code-sm text-emerald-400 leading-relaxed font-normal" id="json-payload-3"><code>{
+  <span class="text-indigo-300">"event_id"</span>: <span class="text-amber-300">"evt_98319eff-a01"</span>,
+  <span class="text-indigo-300">"timestamp_utc"</span>: <span class="text-amber-300">"2025-05-18T14:28:15.553109Z"</span>,
+  <span class="text-indigo-300">"severity"</span>: <span class="text-sky-300">"INFO"</span>,
+  <span class="text-indigo-300">"action"</span>: <span class="text-amber-300">"api_key.rotated"</span>,
+  <span class="text-indigo-300">"actor"</span>: {
+    <span class="text-indigo-300">"client_id"</span>: <span class="text-amber-300">"srv-lambda-sync"</span>,
+    <span class="text-indigo-300">"ip"</span>: <span class="text-amber-300">"54.210.82.119"</span>
+  },
+  <span class="text-indigo-300">"cryptography"</span>: {
+    <span class="text-indigo-300">"algorithm"</span>: <span class="text-amber-300">"Ed25519-SignedToken"</span>,
+    <span class="text-indigo-300">"old_key_sha256"</span>: <span class="text-amber-300">"d3b07384d113edec49eaa6238ad5ff00"</span>,
+    <span class="text-indigo-300">"new_key_id"</span>: <span class="text-amber-300">"nak_991209_sec"</span>,
+    <span class="text-indigo-300">"dual_verification_window_secs"</span>: 172800
+  }
+}</code></pre>
+</div>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low/60 cursor-pointer transition-colors" onclick="toggleRowExpansion('row-4')">
+<td class="py-space-sm px-space-md text-center text-outline">
+<span class="material-symbols-outlined text-[18px] transition-transform duration-200" id="icon-row-4">chevron_right</span>
+</td>
+<td class="py-space-sm px-space-md">
+<span class="font-label-code-sm text-label-code-sm text-on-surface font-medium block">2025-05-18 14:19:02.004812</span>
+<span class="font-label-code-sm text-label-code-sm text-outline">13m atrás</span>
+</td>
+<td class="py-space-sm px-space-md">
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-label-code-sm text-label-code-sm font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-outline"></span>
+                Info
+              </span>
+</td>
+<td class="py-space-sm px-space-md">
+<div class="flex items-center gap-1.5">
+<span class="font-label-code-md text-label-code-md text-on-surface font-semibold">user.password_reset</span>
+<button class="text-outline hover:text-on-surface" onclick="event.stopPropagation(); copyText('user.password_reset')" title="Copiar Evento">
+<span class="material-symbols-outlined text-[14px]">content_copy</span>
+</button>
+</div>
+</td>
+<td class="py-space-sm px-space-md">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded bg-surface-container-high flex items-center justify-center font-label-code-sm text-label-code-sm font-bold text-on-surface-variant">UD</div>
+<div class="flex flex-col">
+<span class="font-body-md text-body-md font-medium text-on-surface">diego.morales@corp.io</span>
+<span class="font-label-code-sm text-label-code-sm text-outline">role: Engineer</span>
+</div>
+</div>
+</td>
+<td class="py-space-sm px-space-md">
+<div class="flex flex-col">
+<span class="font-label-code-md text-label-code-md text-on-surface">186.15.201.8</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-1">
+<span>🇨🇱 Santiago, CL</span>
+<span class="text-outline">·</span>
+<span class="text-tertiary-container font-medium">Claro Res</span>
+</span>
+</div>
+</td>
+<td class="py-space-sm px-space-md">
+<div class="flex flex-col">
+<span class="font-label-code-sm text-label-code-sm text-on-surface">auth_factor: webauthn_passkey</span>
+<span class="font-label-code-sm text-label-code-sm text-outline">Passwordless Upgrade</span>
+</div>
+</td>
+<td class="py-space-sm px-space-md text-right">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-code-sm text-label-code-sm font-semibold">
+<span class="material-symbols-outlined text-[12px]">check</span>
+                Success
+              </span>
+</td>
+</tr>
+<tr class="hidden bg-inverse-surface" id="detail-row-4">
+<td class="p-0" colspan="8">
+<div class="p-space-lg flex flex-col gap-space-md text-inverse-on-surface">
+<div class="flex items-center justify-between pb-space-xs border-b border-surface-container-highest/20">
+<span class="font-label-caps text-label-caps uppercase text-secondary-fixed-dim">Verificación de Restablecimiento de Credenciales FIDO2</span>
+<button class="flex items-center gap-1 px-space-sm py-1 rounded bg-surface-container-highest/20 hover:bg-surface-container-highest/30 font-label-code-sm text-label-code-sm text-inverse-on-surface transition-colors" onclick="copyJson('json-payload-4')">
+<span class="material-symbols-outlined text-[14px]">content_copy</span>
+<span>Copiar JSON Crudo</span>
+</button>
+</div>
+<div class="bg-[#020617] p-space-md rounded-lg overflow-x-auto">
+<pre class="font-label-code-sm text-label-code-sm text-emerald-400 leading-relaxed font-normal" id="json-payload-4"><code>{
+  <span class="text-indigo-300">"event_id"</span>: <span class="text-amber-300">"evt_98319ec8-f14"</span>,
+  <span class="text-indigo-300">"timestamp_utc"</span>: <span class="text-amber-300">"2025-05-18T14:19:02.004812Z"</span>,
+  <span class="text-indigo-300">"severity"</span>: <span class="text-sky-300">"INFO"</span>,
+  <span class="text-indigo-300">"action"</span>: <span class="text-amber-300">"user.password_reset"</span>,
+  <span class="text-indigo-300">"actor"</span>: {
+    <span class="text-indigo-300">"user_id"</span>: <span class="text-amber-300">"usr_diego_morales_cl"</span>,
+    <span class="text-indigo-300">"email"</span>: <span class="text-amber-300">"diego.morales@corp.io"</span>
+  },
+  <span class="text-indigo-300">"security_factor"</span>: {
+    <span class="text-indigo-300">"method"</span>: <span class="text-amber-300">"passkey_registration"</span>,
+    <span class="text-indigo-300">"aaguid"</span>: <span class="text-amber-300">"ea9b8d66-4d01-1d21-3ce2-b6b32cb5ac24"</span>,
+    <span class="text-indigo-300">"device_platform"</span>: <span class="text-amber-300">"Apple TouchID iCloud Keychain"</span>
+  }
+}</code></pre>
+</div>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low/60 cursor-pointer transition-colors" onclick="toggleRowExpansion('row-5')">
+<td class="py-space-sm px-space-md text-center text-outline">
+<span class="material-symbols-outlined text-[18px] transition-transform duration-200" id="icon-row-5">chevron_right</span>
+</td>
+<td class="py-space-sm px-space-md">
+<span class="font-label-code-sm text-label-code-sm text-on-surface font-medium block">2025-05-18 14:12:44.912400</span>
+<span class="font-label-code-sm text-label-code-sm text-outline">20m atrás</span>
+</td>
+<td class="py-space-sm px-space-md">
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-error-container text-on-error-container font-label-code-sm text-label-code-sm font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-error"></span>
+                Critical
+              </span>
+</td>
+<td class="py-space-sm px-space-md">
+<div class="flex items-center gap-1.5">
+<span class="font-label-code-md text-label-code-md text-error font-semibold">login.success</span>
+<button class="text-outline hover:text-on-surface" onclick="event.stopPropagation(); copyText('login.success')" title="Copiar Evento">
+<span class="material-symbols-outlined text-[14px]">content_copy</span>
+</button>
+</div>
+</td>
+<td class="py-space-sm px-space-md">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded bg-error-container text-on-error-container flex items-center justify-center font-label-code-sm text-label-code-sm font-bold">ROOT</div>
+<div class="flex flex-col">
+<span class="font-body-md text-body-md font-medium text-error">breakglass-admin</span>
+<span class="font-label-code-sm text-label-code-sm text-outline">Emergency Credential</span>
+</div>
+</div>
+</td>
+<td class="py-space-sm px-space-md">
+<div class="flex flex-col">
+<span class="font-label-code-md text-label-code-md text-on-surface">192.0.2.14</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-1">
+<span>🇺🇸 Reston, US</span>
+<span class="text-outline">·</span>
+<span class="text-error font-medium">BGP Route Altered</span>
+</span>
+</div>
+</td>
+<td class="py-space-sm px-space-md">
+<div class="flex flex-col">
+<span class="font-label-code-sm text-label-code-sm text-on-surface">target: Global_Root_KMS</span>
+<span class="font-label-code-sm text-label-code-sm text-error">Hardware YubiKey #441</span>
+</div>
+</td>
+<td class="py-space-sm px-space-md text-right">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-error-container text-on-error-container font-label-code-sm text-label-code-sm font-semibold">
+<span class="material-symbols-outlined text-[12px]">security_update_warning</span>
+                Alert Triggered
+              </span>
+</td>
+</tr>
+<tr class="hidden bg-inverse-surface" id="detail-row-5">
+<td class="p-0" colspan="8">
+<div class="p-space-lg flex flex-col gap-space-md text-inverse-on-surface">
+<div class="flex items-center justify-between pb-space-xs border-b border-surface-container-highest/20">
+<span class="font-label-caps text-label-caps uppercase text-error-container">Alerta de Seguridad: Inicio de Sesión de Emergencia de Cuenta Raíz</span>
+<button class="flex items-center gap-1 px-space-sm py-1 rounded bg-surface-container-highest/20 hover:bg-surface-container-highest/30 font-label-code-sm text-label-code-sm text-inverse-on-surface transition-colors" onclick="copyJson('json-payload-5')">
+<span class="material-symbols-outlined text-[14px]">content_copy</span>
+<span>Copiar JSON Crudo</span>
+</button>
+</div>
+<div class="bg-[#020617] p-space-md rounded-lg overflow-x-auto">
+<pre class="font-label-code-sm text-label-code-sm text-emerald-400 leading-relaxed font-normal" id="json-payload-5"><code>{
+  <span class="text-indigo-300">"event_id"</span>: <span class="text-amber-300">"evt_98319e99-001"</span>,
+  <span class="text-indigo-300">"timestamp_utc"</span>: <span class="text-amber-300">"2025-05-18T14:12:44.912400Z"</span>,
+  <span class="text-indigo-300">"severity"</span>: <span class="text-rose-400">"CRITICAL"</span>,
+  <span class="text-indigo-300">"action"</span>: <span class="text-amber-300">"login.success"</span>,
+  <span class="text-indigo-300">"actor"</span>: {
+    <span class="text-indigo-300">"account"</span>: <span class="text-amber-300">"breakglass-admin"</span>,
+    <span class="text-indigo-300">"auth_mechanism"</span>: <span class="text-amber-300">"Dual-Quorum Hardware FIDO2 + Master HSM"</span>
+  },
+  <span class="text-indigo-300">"context"</span>: {
+    <span class="text-indigo-300">"vault_status"</span>: <span class="text-amber-300">"unsealed"</span>,
+    <span class="text-indigo-300">"dual_custody_approved_by"</span>: [<span class="text-amber-300">"vp_sec_ops"</span>, <span class="text-amber-300">"infra_lead"</span>],
+    <span class="text-indigo-300">"session_expiry_epoch"</span>: 1747581164
+  }
+}</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="bg-surface-container-low px-space-md py-space-sm flex flex-col sm:flex-row items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm">
+<span class="font-label-code-sm text-label-code-sm text-on-surface-variant">Mostrando 1 - 5 de 1,489,204 eventos inmutables</span>
+<span class="text-outline">·</span>
+<select class="bg-surface-container-lowest text-on-surface font-label-code-sm text-label-code-sm rounded px-2 py-0.5 border-none shadow-sm focus:ring-0">
+<option>50 por página</option>
+<option>100 por página</option>
+<option>250 por página</option>
+</select>
+</div>
+<div class="flex items-center gap-1">
+<button class="p-1 rounded text-outline hover:text-on-surface disabled:opacity-30" disabled="">
+<span class="material-symbols-outlined text-[18px]">first_page</span>
+</button>
+<button class="p-1 rounded text-outline hover:text-on-surface disabled:opacity-30" disabled="">
+<span class="material-symbols-outlined text-[18px]">chevron_left</span>
+</button>
+<div class="flex items-center gap-1 px-1">
+<span class="px-2 py-0.5 rounded bg-primary text-on-primary font-label-code-sm text-label-code-sm font-semibold">1</span>
+<span class="px-2 py-0.5 rounded hover:bg-surface-container-high text-on-surface font-label-code-sm text-label-code-sm cursor-pointer">2</span>
+<span class="px-2 py-0.5 rounded hover:bg-surface-container-high text-on-surface font-label-code-sm text-label-code-sm cursor-pointer">3</span>
+<span class="text-outline font-label-code-sm text-label-code-sm">...</span>
+<span class="px-2 py-0.5 rounded hover:bg-surface-container-high text-on-surface font-label-code-sm text-label-code-sm cursor-pointer">29,785</span>
+</div>
+<button class="p-1 rounded text-outline hover:text-on-surface">
+<span class="material-symbols-outlined text-[18px]">chevron_right</span>
+</button>
+<button class="p-1 rounded text-outline hover:text-on-surface">
+<span class="material-symbols-outlined text-[18px]">last_page</span>
+</button>
+</div>
+</div>
+</div>
+<div class="fixed bottom-6 right-6 hidden bg-inverse-surface text-inverse-on-surface px-space-md py-space-sm rounded-lg shadow-xl z-50 flex items-center gap-space-sm transition-all transform duration-300" id="toastNotification">
+<span class="material-symbols-outlined text-tertiary-fixed text-[20px]" id="toastIcon">check_circle</span>
+<span class="font-body-md text-body-md" id="toastMessage">Texto copiado al portapapeles</span>
+</div>
+<script>
+    function toggleRowExpansion(rowId) {
+      const detailRow = document.getElementById(`detail-${rowId}`);
+      const icon = document.getElementById(`icon-${rowId}`);
+      if (!detailRow || !icon) return;
+
+      const isHidden = detailRow.classList.contains('hidden');
+      if (isHidden) {
+        detailRow.classList.remove('hidden');
+        icon.classList.add('rotate-90');
+      } else {
+        detailRow.classList.add('hidden');
+        icon.classList.remove('rotate-90');
+      }
+    }
+
+    function toggleExportMenu() {
+      const menu = document.getElementById('exportDropdownMenu');
+      if (menu) {
+        menu.classList.toggle('hidden');
+      }
+    }
+
+    document.addEventListener('click', function(e) {
+      const container = document.getElementById('exportMenuContainer');
+      const menu = document.getElementById('exportDropdownMenu');
+      if (container && menu && !container.contains(e.target)) {
+        menu.classList.add('hidden');
+      }
+    });
+
+    function showToast(msg, isSuccess = true) {
+      const toast = document.getElementById('toastNotification');
+      const message = document.getElementById('toastMessage');
+      const icon = document.getElementById('toastIcon');
+      if (!toast || !message || !icon) return;
+
+      message.innerText = msg;
+      icon.innerText = isSuccess ? 'check_circle' : 'info';
+      toast.classList.remove('hidden');
+      setTimeout(() => {
+        toast.classList.add('hidden');
+      }, 3200);
+    }
+
+    function copyText(str) {
+      navigator.clipboard.writeText(str).then(() => {
+        showToast(`Copiado: "${str}"`);
+      }).catch(() => {
+        showToast('Error al copiar', false);
+      });
+    }
+
+    function copyJson(elementId) {
+      const el = document.getElementById(elementId);
+      if (!el) return;
+      navigator.clipboard.writeText(el.innerText).then(() => {
+        showToast('Payload JSON copiado al portapapeles');
+      });
+    }
+
+    function simulateExport(format) {
+      const menu = document.getElementById('exportDropdownMenu');
+      if (menu) menu.classList.add('hidden');
+      showToast(`Iniciando streaming export hacia ${format}...`);
+    }
+
+    function setTimeframe(btn, tf) {
+      const parent = btn.parentElement;
+      Array.from(parent.children).forEach(c => {
+        c.className = "px-space-sm py-1 rounded text-on-surface-variant hover:text-on-surface font-headline-sm text-label-code-sm transition-all";
+      });
+      btn.className = "px-space-sm py-1 rounded text-on-surface font-headline-sm text-label-code-sm bg-surface-container-lowest shadow-sm transition-all";
+      showToast(`Rango temporal actualizado: ${tf.toUpperCase()}`);
+    }
+
+    function updateQueryParam(key, value) {
+      const input = document.getElementById('auditFilterQuery');
+      if (!input) return;
+      let q = input.value;
+      const regex = new RegExp(`${key}:[^\\s]+`, 'g');
+      if (value === 'all') {
+        q = q.replace(regex, '').trim();
+      } else {
+        if (regex.test(q)) {
+          q = q.replace(regex, `${key}:${value}`);
+        } else {
+          q += ` ${key}:${value}`;
+        }
+      }
+      input.value = q.replace(/\s+/g, ' ').trim();
+      applyFilters();
+    }
+
+    let debounceTimer;
+    function debounceFilter(key, val) {
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(() => {
+        updateQueryParam(key, val ? val : 'all');
+      }, 400);
+    }
+
+    function quickFilter(clause) {
+      const input = document.getElementById('auditFilterQuery');
+      if (!input) return;
+      input.value = clause;
+      applyFilters();
+    }
+
+    function clearQuery() {
+      const input = document.getElementById('auditFilterQuery');
+      if (input) input.value = '';
+      applyFilters();
+    }
+
+    function applyFilters() {
+      const query = document.getElementById('auditFilterQuery')?.value || '';
+      showToast(`Aplicando filtro de consulta: ${query || '*'}`);
+    }
+  </script>
+</div></main></div></body></html>
