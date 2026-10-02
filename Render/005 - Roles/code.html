@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={"darkMode":"class","theme":{"extend":{"colors":{"surface-dim":"#d2d9f4","background":"#faf8ff","surface-container-lowest":"#ffffff","secondary-fixed-dim":"#c0c1ff","on-primary-container":"#dad7ff","surface-container-highest":"#dae2fd","surface-container-low":"#f2f3ff","inverse-surface":"#283044","inverse-primary":"#c3c0ff","on-tertiary-fixed":"#002113","secondary-container":"#6063ee","on-surface":"#131b2e","primary":"#3525cd","surface-bright":"#faf8ff","surface-variant":"#dae2fd","error-container":"#ffdad6","primary-fixed-dim":"#c3c0ff","secondary":"#4648d4","surface":"#faf8ff","on-secondary-container":"#fffbff","on-secondary":"#ffffff","primary-container":"#4f46e5","tertiary-fixed-dim":"#4edea3","tertiary-fixed":"#6ffbbe","inverse-on-surface":"#eef0ff","on-error":"#ffffff","on-primary":"#ffffff","on-tertiary-fixed-variant":"#005236","on-primary-fixed-variant":"#3323cc","on-primary-fixed":"#0f0069","primary-fixed":"#e2dfff","on-error-container":"#93000a","outline":"#777587","error":"#ba1a1a","tertiary-container":"#006e4b","on-background":"#131b2e","on-secondary-fixed":"#07006c","tertiary":"#005338","on-tertiary":"#ffffff","surface-container":"#eaedff","outline-variant":"#c7c4d8","on-tertiary-container":"#67f4b7","on-secondary-fixed-variant":"#2f2ebe","surface-container-high":"#e2e7ff","surface-tint":"#4d44e3","on-surface-variant":"#464555","secondary-fixed":"#e1e0ff"},"borderRadius":{"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"},"spacing":{"margin":"1rem","space-sm":"0.5rem","space-xl":"2rem","space-lg":"1.25rem","space-md":"0.75rem","margin-desktop":"2rem","gutter-desktop":"1.5rem","gutter":"1rem","space-xs":"0.25rem"},"fontFamily":{"body-lg":["Inter"],"body-sm":["Inter"],"label-code-lg":["JetBrains Mono"],"label-code-md":["JetBrains Mono"],"headline-xl":["Inter"],"headline-sm":["Inter"],"body-md":["Inter"],"label-code-sm":["JetBrains Mono"],"label-caps":["Inter"],"headline-lg":["Inter"],"headline-xl-mobile":["Inter"],"headline-md":["Inter"]},"fontSize":{"body-lg":["15px",{"lineHeight":"22px","fontWeight":"400"}],"body-sm":["12px",{"lineHeight":"16px","fontWeight":"400"}],"label-code-lg":["13px",{"lineHeight":"18px","fontWeight":"500"}],"label-code-md":["12px",{"lineHeight":"16px","fontWeight":"500"}],"headline-xl":["30px",{"lineHeight":"38px","letterSpacing":"-0.02em","fontWeight":"700"}],"headline-sm":["15px",{"lineHeight":"20px","letterSpacing":"-0.005em","fontWeight":"600"}],"body-md":["13px",{"lineHeight":"18px","fontWeight":"400"}],"label-code-sm":["11px",{"lineHeight":"14px","fontWeight":"400"}],"label-caps":["11px",{"lineHeight":"14px","letterSpacing":"0.05em","fontWeight":"600"}],"headline-lg":["22px",{"lineHeight":"28px","letterSpacing":"-0.015em","fontWeight":"600"}],"headline-xl-mobile":["24px",{"lineHeight":"32px","letterSpacing":"-0.015em","fontWeight":"700"}],"headline-md":["18px",{"lineHeight":"24px","letterSpacing":"-0.01em","fontWeight":"600"}]}}}}</script></head><body class="bg-background font-body-md text-on-surface antialiased"><aside class="fixed left-0 top-0 h-full w-64 bg-surface-container-low z-50 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="flex flex-col"><div class="h-16 px-space-md flex items-center gap-space-sm bg-surface-container-low"><img alt="NexAuth Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1W5sWrYLwg4JJdSnB-yQ8_7vM2Uml6B3LfgUBHy2335817tjlcSC0TYKmzNOKRXmlPfjO7jCDwKleR_b1H1oVrmBP3_2PBJSqG2Cuvlfy3oGqKqecvdQR5jMKZ8D6pmFZgsbplLS-jWzgFrakZjTfCGWcPIV8CRKmVjUZla4BHxCLaOygQuTwue76aCxOK_DbLFw9qj96fFSJ9w6YO7DBjljFX-ga2k-bg2R306ENdR_7u9JnXG0TXuQYA"/><div class="flex flex-col"><span class="font-headline-sm text-headline-sm text-on-surface leading-tight tracking-tight">NexAuth</span><span class="font-label-caps text-label-caps text-outline uppercase tracking-wider">IAM Console</span></div></div><div class="px-space-md py-space-sm"><div class="flex items-center justify-between px-space-sm py-space-xs bg-surface-container-lowest rounded-lg shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="flex items-center gap-space-xs"><span class="w-2 h-2 rounded-full bg-tertiary-container"></span><span class="font-label-code-sm text-label-code-sm text-on-surface font-medium">Production</span><span class="text-outline font-label-code-sm text-label-code-sm">·</span><span class="font-label-code-sm text-label-code-sm text-on-surface-variant">us-east-1</span></div><span class="material-symbols-outlined text-[16px] text-outline">unfold_more</span></div></div><div class="px-space-md py-space-xs"><button class="w-full flex items-center justify-between px-space-sm py-space-xs rounded-lg bg-surface-container-high text-on-surface-variant hover:text-on-surface transition-colors" type="button"><div class="flex items-center gap-space-xs"><span class="material-symbols-outlined text-[18px]">search</span><span class="font-body-sm text-body-sm">Search IAM...</span></div><kbd class="font-label-code-sm text-label-code-sm bg-surface-container-lowest text-on-surface-variant px-1 rounded shadow-[0_1px_8px_rgba(0,0,0,0.04)]">⌘K</kbd></button></div><nav class="flex flex-col gap-space-xs px-space-sm mt-space-sm overflow-y-auto" data-active-classes="bg-primary-container text-on-primary font-headline-sm rounded-lg"><a class="flex items-center px-space-md py-space-sm rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="dashboard" href="#">Dashboard</a><a class="flex items-center px-space-md py-space-sm rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="users" href="#">Users</a><a aria-current="page" class="flex items-center px-space-md py-space-sm transition-colors bg-primary-container text-on-primary font-headline-sm rounded-lg" data-path="roles" href="#">Roles</a><a class="flex items-center px-space-md py-space-sm rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="permissions" href="#">Permissions</a><a class="flex items-center px-space-md py-space-sm rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="applications" href="#">Applications</a><a class="flex items-center px-space-md py-space-sm rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="api-keys" href="#">API Keys</a><a class="flex items-center px-space-md py-space-sm rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="sessions" href="#">Sessions</a><a class="flex items-center px-space-md py-space-sm rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="audit-logs" href="#">Audit Logs</a><a class="flex items-center px-space-md py-space-sm rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="security" href="#">Security</a><a class="flex items-center px-space-md py-space-sm rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="settings" href="#">Settings</a></nav></div><div class="p-space-md bg-surface-container-low"><div class="p-space-sm bg-surface-container-lowest rounded-lg shadow-[0_1px_8px_rgba(0,0,0,0.04)] flex flex-col gap-space-xs"><div class="flex items-center justify-between"><span class="font-label-caps text-label-caps uppercase text-outline">System Status</span><span class="font-label-code-sm text-label-code-sm text-tertiary-container font-medium">Operational</span></div><div class="w-full bg-surface-container-high h-1 rounded-full overflow-hidden"><div class="bg-tertiary-container h-full w-full"></div></div><span class="font-label-code-sm text-label-code-sm text-on-surface-variant">v4.18.2-core</span></div></div></aside><div class="pl-64"><header class="fixed top-0 left-64 right-0 h-16 bg-surface-container-lowest/90 backdrop-blur-xl z-40 shadow-[0_1px_8px_rgba(0,0,0,0.04)] flex items-center justify-between px-space-lg"><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs bg-surface-container-low px-space-sm py-space-xs rounded-lg"><span class="material-symbols-outlined text-[18px] text-outline">corporate_fare</span><span class="font-label-code-md text-label-code-md text-on-surface font-medium">nexauth-corp-prod</span><span class="material-symbols-outlined text-[16px] text-outline">expand_more</span></div><div class="hidden lg:flex items-center gap-space-xs text-outline font-body-sm text-body-sm"><span class="w-1 h-1 rounded-full bg-outline-variant"></span><span>Region: AWS us-east-1</span></div></div><div class="flex items-center gap-space-lg"><nav class="hidden md:flex items-center gap-space-md" data-active-classes="bg-primary-container text-on-primary font-headline-sm rounded-lg"><a class="font-body-md text-body-md text-on-surface-variant hover:text-on-surface transition-colors" data-path="documentation" href="#">Documentation</a><a class="font-body-md text-body-md text-on-surface-variant hover:text-on-surface transition-colors" data-path="compliance-audit" href="#">Compliance</a></nav><div class="relative flex items-center"><button class="p-space-xs rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" type="button"><span class="material-symbols-outlined text-[20px]">notifications</span></button><span class="absolute top-1 right-1 w-2 h-2 rounded-full bg-error"></span></div><div class="flex items-center gap-space-sm pl-space-sm"><div class="flex flex-col items-end hidden sm:flex"><span class="font-headline-sm text-headline-sm text-on-surface leading-tight">Sofia Alarcón</span><span class="font-label-caps text-label-caps text-on-surface-variant">Security Admin</span></div><img alt="Profile" class="w-8 h-8 rounded-full object-cover shadow-[0_1px_8px_rgba(0,0,0,0.04)]" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAj5efYoLCU1do6orPnp83hEjsQKp0d-6VUsT60s0bKTwrA1trGDs3N6K8PkpuTuLiA3ze6lbWrFEusMkd-yVvqmc4LaLnlMVWA_xGkSdfaZygRhjsZh-FbrWI3z_xRF_vz03l0deWZg67b2jrUA2zHhN_c7xbXaHCetwDHKF4bBiz3vf2tSaCdbrUZSSzduHjG2o-o_VkdWDnJcfbNRRmq84ENzcD0TDnzWRkypcB0aEu8eI7_OpOj"/></div></div></header><main class="relative w-full pt-16 bg-background px-gutter-desktop min-h-screen"><div class="flex flex-col w-full">
+<div class="flex flex-col gap-space-xl pb-space-xl">
+<!-- Top Action & Overview Header -->
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-md">
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs text-on-surface-variant mb-1">
+<span class="font-label-caps text-label-caps uppercase tracking-wider text-outline">IAM Management</span>
+<span class="text-outline-variant font-label-code-sm text-label-code-sm">/</span>
+<span class="font-label-caps text-label-caps uppercase tracking-wider text-primary">Access Control</span>
+</div>
+<h1 class="font-headline-xl text-headline-xl text-on-surface tracking-tight">Roles y Asignación de Permisos (RBAC)</h1>
+<p class="font-body-md text-body-md text-on-surface-variant mt-0.5">Control granular basado en roles, delegación de alcances criptográficos y asignación de políticas multi-tenant.</p>
+</div>
+<div class="flex items-center gap-space-sm self-start lg:self-center">
+<button class="flex items-center gap-space-xs px-space-md py-space-sm bg-surface-container text-on-surface rounded-lg shadow-sm hover:bg-surface-container-high transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">file_download</span>
+<span class="font-headline-sm text-headline-sm">Exportar Matriz</span>
+</button>
+<button class="flex items-center gap-space-xs px-space-md py-space-sm bg-primary-container text-on-primary rounded-lg shadow-md hover:bg-primary transition-all" type="button">
+<span class="material-symbols-outlined text-[18px]">add</span>
+<span class="font-headline-sm text-headline-sm">+ Crear Nuevo Rol</span>
+</button>
+</div>
+</div>
+<!-- Metrics Strip -->
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-space-md">
+<div class="relative overflow-hidden bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps uppercase text-outline">Roles Configurados</span>
+<div class="flex items-baseline gap-space-xs mt-1">
+<span class="font-headline-xl text-headline-xl text-on-surface font-bold">8</span>
+<span class="font-label-code-sm text-label-code-sm text-tertiary-container font-medium">+2 este trimestre</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">5 nativos del sistema · 3 custom</span>
+</div>
+<div class="w-12 h-12 rounded-lg bg-surface-container-low flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[26px]">admin_panel_settings</span>
+</div>
+</div>
+<div class="relative overflow-hidden bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps uppercase text-outline">Asignaciones Activas</span>
+<div class="flex items-baseline gap-space-xs mt-1">
+<span class="font-headline-xl text-headline-xl text-on-surface font-bold">42.8k</span>
+<span class="font-label-code-sm text-label-code-sm text-secondary font-medium">99.4% validadas</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">38.2k identidades · 4.6k service accounts</span>
+</div>
+<div class="w-12 h-12 rounded-lg bg-surface-container-low flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[26px]">group</span>
+</div>
+</div>
+<div class="relative overflow-hidden bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps uppercase text-outline">Roles Huérfanos</span>
+<div class="flex items-baseline gap-space-xs mt-1">
+<span class="font-headline-xl text-headline-xl text-on-surface font-bold">0</span>
+<span class="font-label-code-sm text-label-code-sm text-tertiary-container font-medium">Zero Risk</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Sin políticas residuales sin herencia</span>
+</div>
+<div class="w-12 h-12 rounded-lg bg-surface-container-low flex items-center justify-center text-tertiary-container">
+<span class="material-symbols-outlined text-[26px]">verified_user</span>
+</div>
+</div>
+</div>
+<!-- Main Split Work Surface -->
+<div class="grid grid-cols-1 xl:grid-cols-12 gap-space-lg items-start">
+<!-- Left Column: Master Roles List (5 Cols) -->
+<div class="xl:col-span-5 flex flex-col gap-space-md">
+<!-- Filter and Search Toolbar -->
+<div class="flex items-center justify-between gap-space-sm bg-surface-container-lowest p-space-sm rounded-lg shadow-sm">
+<div class="flex items-center gap-space-xs flex-1 bg-surface-container-low px-space-sm py-1.5 rounded-lg">
+<span class="material-symbols-outlined text-[18px] text-outline">search</span>
+<input class="bg-transparent border-none outline-none font-body-sm text-body-sm text-on-surface w-full placeholder:text-outline" placeholder="Filtrar rol por id, módulo o tag..." type="text"/>
+</div>
+<div class="flex items-center gap-1">
+<button class="p-1.5 text-outline hover:text-on-surface bg-surface-container-low rounded-lg transition-colors" title="Filtrar" type="button">
+<span class="material-symbols-outlined text-[18px]">tune</span>
+</button>
+<button class="p-1.5 text-outline hover:text-on-surface bg-surface-container-low rounded-lg transition-colors" title="Ordenar" type="button">
+<span class="material-symbols-outlined text-[18px]">sort</span>
+</button>
+</div>
+</div>
+<!-- Role Catalog Cards -->
+<div class="flex flex-col gap-space-xs">
+<!-- Role Item: SuperAdmin -->
+<div class="cursor-pointer bg-surface-container-lowest hover:bg-surface-container-low transition-colors p-space-md rounded-xl shadow-sm flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="w-2 h-2 rounded-full bg-error"></span>
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold">SuperAdmin</span>
+<span class="px-1.5 py-0.5 rounded font-label-code-sm text-label-code-sm bg-surface-container-high text-on-surface-variant">System-Native</span>
+</div>
+<span class="font-label-code-sm text-label-code-sm text-outline">4 usuarios</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-1">Acceso total sin restricciones al cluster, identidades, rotación de claves maestras y auditoría.</p>
+<div class="flex items-center gap-space-sm mt-1">
+<span class="font-label-code-sm text-label-code-sm text-outline">role_superadmin_00</span>
+<span class="text-outline-variant font-label-code-sm text-label-code-sm">·</span>
+<span class="font-label-caps text-label-caps text-error uppercase">Full Wildcard (*:*)</span>
+</div>
+</div>
+<!-- Role Item: Security Analyst (ACTIVE SELECTED STATE) -->
+<div class="cursor-pointer bg-surface-container-lowest p-space-md rounded-xl shadow-md flex flex-col gap-space-xs relative overflow-hidden bg-gradient-to-r from-primary-fixed/30 via-surface-container-lowest to-surface-container-lowest">
+<div class="absolute left-0 top-0 bottom-0 w-1.5 bg-primary"></div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs pl-1">
+<span class="w-2 h-2 rounded-full bg-secondary-container"></span>
+<span class="font-headline-sm text-headline-sm text-primary font-bold">Security Analyst</span>
+<span class="px-1.5 py-0.5 rounded font-label-code-sm text-label-code-sm bg-primary-fixed text-on-primary-fixed font-medium">En Edición</span>
+</div>
+<span class="font-label-code-sm text-label-code-sm text-on-surface font-medium">1,248 asignaciones</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant pl-1">Lectura analítica de telemetría de autenticación, revocación de tokens y mitigación de amenazas en tiempo real.</p>
+<div class="flex items-center justify-between pl-1 mt-1">
+<div class="flex items-center gap-space-xs">
+<span class="font-label-code-sm text-label-code-sm text-primary font-medium">role_sec_analyst_01</span>
+<span class="text-outline-variant font-label-code-sm text-label-code-sm">·</span>
+<span class="font-label-caps text-label-caps text-tertiary-container uppercase">Compliance Scope</span>
+</div>
+<span class="material-symbols-outlined text-[18px] text-primary">arrow_forward_ios</span>
+</div>
+</div>
+<!-- Role Item: Application Developer -->
+<div class="cursor-pointer bg-surface-container-lowest hover:bg-surface-container-low transition-colors p-space-md rounded-xl shadow-sm flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold">Application Developer</span>
+<span class="px-1.5 py-0.5 rounded font-label-code-sm text-label-code-sm bg-surface-container-high text-on-surface-variant">Custom</span>
+</div>
+<span class="font-label-code-sm text-label-code-sm text-outline">18.4k asignaciones</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-1">Gestión de credenciales OIDC, clientes OAuth2, certificados SAML y configuración de webhooks.</p>
+<div class="flex items-center gap-space-sm mt-1">
+<span class="font-label-code-sm text-label-code-sm text-outline">role_app_dev_03</span>
+<span class="text-outline-variant font-label-code-sm text-label-code-sm">·</span>
+<span class="font-label-caps text-label-caps text-outline uppercase">Scopes: apps:* , keys:*</span>
+</div>
+</div>
+<!-- Role Item: Support Specialist -->
+<div class="cursor-pointer bg-surface-container-lowest hover:bg-surface-container-low transition-colors p-space-md rounded-xl shadow-sm flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="w-2 h-2 rounded-full bg-outline"></span>
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold">Support Specialist</span>
+<span class="px-1.5 py-0.5 rounded font-label-code-sm text-label-code-sm bg-surface-container-high text-on-surface-variant">System-Native</span>
+</div>
+<span class="font-label-code-sm text-label-code-sm text-outline">23.1k asignaciones</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-1">Soporte asistido a usuarios finales, reseteo de contraseñas y desbloqueo transitorio de cuentas.</p>
+<div class="flex items-center gap-space-sm mt-1">
+<span class="font-label-code-sm text-label-code-sm text-outline">role_support_spec_04</span>
+<span class="text-outline-variant font-label-code-sm text-label-code-sm">·</span>
+<span class="font-label-caps text-label-caps text-outline uppercase">Scopes: users:read , pwd:reset</span>
+</div>
+</div>
+<!-- Role Item: Auditor -->
+<div class="cursor-pointer bg-surface-container-lowest hover:bg-surface-container-low transition-colors p-space-md rounded-xl shadow-sm flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="w-2 h-2 rounded-full bg-tertiary-fixed-dim"></span>
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold">Auditor</span>
+<span class="px-1.5 py-0.5 rounded font-label-code-sm text-label-code-sm bg-surface-container-high text-on-surface-variant">Read-Only</span>
+</div>
+<span class="font-label-code-sm text-label-code-sm text-outline">82 asignaciones</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-1">Inspección forense de trazas de autenticación, pipelines de auditoría y reportes SOC2 Type II.</p>
+<div class="flex items-center gap-space-sm mt-1">
+<span class="font-label-code-sm text-label-code-sm text-outline">role_auditor_immutable_05</span>
+<span class="text-outline-variant font-label-code-sm text-label-code-sm">·</span>
+<span class="font-label-caps text-label-caps text-tertiary uppercase">SOC2 Certified</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Role Detail View (7 Cols) -->
+<div class="xl:col-span-7 flex flex-col gap-space-md">
+<!-- Detail Panel Container -->
+<div class="bg-surface-container-lowest rounded-xl shadow-md p-space-lg flex flex-col gap-space-lg">
+<!-- Detail Header: Name, Identifier & Actions -->
+<div class="flex flex-col md:flex-row md:items-start justify-between gap-space-md pb-space-md bg-surface-container-lowest">
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center gap-space-xs">
+<span class="px-2 py-0.5 rounded font-label-code-sm text-label-code-sm bg-tertiary/10 text-tertiary font-semibold flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span> Active Role
+                </span>
+<span class="font-label-code-sm text-label-code-sm text-outline">v2.4.0-rev</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface tracking-tight font-bold">Security Analyst</h2>
+<!-- Technical Identifier with Copy Action -->
+<div class="flex items-center gap-space-xs bg-surface-container-low px-space-sm py-1 rounded-lg w-fit">
+<span class="font-label-code-sm text-label-code-sm text-outline">ID Técnico:</span>
+<code class="font-label-code-md text-label-code-md text-primary font-bold">role_sec_analyst_01</code>
+<button class="text-outline hover:text-primary transition-colors flex items-center p-0.5" title="Copiar ID técnico" type="button">
+<span class="material-symbols-outlined text-[16px]">content_copy</span>
+</button>
+</div>
+</div>
+<!-- Detail Action Triggers -->
+<div class="flex items-center gap-space-xs">
+<button class="flex items-center gap-1 px-space-sm py-1.5 bg-surface-container text-on-surface rounded-lg shadow-sm hover:bg-surface-container-high transition-colors font-headline-sm text-headline-sm" type="button">
+<span class="material-symbols-outlined text-[18px]">content_copy</span>
+<span>Clonar Rol</span>
+</button>
+<button class="flex items-center gap-1 px-space-md py-1.5 bg-primary-container text-on-primary rounded-lg shadow-md hover:bg-primary transition-all font-headline-sm text-headline-sm" type="button">
+<span class="material-symbols-outlined text-[18px]">check</span>
+<span>Guardar Cambios</span>
+</button>
+</div>
+</div>
+<!-- Description Field & Metadata -->
+<div class="flex flex-col gap-space-xs">
+<label class="font-label-caps text-label-caps uppercase text-outline">Descripción del Rol &amp; Justificación de Seguridad</label>
+<div class="bg-surface-container-low p-space-sm rounded-lg">
+<p class="font-body-md text-body-md text-on-surface">
+                Habilita a los ingenieros del SOC (Security Operations Center) y analistas forenses la inspección irrestricta de telemetría de eventos de autenticación, revocación expedita de sesiones anómalas e invocación de mitigaciones de fuerza bruta en Edge. Excluye deliberadamente la lectura o exportación de claves criptográficas maestras.
+              </p>
+</div>
+</div>
+<!-- Assigned Users & Security Groups Section -->
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="font-label-caps text-label-caps uppercase text-outline">Usuarios &amp; Grupos Asignados</span>
+<span class="px-1.5 py-0.5 rounded font-label-code-sm text-label-code-sm bg-surface-container-high text-on-surface font-medium">1,248 miembros</span>
+</div>
+<button class="font-headline-sm text-headline-sm text-primary hover:underline flex items-center gap-0.5" type="button">
+<span>+ Asignar Entidad</span>
+</button>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-space-sm">
+<!-- Direct Assignment: Security Team Group -->
+<div class="flex items-center justify-between p-space-sm bg-surface-container-low rounded-lg">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-8 h-8 rounded-lg bg-primary-fixed flex items-center justify-center text-primary flex-shrink-0">
+<span class="material-symbols-outlined text-[18px]">shield_person</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-headline-sm text-headline-sm text-on-surface truncate">grp_soc_l2_operators</span>
+<span class="font-body-sm text-body-sm text-outline truncate">Grupo IAM · 1,240 miembros</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-[16px] text-outline hover:text-error cursor-pointer">close</span>
+</div>
+<!-- Direct Assignment: Individual Users Sample -->
+<div class="flex items-center justify-between p-space-sm bg-surface-container-low rounded-lg">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="flex -space-x-2 overflow-hidden flex-shrink-0">
+<img class="inline-block h-8 w-8 rounded-full ring-2 ring-surface-container-lowest object-cover" data-alt="Portrait photo of a female cybersecurity engineer with glasses in a modern office setup with soft ambient lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA4lbRlSJEBxlBAgw-LBbAyzHE9YxRGOoWw7ooh5Ow4C_RMDJuSSCQlq_OsFnvXxMF5fx25OMxhNcwXECxJMKxNucWPsepvHm7_ptWEx3n1ZDgeYBSsnhBOS2QhFQGzFXcN0HpBvQI_fpVoDkU6KjsgUHi0H7MWMfY8fp4p4h3GVFOSvTLdIdZaFJkraX_IIKi8F6VHsPyck6bH_MrLZyNn4XM_DZrWYo3112ufv3-tK1Ye_wg0G0zL"/>
+<img class="inline-block h-8 w-8 rounded-full ring-2 ring-surface-container-lowest object-cover" data-alt="Portrait photo of a male DevOps engineer smiling against a slate background with natural rim lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD_ILBFD8hv4QMlzAF-ub96AIMiyNWKrPk30HpxGtNSjhY1ohW-Z7hdFnDNw_v4fDpUmr_9LS_maNdzoff5DsRWBt_rwrWrfkJVWe7BkMD7WuWhMn9uFoWZJc2rmTRocxlyrXT_0rCZlECG7G7mIK-2dSC-4maNHLKvEU1lEpZ1AO9MTowPntbPBuYyN6pyZUFBYwjljIkcR6MD7vw3VZSsrhvcfNQx1YhhkywVrFBJ-X46kY_ZtqOa"/>
+<img class="inline-block h-8 w-8 rounded-full ring-2 ring-surface-container-lowest object-cover" data-alt="Portrait photo of a lead technical architect with confident expression in a high-tech minimal workspace." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAN5lggVj5l6I46weNLOIJrpKT6hwA7HoPLpUmRbeEQH7Y_6xNqVhs535O_ZPH6ahd4Ul2phamva4M8SOQP7SZDWztiVT6EU7oaia50v4GxcrINWHzmfd5I20_kZXM5bjDEwND_yLWixysCkmZ4beeaaPIj6h1thcExAcMK6nbVf24q_2t4zrSKGlsnXWZXgmUdkZ2DvTNzveUSLEfXpJVFFSRpP_aVwC-MA8Oz6pxAszcv8ODO46vM"/>
+</div>
+<div class="flex flex-col min-w-0 pl-1">
+<span class="font-headline-sm text-headline-sm text-on-surface truncate">8 Asignaciones Directas</span>
+<span class="font-body-sm text-body-sm text-outline truncate">Sofia, Liam, Chen + 5</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-[16px] text-outline hover:text-primary cursor-pointer">open_in_new</span>
+</div>
+</div>
+</div>
+<!-- Permission Matrix Categorized by Module -->
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-label-caps uppercase text-outline">Matriz de Permisos por Módulo</span>
+<span class="font-label-code-sm text-label-code-sm text-outline">16 permisos evaluados</span>
+</div>
+<div class="flex flex-col gap-space-xs overflow-hidden rounded-xl bg-surface-container-low p-space-xs">
+<!-- Module 1: Auth Module -->
+<div class="bg-surface-container-lowest p-space-md rounded-lg flex flex-col md:flex-row md:items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-md min-w-0">
+<div class="w-9 h-9 rounded-lg bg-surface-container-high flex items-center justify-center text-primary flex-shrink-0">
+<span class="material-symbols-outlined text-[20px]">fingerprint</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-headline-sm text-headline-sm text-on-surface">Authentication &amp; Session Management</span>
+<span class="font-label-code-sm text-label-code-sm text-outline">scope: auth.session.*</span>
+</div>
+</div>
+<!-- Permission Toggles: Read / Write / Delete -->
+<div class="flex items-center gap-space-lg self-end md:self-center">
+<!-- Read -->
+<div class="flex items-center gap-1.5">
+<span class="font-label-caps text-label-caps text-outline uppercase">Lectura</span>
+<button class="w-9 h-5 bg-primary-container rounded-full relative p-0.5 transition-colors cursor-pointer" title="Lectura Habilitada" type="button">
+<div class="w-4 h-4 bg-on-primary rounded-full ml-auto shadow-sm"></div>
+</button>
+</div>
+<!-- Write -->
+<div class="flex items-center gap-1.5">
+<span class="font-label-caps text-label-caps text-outline uppercase">Escritura</span>
+<button class="w-9 h-5 bg-primary-container rounded-full relative p-0.5 transition-colors cursor-pointer" title="Escritura Habilitada" type="button">
+<div class="w-4 h-4 bg-on-primary rounded-full ml-auto shadow-sm"></div>
+</button>
+</div>
+<!-- Delete / Revoke -->
+<div class="flex items-center gap-1.5">
+<span class="font-label-caps text-label-caps text-error uppercase">Revocación</span>
+<button class="w-9 h-5 bg-primary-container rounded-full relative p-0.5 transition-colors cursor-pointer" title="Revocación Habilitada" type="button">
+<div class="w-4 h-4 bg-on-primary rounded-full ml-auto shadow-sm"></div>
+</button>
+</div>
+</div>
+</div>
+<!-- Module 2: Audit Logs -->
+<div class="bg-surface-container-lowest p-space-md rounded-lg flex flex-col md:flex-row md:items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-md min-w-0">
+<div class="w-9 h-9 rounded-lg bg-surface-container-high flex items-center justify-center text-secondary flex-shrink-0">
+<span class="material-symbols-outlined text-[20px]">receipt_long</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-headline-sm text-headline-sm text-on-surface">Audit Trail &amp; Telemetry Streaming</span>
+<span class="font-label-code-sm text-label-code-sm text-outline">scope: audit.logs.read, audit.siem.export</span>
+</div>
+</div>
+<!-- Permission Toggles -->
+<div class="flex items-center gap-space-lg self-end md:self-center">
+<!-- Read -->
+<div class="flex items-center gap-1.5">
+<span class="font-label-caps text-label-caps text-outline uppercase">Lectura</span>
+<button class="w-9 h-5 bg-primary-container rounded-full relative p-0.5 transition-colors cursor-pointer" title="Lectura Habilitada" type="button">
+<div class="w-4 h-4 bg-on-primary rounded-full ml-auto shadow-sm"></div>
+</button>
+</div>
+<!-- Write -->
+<div class="flex items-center gap-1.5">
+<span class="font-label-caps text-label-caps text-outline uppercase">Escritura</span>
+<button class="w-9 h-5 bg-outline-variant/40 rounded-full relative p-0.5 transition-colors cursor-not-allowed opacity-60" title="Escritura Bloqueada" type="button">
+<div class="w-4 h-4 bg-surface-container-lowest rounded-full mr-auto shadow-sm"></div>
+</button>
+</div>
+<!-- Delete -->
+<div class="flex items-center gap-1.5">
+<span class="font-label-caps text-label-caps text-outline uppercase">Eliminación</span>
+<button class="w-9 h-5 bg-outline-variant/40 rounded-full relative p-0.5 transition-colors cursor-not-allowed opacity-60" title="Eliminación Restringida por Cumplimiento SOC2" type="button">
+<div class="w-4 h-4 bg-surface-container-lowest rounded-full mr-auto shadow-sm"></div>
+</button>
+</div>
+</div>
+</div>
+<!-- Module 3: Users Directory -->
+<div class="bg-surface-container-lowest p-space-md rounded-lg flex flex-col md:flex-row md:items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-md min-w-0">
+<div class="w-9 h-9 rounded-lg bg-surface-container-high flex items-center justify-center text-on-surface-variant flex-shrink-0">
+<span class="material-symbols-outlined text-[20px]">manage_accounts</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-headline-sm text-headline-sm text-on-surface">User Profiles &amp; Risk States</span>
+<span class="font-label-code-sm text-label-code-sm text-outline">scope: users.profile.read, users.mfa.reset</span>
+</div>
+</div>
+<!-- Permission Toggles -->
+<div class="flex items-center gap-space-lg self-end md:self-center">
+<!-- Read -->
+<div class="flex items-center gap-1.5">
+<span class="font-label-caps text-label-caps text-outline uppercase">Lectura</span>
+<button class="w-9 h-5 bg-primary-container rounded-full relative p-0.5 transition-colors cursor-pointer" type="button">
+<div class="w-4 h-4 bg-on-primary rounded-full ml-auto shadow-sm"></div>
+</button>
+</div>
+<!-- Write -->
+<div class="flex items-center gap-1.5">
+<span class="font-label-caps text-label-caps text-outline uppercase">Escritura</span>
+<button class="w-9 h-5 bg-primary-container rounded-full relative p-0.5 transition-colors cursor-pointer" type="button">
+<div class="w-4 h-4 bg-on-primary rounded-full ml-auto shadow-sm"></div>
+</button>
+</div>
+<!-- Delete -->
+<div class="flex items-center gap-1.5">
+<span class="font-label-caps text-label-caps text-outline uppercase">Eliminación</span>
+<button class="w-9 h-5 bg-outline-variant/40 rounded-full relative p-0.5 transition-colors cursor-not-allowed opacity-60" type="button">
+<div class="w-4 h-4 bg-surface-container-lowest rounded-full mr-auto shadow-sm"></div>
+</button>
+</div>
+</div>
+</div>
+<!-- Module 4: Applications & Credentials -->
+<div class="bg-surface-container-lowest p-space-md rounded-lg flex flex-col md:flex-row md:items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-md min-w-0">
+<div class="w-9 h-9 rounded-lg bg-surface-container-high flex items-center justify-center text-on-surface-variant flex-shrink-0">
+<span class="material-symbols-outlined text-[20px]">hub</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-headline-sm text-headline-sm text-on-surface">Registered Clients &amp; Keyrings</span>
+<span class="font-label-code-sm text-label-code-sm text-outline">scope: apps.metadata.read</span>
+</div>
+</div>
+<!-- Permission Toggles -->
+<div class="flex items-center gap-space-lg self-end md:self-center">
+<!-- Read -->
+<div class="flex items-center gap-1.5">
+<span class="font-label-caps text-label-caps text-outline uppercase">Lectura</span>
+<button class="w-9 h-5 bg-primary-container rounded-full relative p-0.5 transition-colors cursor-pointer" type="button">
+<div class="w-4 h-4 bg-on-primary rounded-full ml-auto shadow-sm"></div>
+</button>
+</div>
+<!-- Write -->
+<div class="flex items-center gap-1.5">
+<span class="font-label-caps text-label-caps text-outline uppercase">Escritura</span>
+<button class="w-9 h-5 bg-outline-variant/40 rounded-full relative p-0.5 transition-colors cursor-not-allowed opacity-60" type="button">
+<div class="w-4 h-4 bg-surface-container-lowest rounded-full mr-auto shadow-sm"></div>
+</button>
+</div>
+<!-- Delete -->
+<div class="flex items-center gap-1.5">
+<span class="font-label-caps text-label-caps text-outline uppercase">Eliminación</span>
+<button class="w-9 h-5 bg-outline-variant/40 rounded-full relative p-0.5 transition-colors cursor-not-allowed opacity-60" type="button">
+<div class="w-4 h-4 bg-surface-container-lowest rounded-full mr-auto shadow-sm"></div>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Audit Footer Warning -->
+<div class="p-space-sm bg-surface-container-low rounded-lg flex items-center justify-between text-on-surface-variant">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[18px] text-tertiary">history_edu</span>
+<span class="font-body-sm text-body-sm">Última mutación por <strong class="text-on-surface">sofia.alarcon@nexauth.corp</strong> hace 4 horas. Hash de auditoría:</span>
+<span class="font-label-code-sm text-label-code-sm text-outline">f8b2..41a9</span>
+</div>
+<span class="font-label-caps text-label-caps text-tertiary-container uppercase">Policy Synchronized</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div></main></div></body></html>
