@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={"darkMode":"class","theme":{"extend":{"colors":{"surface-dim":"#d2d9f4","background":"#faf8ff","surface-container-lowest":"#ffffff","secondary-fixed-dim":"#c0c1ff","on-primary-container":"#dad7ff","surface-container-highest":"#dae2fd","surface-container-low":"#f2f3ff","inverse-surface":"#283044","inverse-primary":"#c3c0ff","on-tertiary-fixed":"#002113","secondary-container":"#6063ee","on-surface":"#131b2e","primary":"#3525cd","surface-bright":"#faf8ff","surface-variant":"#dae2fd","error-container":"#ffdad6","primary-fixed-dim":"#c3c0ff","secondary":"#4648d4","surface":"#faf8ff","on-secondary-container":"#fffbff","on-secondary":"#ffffff","primary-container":"#4f46e5","tertiary-fixed-dim":"#4edea3","tertiary-fixed":"#6ffbbe","inverse-on-surface":"#eef0ff","on-error":"#ffffff","on-primary":"#ffffff","on-tertiary-fixed-variant":"#005236","on-primary-fixed-variant":"#3323cc","on-primary-fixed":"#0f0069","primary-fixed":"#e2dfff","on-error-container":"#93000a","outline":"#777587","error":"#ba1a1a","tertiary-container":"#006e4b","on-background":"#131b2e","on-secondary-fixed":"#07006c","tertiary":"#005338","on-tertiary":"#ffffff","surface-container":"#eaedff","outline-variant":"#c7c4d8","on-tertiary-container":"#67f4b7","on-secondary-fixed-variant":"#2f2ebe","surface-container-high":"#e2e7ff","surface-tint":"#4d44e3","on-surface-variant":"#464555","secondary-fixed":"#e1e0ff"},"borderRadius":{"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"},"spacing":{"margin":"1rem","space-sm":"0.5rem","space-xl":"2rem","space-lg":"1.25rem","space-md":"0.75rem","margin-desktop":"2rem","gutter-desktop":"1.5rem","gutter":"1rem","space-xs":"0.25rem"},"fontFamily":{"body-lg":["Inter"],"body-sm":["Inter"],"label-code-lg":["JetBrains Mono"],"label-code-md":["JetBrains Mono"],"headline-xl":["Inter"],"headline-sm":["Inter"],"body-md":["Inter"],"label-code-sm":["JetBrains Mono"],"label-caps":["Inter"],"headline-lg":["Inter"],"headline-xl-mobile":["Inter"],"headline-md":["Inter"]},"fontSize":{"body-lg":["15px",{"lineHeight":"22px","fontWeight":"400"}],"body-sm":["12px",{"lineHeight":"16px","fontWeight":"400"}],"label-code-lg":["13px",{"lineHeight":"18px","fontWeight":"500"}],"label-code-md":["12px",{"lineHeight":"16px","fontWeight":"500"}],"headline-xl":["30px",{"lineHeight":"38px","letterSpacing":"-0.02em","fontWeight":"700"}],"headline-sm":["15px",{"lineHeight":"20px","letterSpacing":"-0.005em","fontWeight":"600"}],"body-md":["13px",{"lineHeight":"18px","fontWeight":"400"}],"label-code-sm":["11px",{"lineHeight":"14px","fontWeight":"400"}],"label-caps":["11px",{"lineHeight":"14px","letterSpacing":"0.05em","fontWeight":"600"}],"headline-lg":["22px",{"lineHeight":"28px","letterSpacing":"-0.015em","fontWeight":"600"}],"headline-xl-mobile":["24px",{"lineHeight":"32px","letterSpacing":"-0.015em","fontWeight":"700"}],"headline-md":["18px",{"lineHeight":"24px","letterSpacing":"-0.01em","fontWeight":"600"}]}}}}</script></head><body class="bg-background font-body-md text-on-surface antialiased"><aside class="fixed left-0 top-0 h-full w-64 bg-surface-container-low z-50 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="flex flex-col"><div class="h-16 px-space-md flex items-center gap-space-sm bg-surface-container-low"><img alt="NexAuth Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1W5sWrYLwg4JJdSnB-yQ8_7vM2Uml6B3LfgUBHy2335817tjlcSC0TYKmzNOKRXmlPfjO7jCDwKleR_b1H1oVrmBP3_2PBJSqG2Cuvlfy3oGqKqecvdQR5jMKZ8D6pmFZgsbplLS-jWzgFrakZjTfCGWcPIV8CRKmVjUZla4BHxCLaOygQuTwue76aCxOK_DbLFw9qj96fFSJ9w6YO7DBjljFX-ga2k-bg2R306ENdR_7u9JnXG0TXuQYA"/><div class="flex flex-col"><span class="font-headline-sm text-headline-sm text-on-surface leading-tight tracking-tight">NexAuth</span><span class="font-label-caps text-label-caps text-outline uppercase tracking-wider">IAM Console</span></div></div><div class="px-space-md py-space-sm"><div class="flex items-center justify-between px-space-sm py-space-xs bg-surface-container-lowest rounded-lg shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="flex items-center gap-space-xs"><span class="w-2 h-2 rounded-full bg-tertiary-container"></span><span class="font-label-code-sm text-label-code-sm text-on-surface font-medium">Production</span><span class="text-outline font-label-code-sm text-label-code-sm">·</span><span class="font-label-code-sm text-label-code-sm text-on-surface-variant">us-east-1</span></div><span class="material-symbols-outlined text-[16px] text-outline">unfold_more</span></div></div><div class="px-space-md py-space-xs"><button class="w-full flex items-center justify-between px-space-sm py-space-xs rounded-lg bg-surface-container-high text-on-surface-variant hover:text-on-surface transition-colors" type="button"><div class="flex items-center gap-space-xs"><span class="material-symbols-outlined text-[18px]">search</span><span class="font-body-sm text-body-sm">Search IAM...</span></div><kbd class="font-label-code-sm text-label-code-sm bg-surface-container-lowest text-on-surface-variant px-1 rounded shadow-[0_1px_8px_rgba(0,0,0,0.04)]">⌘K</kbd></button></div><nav class="flex flex-col gap-space-xs px-space-sm mt-space-sm overflow-y-auto" data-active-classes="bg-primary-container text-on-primary font-headline-sm rounded-lg"><a class="flex items-center px-space-md py-space-sm rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="dashboard" href="#">Dashboard</a><a class="flex items-center px-space-md py-space-sm rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="users" href="#">Users</a><a class="flex items-center px-space-md py-space-sm rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="roles" href="#">Roles</a><a aria-current="page" class="flex items-center px-space-md py-space-sm transition-colors bg-primary-container text-on-primary font-headline-sm rounded-lg" data-path="permissions" href="#">Permissions</a><a class="flex items-center px-space-md py-space-sm rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="applications" href="#">Applications</a><a class="flex items-center px-space-md py-space-sm rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="api-keys" href="#">API Keys</a><a class="flex items-center px-space-md py-space-sm rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="sessions" href="#">Sessions</a><a class="flex items-center px-space-md py-space-sm rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="audit-logs" href="#">Audit Logs</a><a class="flex items-center px-space-md py-space-sm rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="security" href="#">Security</a><a class="flex items-center px-space-md py-space-sm rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="settings" href="#">Settings</a></nav></div><div class="p-space-md bg-surface-container-low"><div class="p-space-sm bg-surface-container-lowest rounded-lg shadow-[0_1px_8px_rgba(0,0,0,0.04)] flex flex-col gap-space-xs"><div class="flex items-center justify-between"><span class="font-label-caps text-label-caps uppercase text-outline">System Status</span><span class="font-label-code-sm text-label-code-sm text-tertiary-container font-medium">Operational</span></div><div class="w-full bg-surface-container-high h-1 rounded-full overflow-hidden"><div class="bg-tertiary-container h-full w-full"></div></div><span class="font-label-code-sm text-label-code-sm text-on-surface-variant">v4.18.2-core</span></div></div></aside><div class="pl-64"><header class="fixed top-0 left-64 right-0 h-16 bg-surface-container-lowest/90 backdrop-blur-xl z-40 shadow-[0_1px_8px_rgba(0,0,0,0.04)] flex items-center justify-between px-space-lg"><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs bg-surface-container-low px-space-sm py-space-xs rounded-lg"><span class="material-symbols-outlined text-[18px] text-outline">corporate_fare</span><span class="font-label-code-md text-label-code-md text-on-surface font-medium">nexauth-corp-prod</span><span class="material-symbols-outlined text-[16px] text-outline">expand_more</span></div><div class="hidden lg:flex items-center gap-space-xs text-outline font-body-sm text-body-sm"><span class="w-1 h-1 rounded-full bg-outline-variant"></span><span>Region: AWS us-east-1</span></div></div><div class="flex items-center gap-space-lg"><nav class="hidden md:flex items-center gap-space-md" data-active-classes="bg-primary-container text-on-primary font-headline-sm rounded-lg"><a class="font-body-md text-body-md text-on-surface-variant hover:text-on-surface transition-colors" data-path="documentation" href="#">Documentation</a><a class="font-body-md text-body-md text-on-surface-variant hover:text-on-surface transition-colors" data-path="compliance-audit" href="#">Compliance</a></nav><div class="relative flex items-center"><button class="p-space-xs rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" type="button"><span class="material-symbols-outlined text-[20px]">notifications</span></button><span class="absolute top-1 right-1 w-2 h-2 rounded-full bg-error"></span></div><div class="flex items-center gap-space-sm pl-space-sm"><div class="flex flex-col items-end hidden sm:flex"><span class="font-headline-sm text-headline-sm text-on-surface leading-tight">Sofia Alarcón</span><span class="font-label-caps text-label-caps text-on-surface-variant">Security Admin</span></div><img alt="Profile" class="w-8 h-8 rounded-full object-cover shadow-[0_1px_8px_rgba(0,0,0,0.04)]" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAj5efYoLCU1do6orPnp83hEjsQKp0d-6VUsT60s0bKTwrA1trGDs3N6K8PkpuTuLiA3ze6lbWrFEusMkd-yVvqmc4LaLnlMVWA_xGkSdfaZygRhjsZh-FbrWI3z_xRF_vz03l0deWZg67b2jrUA2zHhN_c7xbXaHCetwDHKF4bBiz3vf2tSaCdbrUZSSzduHjG2o-o_VkdWDnJcfbNRRmq84ENzcD0TDnzWRkypcB0aEu8eI7_OpOj"/></div></div></header><main class="relative w-full pt-16 bg-background px-gutter-desktop min-h-screen"><div class="flex flex-col w-full pb-margin-desktop">
+<!-- Top Stats & Header Bar -->
+<div class="flex flex-col gap-space-md mb-space-lg">
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-md">
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs text-on-surface-variant font-label-caps text-label-caps uppercase">
+<span>Control de Acceso</span>
+<span>/</span>
+<span class="text-primary font-semibold">Scopes &amp; Grants</span>
+</div>
+<h1 class="font-headline-xl text-headline-xl text-on-surface tracking-tight mt-0.5">
+          Catálogo de Permisos &amp; Scopes OAuth2/API
+        </h1>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-3xl mt-1">
+          Definición granular de directivas RFC 6749, control de aserción criptográfica y mapeo de autorización para servicios federados.
+        </p>
+</div>
+<!-- Action Cluster -->
+<div class="flex items-center gap-space-sm flex-wrap">
+<button class="inline-flex items-center gap-space-xs px-space-md py-space-sm rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-headline-sm text-headline-sm transition-all shadow-sm" id="export-spec-btn" type="button">
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant">terminal</span>
+<span>Exportar Spec OpenID/RFC</span>
+</button>
+<button class="inline-flex items-center gap-space-xs px-space-md py-space-sm rounded-lg bg-primary hover:bg-primary-container text-on-primary font-headline-sm text-headline-sm transition-all shadow-md" id="open-register-modal" type="button">
+<span class="material-symbols-outlined text-[18px]">add_moderator</span>
+<span>+ Registrar Permiso</span>
+</button>
+</div>
+</div>
+<!-- Telemetry Cards Mosaic -->
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-space-md mt-space-sm">
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between text-on-surface-variant">
+<span class="font-label-caps text-label-caps uppercase">Total Scopes RFC</span>
+<span class="material-symbols-outlined text-[20px] text-primary">key</span>
+</div>
+<div class="mt-space-sm flex items-baseline gap-space-sm">
+<span class="font-headline-xl text-headline-xl text-on-surface font-bold">48</span>
+<span class="font-label-code-sm text-label-code-sm text-tertiary font-semibold flex items-center">
+<span class="material-symbols-outlined text-[14px]">trending_up</span> +4 este ciclo
+          </span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant mt-1">Registrados en 4 Resource Servers</span>
+</div>
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between text-on-surface-variant">
+<span class="font-label-caps text-label-caps uppercase">Scopes Sensibles</span>
+<span class="material-symbols-outlined text-[20px] text-error">gpp_maybe</span>
+</div>
+<div class="mt-space-sm flex items-baseline gap-space-sm">
+<span class="font-headline-xl text-headline-xl text-error font-bold">9</span>
+<span class="font-label-code-sm text-label-code-sm text-on-error-container bg-error-container px-1.5 py-0.5 rounded font-medium">MFA Forzado</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant mt-1">Requieren Step-Up elevación criptográfica</span>
+</div>
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between text-on-surface-variant">
+<span class="font-label-caps text-label-caps uppercase">Apps Delegadas</span>
+<span class="material-symbols-outlined text-[20px] text-secondary">token</span>
+</div>
+<div class="mt-space-sm flex items-baseline gap-space-sm">
+<span class="font-headline-xl text-headline-xl text-on-surface font-bold">142</span>
+<span class="font-label-code-sm text-label-code-sm text-on-surface-variant">Consentimientos activos</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant mt-1">M2M Clients &amp; SPA Delegations</span>
+</div>
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between text-on-surface-variant">
+<span class="font-label-caps text-label-caps uppercase">Distribución de Riesgo</span>
+<span class="material-symbols-outlined text-[20px] text-tertiary">analytics</span>
+</div>
+<div class="mt-space-sm flex items-center gap-space-xs">
+<!-- Sparkline representation -->
+<div class="w-full bg-surface-container-high h-2 rounded-full overflow-hidden flex">
+<div class="bg-tertiary h-full" style="width: 55%" title="Bajo: 55%"></div>
+<div class="bg-secondary-container h-full" style="width: 25%" title="Medio: 25%"></div>
+<div class="bg-error h-full" style="width: 20%" title="Alto: 20%"></div>
+</div>
+</div>
+<div class="flex items-center justify-between font-label-code-sm text-label-code-sm text-on-surface-variant mt-1.5">
+<span>B: 55%</span>
+<span>M: 25%</span>
+<span class="text-error font-medium">A: 20%</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Resource Servers Filter Pill-bar & Search Matrix -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm mb-space-md flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-space-md">
+<!-- Resource Selectors -->
+<div class="flex items-center gap-space-xs overflow-x-auto pb-1 lg:pb-0" id="resource-filter-group">
+<button class="resource-pill active px-space-md py-space-xs rounded-full bg-primary text-on-primary font-label-code-md text-label-code-md transition-colors whitespace-nowrap shadow-sm" data-resource="ALL">
+        Todos (18)
+      </button>
+<button class="resource-pill px-space-md py-space-xs rounded-full bg-surface-container hover:bg-surface-container-high text-on-surface font-label-code-md text-label-code-md transition-colors whitespace-nowrap" data-resource="USER_MGMT">
+        User Management API
+      </button>
+<button class="resource-pill px-space-md py-space-xs rounded-full bg-surface-container hover:bg-surface-container-high text-on-surface font-label-code-md text-label-code-md transition-colors whitespace-nowrap" data-resource="BILLING">
+        Billing Gateway
+      </button>
+<button class="resource-pill px-space-md py-space-xs rounded-full bg-surface-container hover:bg-surface-container-high text-on-surface font-label-code-md text-label-code-md transition-colors whitespace-nowrap" data-resource="AUDIT">
+        Audit Stream API
+      </button>
+<button class="resource-pill px-space-md py-space-xs rounded-full bg-surface-container hover:bg-surface-container-high text-on-surface font-label-code-md text-label-code-md transition-colors whitespace-nowrap" data-resource="AUTH_CORE">
+        Auth Engine Core
+      </button>
+</div>
+<!-- Search input & filter toggles -->
+<div class="flex items-center gap-space-sm flex-shrink-0">
+<div class="relative w-full sm:w-64">
+<span class="material-symbols-outlined absolute left-2.5 top-2.5 text-[18px] text-outline">search</span>
+<input class="w-full pl-8 pr-3 py-1.5 bg-surface-container-low rounded-lg text-on-surface font-body-sm text-body-sm focus:outline-none focus:bg-surface-container-lowest shadow-sm placeholder:text-outline" id="scope-search-input" placeholder="Filtrar por scope o URI..." type="text"/>
+</div>
+<button class="flex items-center gap-space-xs px-space-sm py-1.5 rounded-lg bg-surface-container-low text-on-surface hover:bg-surface-container font-label-code-sm text-label-code-sm transition-colors" id="toggle-critical-only" type="button">
+<span class="w-2 h-2 rounded-full bg-error"></span>
+<span>Sensibles Solo</span>
+</button>
+</div>
+</div>
+<!-- Primary Granular Permissions Table Card -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden flex flex-col">
+<div class="overflow-x-auto">
+<table class="w-full text-left" id="permissions-table">
+<thead>
+<tr class="bg-surface-container-low text-on-surface-variant font-label-caps text-label-caps uppercase">
+<th class="py-space-sm px-space-md font-semibold">Scope Identifier (RFC 6749)</th>
+<th class="py-space-sm px-space-md font-semibold">Recurso / API Server</th>
+<th class="py-space-sm px-space-md font-semibold">Consentimiento &amp; Descripción</th>
+<th class="py-space-sm px-space-md font-semibold text-center">Nivel de Criticidad</th>
+<th class="py-space-sm px-space-md font-semibold text-center">Consumidores</th>
+<th class="py-space-sm px-space-md font-semibold text-right">Acciones</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container font-body-md text-body-md text-on-surface" id="table-body">
+<!-- Row 1: users:read -->
+<tr class="hover:bg-surface-container-low/70 transition-colors" data-critical="low" data-resource="USER_MGMT" data-scope="users:read">
+<td class="py-space-md px-space-md">
+<div class="flex items-center gap-space-xs">
+<span class="font-label-code-md text-label-code-md text-primary font-semibold bg-surface-container px-2 py-0.5 rounded">users:read</span>
+<button class="copy-btn text-outline hover:text-on-surface p-0.5 rounded" title="Copiar Scope" type="button">
+<span class="material-symbols-outlined text-[16px]">content_copy</span>
+</button>
+</div>
+<span class="font-label-code-sm text-label-code-sm text-outline block mt-0.5">urn:nexauth:scope:users.profile.read</span>
+</td>
+<td class="py-space-md px-space-md">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[16px] text-tertiary">supervised_user_circle</span>
+<span class="font-headline-sm text-headline-sm text-on-surface">User Management API</span>
+</div>
+<span class="font-label-code-sm text-label-code-sm text-outline">v2.4 · Cluster US-East</span>
+</td>
+<td class="py-space-md px-space-md max-w-xs">
+<p class="font-body-md text-body-md text-on-surface">Consulta de perfiles de usuario, metadatos públicos y estado del ciclo de vida.</p>
+<span class="font-label-code-sm text-label-code-sm text-outline italic">Consent: "Permite ver tu información de perfil básica"</span>
+</td>
+<td class="py-space-md px-space-md text-center">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-container text-tertiary font-label-code-sm text-label-code-sm font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span> Bajo
+              </span>
+</td>
+<td class="py-space-md px-space-md text-center">
+<div class="inline-flex items-center gap-2">
+<span class="font-label-code-md text-label-code-md bg-surface-container-high px-2 py-0.5 rounded text-on-surface font-medium" title="12 Roles asignados">12 roles</span>
+<span class="font-label-code-md text-label-code-md bg-surface-container-high px-2 py-0.5 rounded text-on-surface font-medium" title="34 Aplicaciones">34 apps</span>
+</div>
+</td>
+<td class="py-space-md px-space-md text-right">
+<div class="flex items-center justify-end gap-space-xs">
+<button class="p-1 rounded text-outline hover:text-on-surface hover:bg-surface-container-high" title="Configurar Scope" type="button">
+<span class="material-symbols-outlined text-[18px]">tune</span>
+</button>
+<button class="p-1 rounded text-outline hover:text-primary hover:bg-surface-container-high" title="Inspeccionar JSON Claim" type="button">
+<span class="material-symbols-outlined text-[18px]">code</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 2: users:write -->
+<tr class="hover:bg-surface-container-low/70 transition-colors" data-critical="medium" data-resource="USER_MGMT" data-scope="users:write">
+<td class="py-space-md px-space-md">
+<div class="flex items-center gap-space-xs">
+<span class="font-label-code-md text-label-code-md text-primary font-semibold bg-surface-container px-2 py-0.5 rounded">users:write</span>
+<button class="copy-btn text-outline hover:text-on-surface p-0.5 rounded" title="Copiar Scope" type="button">
+<span class="material-symbols-outlined text-[16px]">content_copy</span>
+</button>
+</div>
+<span class="font-label-code-sm text-label-code-sm text-outline block mt-0.5">urn:nexauth:scope:users.profile.write</span>
+</td>
+<td class="py-space-md px-space-md">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[16px] text-tertiary">supervised_user_circle</span>
+<span class="font-headline-sm text-headline-sm text-on-surface">User Management API</span>
+</div>
+<span class="font-label-code-sm text-label-code-sm text-outline">v2.4 · Cluster US-East</span>
+</td>
+<td class="py-space-md px-space-md max-w-xs">
+<p class="font-body-md text-body-md text-on-surface">Modificación de atributos de identidad, sincronización SCIM y resets de credenciales temporales.</p>
+<span class="font-label-code-sm text-label-code-sm text-outline italic">Consent: "Permite actualizar datos de cuenta en tu nombre"</span>
+</td>
+<td class="py-space-md px-space-md text-center">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-container text-on-surface font-label-code-sm text-label-code-sm font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span> Medio
+              </span>
+</td>
+<td class="py-space-md px-space-md text-center">
+<div class="inline-flex items-center gap-2">
+<span class="font-label-code-md text-label-code-md bg-surface-container-high px-2 py-0.5 rounded text-on-surface font-medium">5 roles</span>
+<span class="font-label-code-md text-label-code-md bg-surface-container-high px-2 py-0.5 rounded text-on-surface font-medium">11 apps</span>
+</div>
+</td>
+<td class="py-space-md px-space-md text-right">
+<div class="flex items-center justify-end gap-space-xs">
+<button class="p-1 rounded text-outline hover:text-on-surface hover:bg-surface-container-high" title="Configurar Scope" type="button">
+<span class="material-symbols-outlined text-[18px]">tune</span>
+</button>
+<button class="p-1 rounded text-outline hover:text-primary hover:bg-surface-container-high" title="Inspeccionar JSON Claim" type="button">
+<span class="material-symbols-outlined text-[18px]">code</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 3: tokens:revoke (CRITICAL) -->
+<tr class="hover:bg-error-container/20 transition-colors bg-error-container/5" data-critical="high" data-resource="AUTH_CORE" data-scope="tokens:revoke">
+<td class="py-space-md px-space-md">
+<div class="flex items-center gap-space-xs">
+<span class="font-label-code-md text-label-code-md text-error font-bold bg-error-container px-2 py-0.5 rounded">tokens:revoke</span>
+<button class="copy-btn text-outline hover:text-error p-0.5 rounded" title="Copiar Scope" type="button">
+<span class="material-symbols-outlined text-[16px]">content_copy</span>
+</button>
+</div>
+<span class="font-label-code-sm text-label-code-sm text-error/80 block mt-0.5">urn:nexauth:core:token.lifecycle.revoke</span>
+</td>
+<td class="py-space-md px-space-md">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[16px] text-primary">security</span>
+<span class="font-headline-sm text-headline-sm text-on-surface">Auth Engine Core</span>
+</div>
+<span class="font-label-code-sm text-label-code-sm text-outline">RFC 7009 · Core Engine</span>
+</td>
+<td class="py-space-md px-space-md max-w-xs">
+<p class="font-body-md text-body-md text-on-surface font-medium">Invalidación inmediata de Refresh Tokens y revocación masiva de sesiones concurrentes.</p>
+<div class="mt-1 flex items-center gap-1 text-error font-label-code-sm text-label-code-sm font-semibold">
+<span class="material-symbols-outlined text-[14px]">lock_reset</span> Requiere Step-Up MFA
+              </div>
+</td>
+<td class="py-space-md px-space-md text-center">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-error-container text-on-error-container font-label-code-sm text-label-code-sm font-bold shadow-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-error animate-pulse"></span> Sensible / Alto
+              </span>
+</td>
+<td class="py-space-md px-space-md text-center">
+<div class="inline-flex items-center gap-2">
+<span class="font-label-code-md text-label-code-md bg-surface-container-high px-2 py-0.5 rounded text-on-surface font-bold">2 roles</span>
+<span class="font-label-code-md text-label-code-md bg-surface-container-high px-2 py-0.5 rounded text-on-surface font-bold">3 apps</span>
+</div>
+</td>
+<td class="py-space-md px-space-md text-right">
+<div class="flex items-center justify-end gap-space-xs">
+<button class="p-1 rounded text-outline hover:text-on-surface hover:bg-surface-container-high" title="Configurar Scope" type="button">
+<span class="material-symbols-outlined text-[18px]">tune</span>
+</button>
+<button class="p-1 rounded text-outline hover:text-error hover:bg-surface-container-high" title="Auditar Uso Reciente" type="button">
+<span class="material-symbols-outlined text-[18px]">history</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 4: audit:export (CRITICAL) -->
+<tr class="hover:bg-error-container/20 transition-colors bg-error-container/5" data-critical="high" data-resource="AUDIT" data-scope="audit:export">
+<td class="py-space-md px-space-md">
+<div class="flex items-center gap-space-xs">
+<span class="font-label-code-md text-label-code-md text-error font-bold bg-error-container px-2 py-0.5 rounded">audit:export</span>
+<button class="copy-btn text-outline hover:text-error p-0.5 rounded" title="Copiar Scope" type="button">
+<span class="material-symbols-outlined text-[16px]">content_copy</span>
+</button>
+</div>
+<span class="font-label-code-sm text-label-code-sm text-error/80 block mt-0.5">urn:nexauth:telemetry:audit.trail.dump</span>
+</td>
+<td class="py-space-md px-space-md">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[16px] text-secondary">history_edu</span>
+<span class="font-headline-sm text-headline-sm text-on-surface">Audit Stream API</span>
+</div>
+<span class="font-label-code-sm text-label-code-sm text-outline">Kinesis / SIEM Export</span>
+</td>
+<td class="py-space-md px-space-md max-w-xs">
+<p class="font-body-md text-body-md text-on-surface font-medium">Volcado por lotes de registros inmutables SOC2/HIPAA y transacciones de control administrativo.</p>
+<div class="mt-1 flex items-center gap-1 text-error font-label-code-sm text-label-code-sm font-semibold">
+<span class="material-symbols-outlined text-[14px]">shield</span> Requiere Elevación Temporal
+              </div>
+</td>
+<td class="py-space-md px-space-md text-center">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-error-container text-on-error-container font-label-code-sm text-label-code-sm font-bold shadow-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-error animate-pulse"></span> Sensible / Alto
+              </span>
+</td>
+<td class="py-space-md px-space-md text-center">
+<div class="inline-flex items-center gap-2">
+<span class="font-label-code-md text-label-code-md bg-surface-container-high px-2 py-0.5 rounded text-on-surface font-bold">1 rol</span>
+<span class="font-label-code-md text-label-code-md bg-surface-container-high px-2 py-0.5 rounded text-on-surface font-bold">1 app</span>
+</div>
+</td>
+<td class="py-space-md px-space-md text-right">
+<div class="flex items-center justify-end gap-space-xs">
+<button class="p-1 rounded text-outline hover:text-on-surface hover:bg-surface-container-high" title="Configurar Scope" type="button">
+<span class="material-symbols-outlined text-[18px]">tune</span>
+</button>
+<button class="p-1 rounded text-outline hover:text-error hover:bg-surface-container-high" title="Auditar Uso Reciente" type="button">
+<span class="material-symbols-outlined text-[18px]">history</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 5: apps:credentials:rotate (CRITICAL) -->
+<tr class="hover:bg-error-container/20 transition-colors bg-error-container/5" data-critical="high" data-resource="AUTH_CORE" data-scope="apps:credentials:rotate">
+<td class="py-space-md px-space-md">
+<div class="flex items-center gap-space-xs">
+<span class="font-label-code-md text-label-code-md text-error font-bold bg-error-container px-2 py-0.5 rounded">apps:credentials:rotate</span>
+<button class="copy-btn text-outline hover:text-error p-0.5 rounded" title="Copiar Scope" type="button">
+<span class="material-symbols-outlined text-[16px]">content_copy</span>
+</button>
+</div>
+<span class="font-label-code-sm text-label-code-sm text-error/80 block mt-0.5">urn:nexauth:core:client.secrets.rotate</span>
+</td>
+<td class="py-space-md px-space-md">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[16px] text-primary">security</span>
+<span class="font-headline-sm text-headline-sm text-on-surface">Auth Engine Core</span>
+</div>
+<span class="font-label-code-sm text-label-code-sm text-outline">KMS / Vault Keyring</span>
+</td>
+<td class="py-space-md px-space-md max-w-xs">
+<p class="font-body-md text-body-md text-on-surface font-medium">Regeneración criptográfica de Client Secrets OAuth y claves privadas asimétricas JWKS.</p>
+<div class="mt-1 flex items-center gap-1 text-error font-label-code-sm text-label-code-sm font-semibold">
+<span class="material-symbols-outlined text-[14px]">vpn_key_alert</span> Requiere Doble Aprobación
+              </div>
+</td>
+<td class="py-space-md px-space-md text-center">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-error-container text-on-error-container font-label-code-sm text-label-code-sm font-bold shadow-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-error animate-pulse"></span> Sensible / Alto
+              </span>
+</td>
+<td class="py-space-md px-space-md text-center">
+<div class="inline-flex items-center gap-2">
+<span class="font-label-code-md text-label-code-md bg-surface-container-high px-2 py-0.5 rounded text-on-surface font-bold">1 rol</span>
+<span class="font-label-code-md text-label-code-md bg-surface-container-high px-2 py-0.5 rounded text-on-surface font-bold">2 apps</span>
+</div>
+</td>
+<td class="py-space-md px-space-md text-right">
+<div class="flex items-center justify-end gap-space-xs">
+<button class="p-1 rounded text-outline hover:text-on-surface hover:bg-surface-container-high" title="Configurar Scope" type="button">
+<span class="material-symbols-outlined text-[18px]">tune</span>
+</button>
+<button class="p-1 rounded text-outline hover:text-error hover:bg-surface-container-high" title="Auditar Uso Reciente" type="button">
+<span class="material-symbols-outlined text-[18px]">history</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 6: billing:invoices:read -->
+<tr class="hover:bg-surface-container-low/70 transition-colors" data-critical="medium" data-resource="BILLING" data-scope="billing:invoices:read">
+<td class="py-space-md px-space-md">
+<div class="flex items-center gap-space-xs">
+<span class="font-label-code-md text-label-code-md text-primary font-semibold bg-surface-container px-2 py-0.5 rounded">billing:invoices:read</span>
+<button class="copy-btn text-outline hover:text-on-surface p-0.5 rounded" title="Copiar Scope" type="button">
+<span class="material-symbols-outlined text-[16px]">content_copy</span>
+</button>
+</div>
+<span class="font-label-code-sm text-label-code-sm text-outline block mt-0.5">urn:nexauth:gateway:finance.invoice.read</span>
+</td>
+<td class="py-space-md px-space-md">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[16px] text-outline">receipt_long</span>
+<span class="font-headline-sm text-headline-sm text-on-surface">Billing Gateway</span>
+</div>
+<span class="font-label-code-sm text-label-code-sm text-outline">Stripe Connect Engine</span>
+</td>
+<td class="py-space-md px-space-md max-w-xs">
+<p class="font-body-md text-body-md text-on-surface">Acceso de lectura a facturación agregada, líneas de consumo métrico y balances del tenant.</p>
+<span class="font-label-code-sm text-label-code-sm text-outline italic">Consent: "Permite ver el historial financiero y facturas"</span>
+</td>
+<td class="py-space-md px-space-md text-center">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-container text-on-surface font-label-code-sm text-label-code-sm font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span> Medio
+              </span>
+</td>
+<td class="py-space-md px-space-md text-center">
+<div class="inline-flex items-center gap-2">
+<span class="font-label-code-md text-label-code-md bg-surface-container-high px-2 py-0.5 rounded text-on-surface font-medium">3 roles</span>
+<span class="font-label-code-md text-label-code-md bg-surface-container-high px-2 py-0.5 rounded text-on-surface font-medium">7 apps</span>
+</div>
+</td>
+<td class="py-space-md px-space-md text-right">
+<div class="flex items-center justify-end gap-space-xs">
+<button class="p-1 rounded text-outline hover:text-on-surface hover:bg-surface-container-high" title="Configurar Scope" type="button">
+<span class="material-symbols-outlined text-[18px]">tune</span>
+</button>
+<button class="p-1 rounded text-outline hover:text-primary hover:bg-surface-container-high" title="Inspeccionar JSON Claim" type="button">
+<span class="material-symbols-outlined text-[18px]">code</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Table Pagination / Footer -->
+<div class="bg-surface-container-low px-space-md py-space-sm flex flex-col sm:flex-row items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm text-outline font-label-code-sm text-label-code-sm">
+<span>Mostrando 6 de 48 directivas de autorización</span>
+<span>·</span>
+<span>Validación OIDC Core 1.0 Passed</span>
+</div>
+<div class="flex items-center gap-space-xs">
+<button class="px-space-sm py-1 rounded bg-surface-container-lowest text-outline font-label-code-sm text-label-code-sm opacity-50 cursor-not-allowed" disabled="" type="button">Anterior</button>
+<span class="px-space-sm py-1 font-label-code-sm text-label-code-sm font-semibold bg-primary text-on-primary rounded">1</span>
+<button class="px-space-sm py-1 rounded bg-surface-container-lowest hover:bg-surface-container text-on-surface font-label-code-sm text-label-code-sm" type="button">2</button>
+<button class="px-space-sm py-1 rounded bg-surface-container-lowest hover:bg-surface-container text-on-surface font-label-code-sm text-label-code-sm" type="button">3</button>
+<button class="px-space-sm py-1 rounded bg-surface-container-lowest hover:bg-surface-container text-on-surface font-label-code-sm text-label-code-sm" type="button">Siguiente</button>
+</div>
+</div>
+</div>
+<!-- Deep Architectural Split Section: Live RFC Token Simulation & Quick Inspector -->
+<div class="grid grid-cols-1 xl:grid-cols-3 gap-space-lg mt-space-lg">
+<!-- Left 2 Cols: RFC Specification Drawer Preview -->
+<div class="xl:col-span-2 bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between mb-space-sm">
+<div>
+<h2 class="font-headline-md text-headline-md text-on-surface">Payload JWT / Access Token Evaluado</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Claims inyectados para el contexto delegado actual bajo RFC 9068</p>
+</div>
+<div class="flex items-center gap-space-xs bg-surface-container-high px-space-sm py-1 rounded-lg">
+<span class="w-2 h-2 rounded-full bg-tertiary"></span>
+<span class="font-label-code-sm text-label-code-sm text-on-surface">Alg: RS256 (2048-bit)</span>
+</div>
+</div>
+<!-- Inverted Terminal/Code Viewport -->
+<div class="bg-inverse-surface rounded-lg p-space-md text-inverse-on-surface font-label-code-md text-label-code-md overflow-x-auto shadow-inner">
+<div class="flex items-center justify-between pb-2 mb-2 text-outline font-label-code-sm text-label-code-sm">
+<span>HEADER + PAYLOAD VERIFICATION</span>
+<span class="text-tertiary-fixed-dim">SIGNATURE_VALIDATED</span>
+</div>
+<pre class="leading-relaxed"><code>{
+  <span class="text-secondary-fixed-dim">"iss"</span>: <span class="text-tertiary-fixed-dim">"https://auth.corp.nexauth.io/oauth/v2"</span>,
+  <span class="text-secondary-fixed-dim">"sub"</span>: <span class="text-tertiary-fixed-dim">"usr_99x82f019a84"</span>,
+  <span class="text-secondary-fixed-dim">"aud"</span>: [<span class="text-tertiary-fixed-dim">"https://api.nexauth.internal/v2/users"</span>, <span class="text-tertiary-fixed-dim">"https://vault.nexauth.internal/core"</span>],
+  <span class="text-secondary-fixed-dim">"client_id"</span>: <span class="text-tertiary-fixed-dim">"app_console_admin_production"</span>,
+  <span class="text-secondary-fixed-dim">"scope"</span>: <span class="text-on-secondary-container bg-primary/40 px-1 py-0.5 rounded font-bold">"openid profile users:read users:write tokens:revoke"</span>,
+  <span class="text-secondary-fixed-dim">"amr"</span>: [<span class="text-tertiary-fixed-dim">"pwd"</span>, <span class="text-tertiary-fixed-dim">"mfa"</span>, <span class="text-tertiary-fixed-dim">"hwk"</span>],
+  <span class="text-secondary-fixed-dim">"step_up_verified"</span>: <span class="text-primary-fixed-dim">true</span>,
+  <span class="text-secondary-fixed-dim">"exp"</span>: 1718919600,
+  <span class="text-secondary-fixed-dim">"iat"</span>: 1718916000
+}</code></pre>
+</div>
+<div class="mt-space-md flex items-center justify-between">
+<span class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-tertiary">verified_user</span>
+          Firmado por Key ID (kid): <code class="font-label-code-sm text-label-code-sm bg-surface-container px-1 rounded">k-prod-2024-east-jwk99</code>
+</span>
+<button class="text-primary hover:text-primary-container font-headline-sm text-headline-sm flex items-center gap-1" type="button">
+<span>Abrir OIDC Well-Known</span>
+<span class="material-symbols-outlined text-[16px]">open_in_new</span>
+</button>
+</div>
+</div>
+<!-- Right Col: Security Policy Engine Status -->
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col justify-between">
+<div>
+<div class="flex items-center gap-space-xs text-error font-label-caps text-label-caps uppercase">
+<span class="material-symbols-outlined text-[18px]">policy</span>
+<span>Políticas de Elevación Step-Up</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface mt-1">Reglas de Restricción Zero-Trust</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-2 leading-relaxed">
+          Los scopes marcados con criticidad alta fuerzan un handshake interactivo de segundo factor vía WebAuthn/FIDO2 si el token emitido excede 15 minutos de antigüedad.
+        </p>
+<div class="mt-space-md flex flex-col gap-space-sm">
+<div class="p-space-sm rounded-lg bg-surface-container-low flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-on-surface">Validar Contexto de Red</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Restringir scopes sensibles a VPN/CIDR</span>
+</div>
+<span class="w-3 h-3 rounded-full bg-tertiary"></span>
+</div>
+<div class="p-space-sm rounded-lg bg-surface-container-low flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-on-surface">Consentimiento de Pantalla</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">OAuth Prompt = Consent Forzado</span>
+</div>
+<span class="w-3 h-3 rounded-full bg-tertiary"></span>
+</div>
+<div class="p-space-sm rounded-lg bg-surface-container-low flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-on-surface">Rotación Instantánea JWKS</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Auto-revocación ante anomalías</span>
+</div>
+<span class="w-3 h-3 rounded-full bg-tertiary"></span>
+</div>
+</div>
+</div>
+<div class="mt-space-md pt-space-sm">
+<a class="inline-flex w-full justify-center items-center gap-space-xs py-space-sm px-space-md rounded-lg bg-surface-container text-on-surface hover:bg-surface-container-high font-headline-sm text-headline-sm transition-colors" href="#">
+<span>Gestionar Matriz de Seguridad</span>
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+</a>
+</div>
+</div>
+</div>
+<!-- Inline/Modal Panel: Registrar Nuevo Permiso (Hidden by default, interactive) -->
+<div class="fixed inset-0 bg-inverse-surface/40 backdrop-blur-sm z-50 flex items-center justify-center p-space-md hidden" id="register-permission-modal">
+<div class="bg-surface-container-lowest rounded-xl shadow-2xl max-w-2xl w-full overflow-hidden flex flex-col animate-in fade-in zoom-in-95 duration-150">
+<!-- Modal Header -->
+<div class="p-space-lg bg-surface-container-low flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-9 h-9 rounded-lg bg-primary-container text-on-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]">add_moderator</span>
+</div>
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface">Registrar Permiso / Scope OAuth2</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Define una nueva aserción técnica conforme a RFC 6749 y RFC 7519</p>
+</div>
+</div>
+<button class="text-outline hover:text-on-surface p-1 rounded-lg hover:bg-surface-container-high transition-colors" id="close-modal-btn" type="button">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<!-- Form Body -->
+<form class="p-space-lg flex flex-col gap-space-md" id="permission-form">
+<!-- API Resource Server Select -->
+<div class="flex flex-col gap-1">
+<label class="font-headline-sm text-headline-sm text-on-surface" for="resource-server-select">API / Recurso Destino</label>
+<select class="bg-surface-container-low text-on-surface font-body-md text-body-md rounded-lg px-3 py-2 focus:outline-none focus:ring-1 focus:ring-primary shadow-sm" id="resource-server-select" required="">
+<option value="USER_MGMT">User Management API (https://api.nexauth.corp/v2/users)</option>
+<option value="BILLING">Billing Gateway (https://billing.nexauth.corp/gateway)</option>
+<option value="AUDIT">Audit Stream API (https://audit.nexauth.corp/stream)</option>
+<option value="AUTH_CORE">Auth Engine Core (https://auth.corp.nexauth.io/core)</option>
+</select>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Resource Server que evaluará la validez del scope durante la introspección.</span>
+</div>
+<!-- Scope RFC Identifier -->
+<div class="flex flex-col gap-1">
+<label class="font-headline-sm text-headline-sm text-on-surface" for="scope-identifier">Identificador RFC del Scope</label>
+<div class="relative">
+<input class="w-full bg-surface-container-low font-label-code-md text-label-code-md text-on-surface rounded-lg px-3 py-2 focus:outline-none focus:ring-1 focus:ring-primary shadow-sm placeholder:text-outline" id="scope-identifier" placeholder="ej. users:profile:delete o audit:read:sensitive" required="" type="text"/>
+</div>
+<span class="font-label-code-sm text-label-code-sm text-outline">Formato canónico recomendado: [recurso]:[acción] o [recurso]:[entidad]:[operación]</span>
+</div>
+<!-- User Consent Description -->
+<div class="flex flex-col gap-1">
+<label class="font-headline-sm text-headline-sm text-on-surface" for="consent-description">Descripción para Consentimiento OAuth (User Prompt)</label>
+<textarea class="w-full bg-surface-container-low font-body-md text-body-md text-on-surface rounded-lg px-3 py-2 focus:outline-none focus:ring-1 focus:ring-primary shadow-sm placeholder:text-outline" id="consent-description" placeholder="Texto presentado al usuario en la pantalla de autorización OAuth..." required="" rows="2"></textarea>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Claridad obligatoria bajo directivas de consentimiento GDPR / CCPA.</span>
+</div>
+<!-- Criticality Level Selection -->
+<div class="flex flex-col gap-1">
+<label class="font-headline-sm text-headline-sm text-on-surface">Nivel de Criticidad Operacional</label>
+<div class="grid grid-cols-3 gap-space-sm mt-1">
+<label class="flex items-center gap-space-xs p-space-sm rounded-lg bg-surface-container-low cursor-pointer hover:bg-surface-container">
+<input checked="" class="text-primary focus:ring-0" name="criticality" type="radio" value="low"/>
+<span class="font-body-md text-body-md text-on-surface font-medium">Bajo</span>
+</label>
+<label class="flex items-center gap-space-xs p-space-sm rounded-lg bg-surface-container-low cursor-pointer hover:bg-surface-container">
+<input class="text-primary focus:ring-0" name="criticality" type="radio" value="medium"/>
+<span class="font-body-md text-body-md text-on-surface font-medium">Medio</span>
+</label>
+<label class="flex items-center gap-space-xs p-space-sm rounded-lg bg-surface-container-low cursor-pointer hover:bg-surface-container">
+<input class="text-error focus:ring-0" name="criticality" type="radio" value="high"/>
+<span class="font-body-md text-body-md text-error font-bold">Alto / Sensible</span>
+</label>
+</div>
+</div>
+<!-- Step-up MFA Checkbox Toggle -->
+<div class="p-space-md rounded-lg bg-surface-container-low flex items-start gap-space-sm mt-1">
+<input class="mt-1 h-4 w-4 text-primary rounded focus:ring-0 cursor-pointer" id="step-up-toggle" type="checkbox"/>
+<div class="flex flex-col cursor-pointer" onclick="document.getElementById('step-up-toggle').click()">
+<span class="font-headline-sm text-headline-sm text-on-surface flex items-center gap-1">
+              Requiere elevación de privilegios (Step-up MFA)
+              <span class="material-symbols-outlined text-[16px] text-error">lock</span>
+</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">
+              Invalida claims heredados; el usuario o servicio consumidor deberá suministrar un assert FIDO2 reciente (&lt; 5 min) o reautenticación criptográfica.
+            </span>
+</div>
+</div>
+<!-- Modal Actions Footer -->
+<div class="flex items-center justify-end gap-space-sm pt-space-sm">
+<button class="px-space-md py-space-sm rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-headline-sm text-headline-sm transition-colors" id="cancel-modal-btn" type="button">
+            Cancelar
+          </button>
+<button class="px-space-lg py-space-sm rounded-lg bg-primary hover:bg-primary-container text-on-primary font-headline-sm text-headline-sm transition-all shadow-md" type="submit">
+            Registrar e Indexar Scope
+          </button>
+</div>
+</form>
+</div>
+</div>
+</div>
+<script>
+  // Filter by Resource Server Pills
+  const resourcePills = document.querySelectorAll('.resource-pill');
+  const tableRows = document.querySelectorAll('#table-body tr');
+  const searchInput = document.getElementById('scope-search-input');
+  const criticalToggleBtn = document.getElementById('toggle-critical-only');
+  let onlyCritical = false;
+
+  function applyFilters() {
+    const activePill = document.querySelector('.resource-pill.active');
+    const selectedResource = activePill ? activePill.getAttribute('data-resource') : 'ALL';
+    const searchQuery = (searchInput.value || '').trim().toLowerCase();
+
+    tableRows.forEach(row => {
+      const rowResource = row.getAttribute('data-resource');
+      const rowCritical = row.getAttribute('data-critical');
+      const rowScope = (row.getAttribute('data-scope') || '').toLowerCase();
+      const textContent = row.textContent.toLowerCase();
+
+      const matchesResource = (selectedResource === 'ALL') || (rowResource === selectedResource);
+      const matchesSearch = !searchQuery || rowScope.includes(searchQuery) || textContent.includes(searchQuery);
+      const matchesCritical = !onlyCritical || (rowCritical === 'high');
+
+      if (matchesResource && matchesSearch && matchesCritical) {
+        row.style.display = '';
+      } else {
+        row.style.display = 'none';
+      }
+    });
+  }
+
+  resourcePills.forEach(pill => {
+    pill.addEventListener('click', () => {
+      resourcePills.forEach(p => {
+        p.classList.remove('active', 'bg-primary', 'text-on-primary');
+        p.classList.add('bg-surface-container', 'text-on-surface');
+      });
+      pill.classList.add('active', 'bg-primary', 'text-on-primary');
+      pill.classList.remove('bg-surface-container', 'text-on-surface');
+      applyFilters();
+    });
+  });
+
+  searchInput.addEventListener('input', applyFilters);
+
+  criticalToggleBtn.addEventListener('click', () => {
+    onlyCritical = !onlyCritical;
+    if (onlyCritical) {
+      criticalToggleBtn.classList.remove('bg-surface-container-low', 'text-on-surface');
+      criticalToggleBtn.classList.add('bg-error', 'text-on-error');
+    } else {
+      criticalToggleBtn.classList.add('bg-surface-container-low', 'text-on-surface');
+      criticalToggleBtn.classList.remove('bg-error', 'text-on-error');
+    }
+    applyFilters();
+  });
+
+  // Modal Visibility Interactions
+  const modal = document.getElementById('register-permission-modal');
+  const openModalBtn = document.getElementById('open-register-modal');
+  const closeModalBtn = document.getElementById('close-modal-btn');
+  const cancelModalBtn = document.getElementById('cancel-modal-btn');
+  const permForm = document.getElementById('permission-form');
+
+  function openModal() {
+    modal.classList.remove('hidden');
+    document.getElementById('scope-identifier').focus();
+  }
+
+  function closeModal() {
+    modal.classList.add('hidden');
+  }
+
+  openModalBtn.addEventListener('click', openModal);
+  closeModalBtn.addEventListener('click', closeModal);
+  cancelModalBtn.addEventListener('click', closeModal);
+
+  // Close modal when clicking on backdrop
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) closeModal();
+  });
+
+  // Quick Copy to Clipboard Notification
+  const copyButtons = document.querySelectorAll('.copy-btn');
+  copyButtons.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const scopeTag = btn.parentElement.querySelector('span');
+      if (scopeTag) {
+        navigator.clipboard.writeText(scopeTag.textContent.trim());
+        const originalHTML = btn.innerHTML;
+        btn.innerHTML = '<span class="material-symbols-outlined text-[16px] text-tertiary">done</span>';
+        setTimeout(() => {
+          btn.innerHTML = originalHTML;
+        }, 1400);
+      }
+    });
+  });
+
+  // Export Spec Interaction
+  const exportBtn = document.getElementById('export-spec-btn');
+  exportBtn.addEventListener('click', () => {
+    const spec = {
+      issuer: "https://auth.corp.nexauth.io/oauth/v2",
+      scopes_supported: ["openid", "profile", "users:read", "users:write", "tokens:revoke", "audit:export", "apps:credentials:rotate", "billing:invoices:read"],
+      claims_supported: ["sub", "iss", "aud", "scope", "step_up_verified"],
+      response_types_supported: ["code", "token"],
+      grant_types_supported: ["authorization_code", "client_credentials", "refresh_token"]
+    };
+    const blob = new Blob([JSON.stringify(spec, null, 2)], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'openid-configuration-nexauth.json';
+    a.click();
+    URL.revokeObjectURL(url);
+  });
+
+  // Form Submission Handling (Appends optimistic row)
+  permForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const scopeId = document.getElementById('scope-identifier').value.trim();
+    const consent = document.getElementById('consent-description').value.trim();
+    const resourceSelect = document.getElementById('resource-server-select');
+    const resourceVal = resourceSelect.value;
+    const resourceText = resourceSelect.options[resourceSelect.selectedIndex].text.split(' (')[0];
+    const criticality = document.querySelector('input[name="criticality"]:checked').value;
+    const stepUp = document.getElementById('step-up-toggle').checked;
+
+    const tbody = document.getElementById('table-body');
+    const tr = document.createElement('tr');
+    tr.className = `hover:bg-surface-container-low/70 transition-colors ${criticality === 'high' ? 'bg-error-container/5' : ''}`;
+    tr.setAttribute('data-resource', resourceVal);
+    tr.setAttribute('data-critical', criticality);
+    tr.setAttribute('data-scope', scopeId);
+
+    const isHigh = criticality === 'high';
+    const critBadge = isHigh
+      ? '<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-error-container text-on-error-container font-label-code-sm text-label-code-sm font-bold shadow-sm"><span class="w-1.5 h-1.5 rounded-full bg-error animate-pulse"></span> Sensible / Alto</span>'
+      : (criticality === 'medium'
+          ? '<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-container text-on-surface font-label-code-sm text-label-code-sm font-semibold"><span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span> Medio</span>'
+          : '<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-container text-tertiary font-label-code-sm text-label-code-sm font-semibold"><span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span> Bajo</span>');
+
+    tr.innerHTML = `
+      <td class="py-space-md px-space-md">
+        <div class="flex items-center gap-space-xs">
+          <span class="font-label-code-md text-label-code-md ${isHigh ? 'text-error font-bold bg-error-container' : 'text-primary font-semibold bg-surface-container'} px-2 py-0.5 rounded">${scopeId}</span>
+          <button type="button" class="copy-btn text-outline hover:text-on-surface p-0.5 rounded" title="Copiar Scope">
+            <span class="material-symbols-outlined text-[16px]">content_copy</span>
+          </button>
+        </div>
+        <span class="font-label-code-sm text-label-code-sm text-outline block mt-0.5">urn:nexauth:${scopeId.replace(/:/g, '.')}</span>
+      </td>
+      <td class="py-space-md px-space-md">
+        <div class="flex items-center gap-space-xs">
+          <span class="material-symbols-outlined text-[16px] text-tertiary">dns</span>
+          <span class="font-headline-sm text-headline-sm text-on-surface">${resourceText}</span>
+        </div>
+        <span class="font-label-code-sm text-label-code-sm text-outline">Recurso Registrado</span>
+      </td>
+      <td class="py-space-md px-space-md max-w-xs">
+        <p class="font-body-md text-body-md text-on-surface">${consent}</p>
+        ${stepUp ? '<div class="mt-1 flex items-center gap-1 text-error font-label-code-sm text-label-code-sm font-semibold"><span class="material-symbols-outlined text-[14px]">lock</span> Requiere Step-Up MFA</div>' : ''}
+      </td>
+      <td class="py-space-md px-space-md text-center">
+        ${critBadge}
+      </td>
+      <td class="py-space-md px-space-md text-center">
+        <div class="inline-flex items-center gap-2">
+          <span class="font-label-code-md text-label-code-md bg-surface-container-high px-2 py-0.5 rounded text-on-surface font-medium">0 roles</span>
+          <span class="font-label-code-md text-label-code-md bg-surface-container-high px-2 py-0.5 rounded text-on-surface font-medium">0 apps</span>
+        </div>
+      </td>
+      <td class="py-space-md px-space-md text-right">
+        <div class="flex items-center justify-end gap-space-xs">
+          <button type="button" class="p-1 rounded text-outline hover:text-on-surface hover:bg-surface-container-high" title="Configurar Scope">
+            <span class="material-symbols-outlined text-[18px]">tune</span>
+          </button>
+          <button type="button" class="p-1 rounded text-outline hover:text-primary hover:bg-surface-container-high" title="Inspeccionar">
+            <span class="material-symbols-outlined text-[18px]">code</span>
+          </button>
+        </div>
+      </td>
+    `;
+
+    tbody.prepend(tr);
+    permForm.reset();
+    closeModal();
+    applyFilters();
+  });
+</script></main></div></body></html>
