@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={"darkMode":"class","theme":{"extend":{"colors":{"surface-dim":"#d2d9f4","background":"#faf8ff","surface-container-lowest":"#ffffff","secondary-fixed-dim":"#c0c1ff","on-primary-container":"#dad7ff","surface-container-highest":"#dae2fd","surface-container-low":"#f2f3ff","inverse-surface":"#283044","inverse-primary":"#c3c0ff","on-tertiary-fixed":"#002113","secondary-container":"#6063ee","on-surface":"#131b2e","primary":"#3525cd","surface-bright":"#faf8ff","surface-variant":"#dae2fd","error-container":"#ffdad6","primary-fixed-dim":"#c3c0ff","secondary":"#4648d4","surface":"#faf8ff","on-secondary-container":"#fffbff","on-secondary":"#ffffff","primary-container":"#4f46e5","tertiary-fixed-dim":"#4edea3","tertiary-fixed":"#6ffbbe","inverse-on-surface":"#eef0ff","on-error":"#ffffff","on-primary":"#ffffff","on-tertiary-fixed-variant":"#005236","on-primary-fixed-variant":"#3323cc","on-primary-fixed":"#0f0069","primary-fixed":"#e2dfff","on-error-container":"#93000a","outline":"#777587","error":"#ba1a1a","tertiary-container":"#006e4b","on-background":"#131b2e","on-secondary-fixed":"#07006c","tertiary":"#005338","on-tertiary":"#ffffff","surface-container":"#eaedff","outline-variant":"#c7c4d8","on-tertiary-container":"#67f4b7","on-secondary-fixed-variant":"#2f2ebe","surface-container-high":"#e2e7ff","surface-tint":"#4d44e3","on-surface-variant":"#464555","secondary-fixed":"#e1e0ff"},"borderRadius":{"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"},"spacing":{"margin":"1rem","space-sm":"0.5rem","space-xl":"2rem","space-lg":"1.25rem","space-md":"0.75rem","margin-desktop":"2rem","gutter-desktop":"1.5rem","gutter":"1rem","space-xs":"0.25rem"},"fontFamily":{"body-lg":["Inter"],"body-sm":["Inter"],"label-code-lg":["JetBrains Mono"],"label-code-md":["JetBrains Mono"],"headline-xl":["Inter"],"headline-sm":["Inter"],"body-md":["Inter"],"label-code-sm":["JetBrains Mono"],"label-caps":["Inter"],"headline-lg":["Inter"],"headline-xl-mobile":["Inter"],"headline-md":["Inter"]},"fontSize":{"body-lg":["15px",{"lineHeight":"22px","fontWeight":"400"}],"body-sm":["12px",{"lineHeight":"16px","fontWeight":"400"}],"label-code-lg":["13px",{"lineHeight":"18px","fontWeight":"500"}],"label-code-md":["12px",{"lineHeight":"16px","fontWeight":"500"}],"headline-xl":["30px",{"lineHeight":"38px","letterSpacing":"-0.02em","fontWeight":"700"}],"headline-sm":["15px",{"lineHeight":"20px","letterSpacing":"-0.005em","fontWeight":"600"}],"body-md":["13px",{"lineHeight":"18px","fontWeight":"400"}],"label-code-sm":["11px",{"lineHeight":"14px","fontWeight":"400"}],"label-caps":["11px",{"lineHeight":"14px","letterSpacing":"0.05em","fontWeight":"600"}],"headline-lg":["22px",{"lineHeight":"28px","letterSpacing":"-0.015em","fontWeight":"600"}],"headline-xl-mobile":["24px",{"lineHeight":"32px","letterSpacing":"-0.015em","fontWeight":"700"}],"headline-md":["18px",{"lineHeight":"24px","letterSpacing":"-0.01em","fontWeight":"600"}]}}}}</script></head><body class="bg-background font-body-md text-on-surface antialiased"><aside class="fixed left-0 top-0 h-full w-64 bg-surface-container-low z-50 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="flex flex-col"><div class="h-16 px-space-md flex items-center gap-space-sm bg-surface-container-low"><img alt="NexAuth Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1W5sWrYLwg4JJdSnB-yQ8_7vM2Uml6B3LfgUBHy2335817tjlcSC0TYKmzNOKRXmlPfjO7jCDwKleR_b1H1oVrmBP3_2PBJSqG2Cuvlfy3oGqKqecvdQR5jMKZ8D6pmFZgsbplLS-jWzgFrakZjTfCGWcPIV8CRKmVjUZla4BHxCLaOygQuTwue76aCxOK_DbLFw9qj96fFSJ9w6YO7DBjljFX-ga2k-bg2R306ENdR_7u9JnXG0TXuQYA"/><div class="flex flex-col"><span class="font-headline-sm text-headline-sm text-on-surface leading-tight tracking-tight">NexAuth</span><span class="font-label-caps text-label-caps text-outline uppercase tracking-wider">IAM Console</span></div></div><div class="px-space-md py-space-sm"><div class="flex items-center justify-between px-space-sm py-space-xs bg-surface-container-lowest rounded-lg shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="flex items-center gap-space-xs"><span class="w-2 h-2 rounded-full bg-tertiary-container"></span><span class="font-label-code-sm text-label-code-sm text-on-surface font-medium">Production</span><span class="text-outline font-label-code-sm text-label-code-sm">·</span><span class="font-label-code-sm text-label-code-sm text-on-surface-variant">us-east-1</span></div><span class="material-symbols-outlined text-[16px] text-outline">unfold_more</span></div></div><div class="px-space-md py-space-xs"><button class="w-full flex items-center justify-between px-space-sm py-space-xs rounded-lg bg-surface-container-high text-on-surface-variant hover:text-on-surface transition-colors" type="button"><div class="flex items-center gap-space-xs"><span class="material-symbols-outlined text-[18px]">search</span><span class="font-body-sm text-body-sm">Search IAM...</span></div><kbd class="font-label-code-sm text-label-code-sm bg-surface-container-lowest text-on-surface-variant px-1 rounded shadow-[0_1px_8px_rgba(0,0,0,0.04)]">⌘K</kbd></button></div><nav class="flex flex-col gap-space-xs px-space-sm mt-space-sm overflow-y-auto" data-active-classes="bg-primary-container text-on-primary font-headline-sm rounded-lg"><a class="flex items-center px-space-md py-space-sm rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="dashboard" href="#">Dashboard</a><a class="flex items-center px-space-md py-space-sm rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="users" href="#">Users</a><a class="flex items-center px-space-md py-space-sm rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="roles" href="#">Roles</a><a class="flex items-center px-space-md py-space-sm rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="permissions" href="#">Permissions</a><a class="flex items-center px-space-md py-space-sm rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="applications" href="#">Applications</a><a class="flex items-center px-space-md py-space-sm rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="api-keys" href="#">API Keys</a><a class="flex items-center px-space-md py-space-sm rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="sessions" href="#">Sessions</a><a class="flex items-center px-space-md py-space-sm rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="audit-logs" href="#">Audit Logs</a><a class="flex items-center px-space-md py-space-sm rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="security" href="#">Security</a><a aria-current="page" class="flex items-center px-space-md py-space-sm transition-colors bg-primary-container text-on-primary font-headline-sm rounded-lg" data-path="settings" href="#">Settings</a></nav></div><div class="p-space-md bg-surface-container-low"><div class="p-space-sm bg-surface-container-lowest rounded-lg shadow-[0_1px_8px_rgba(0,0,0,0.04)] flex flex-col gap-space-xs"><div class="flex items-center justify-between"><span class="font-label-caps text-label-caps uppercase text-outline">System Status</span><span class="font-label-code-sm text-label-code-sm text-tertiary-container font-medium">Operational</span></div><div class="w-full bg-surface-container-high h-1 rounded-full overflow-hidden"><div class="bg-tertiary-container h-full w-full"></div></div><span class="font-label-code-sm text-label-code-sm text-on-surface-variant">v4.18.2-core</span></div></div></aside><div class="pl-64"><header class="fixed top-0 left-64 right-0 h-16 bg-surface-container-lowest/90 backdrop-blur-xl z-40 shadow-[0_1px_8px_rgba(0,0,0,0.04)] flex items-center justify-between px-space-lg"><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs bg-surface-container-low px-space-sm py-space-xs rounded-lg"><span class="material-symbols-outlined text-[18px] text-outline">corporate_fare</span><span class="font-label-code-md text-label-code-md text-on-surface font-medium">nexauth-corp-prod</span><span class="material-symbols-outlined text-[16px] text-outline">expand_more</span></div><div class="hidden lg:flex items-center gap-space-xs text-outline font-body-sm text-body-sm"><span class="w-1 h-1 rounded-full bg-outline-variant"></span><span>Region: AWS us-east-1</span></div></div><div class="flex items-center gap-space-lg"><nav class="hidden md:flex items-center gap-space-md" data-active-classes="bg-primary-container text-on-primary font-headline-sm rounded-lg"><a class="font-body-md text-body-md text-on-surface-variant hover:text-on-surface transition-colors" data-path="documentation" href="#">Documentation</a><a class="font-body-md text-body-md text-on-surface-variant hover:text-on-surface transition-colors" data-path="compliance-audit" href="#">Compliance</a></nav><div class="relative flex items-center"><button class="p-space-xs rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" type="button"><span class="material-symbols-outlined text-[20px]">notifications</span></button><span class="absolute top-1 right-1 w-2 h-2 rounded-full bg-error"></span></div><div class="flex items-center gap-space-sm pl-space-sm"><div class="flex flex-col items-end hidden sm:flex"><span class="font-headline-sm text-headline-sm text-on-surface leading-tight">Sofia Alarcón</span><span class="font-label-caps text-label-caps text-on-surface-variant">Security Admin</span></div><img alt="Profile" class="w-8 h-8 rounded-full object-cover shadow-[0_1px_8px_rgba(0,0,0,0.04)]" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAj5efYoLCU1do6orPnp83hEjsQKp0d-6VUsT60s0bKTwrA1trGDs3N6K8PkpuTuLiA3ze6lbWrFEusMkd-yVvqmc4LaLnlMVWA_xGkSdfaZygRhjsZh-FbrWI3z_xRF_vz03l0deWZg67b2jrUA2zHhN_c7xbXaHCetwDHKF4bBiz3vf2tSaCdbrUZSSzduHjG2o-o_VkdWDnJcfbNRRmq84ENzcD0TDnzWRkypcB0aEu8eI7_OpOj"/></div></div></header><main class="relative w-full pt-16 bg-background px-gutter-desktop min-h-screen"><div class="flex flex-col w-full pb-space-xl">
+<!-- Page Header Banner & Context -->
+<div class="flex flex-col gap-space-sm pt-space-md mb-space-lg">
+<div class="flex flex-wrap items-center justify-between gap-space-md">
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs text-outline font-label-code-sm text-label-code-sm uppercase tracking-wider mb-1">
+<span>Configuración Core</span>
+<span>/</span>
+<span class="text-primary font-medium">Tenant Global</span>
+</div>
+<h1 class="font-headline-xl text-headline-xl text-on-surface">Configuración del Tenant &amp; Plataforma</h1>
+<p class="font-body-md text-body-md text-on-surface-variant mt-0.5">Administra identidades multi-región, políticas de tokens y transporte criptográfico SMTP.</p>
+</div>
+<!-- Quick Status Badges & Global Action -->
+<div class="flex items-center gap-space-sm">
+<div class="hidden sm:flex items-center gap-space-xs px-space-md py-space-xs rounded-lg bg-surface-container-low shadow-sm">
+<span class="w-2 h-2 rounded-full bg-tertiary-container animate-pulse"></span>
+<span class="font-label-code-sm text-label-code-sm text-on-surface font-medium">Sincronizado</span>
+<span class="text-outline text-label-code-sm">·</span>
+<span class="font-label-code-sm text-label-code-sm text-on-surface-variant">Cluster East-Primary</span>
+</div>
+<button class="flex items-center gap-space-xs px-space-md py-space-sm rounded-lg bg-primary-container text-on-primary hover:bg-secondary-container transition-all shadow-sm font-headline-sm text-headline-sm" id="topSaveBtn">
+<span class="material-symbols-outlined text-[18px]">save</span>
+<span>Guardar Cambios</span>
+</button>
+</div>
+</div>
+<!-- Secondary Tab Bar -->
+<nav class="flex items-center gap-space-xs bg-surface-container-low p-1.5 rounded-xl shadow-sm mt-space-sm overflow-x-auto">
+<button class="flex items-center gap-space-xs px-space-md py-space-sm rounded-lg bg-surface-container-lowest text-primary font-headline-sm text-headline-sm shadow-sm transition-all" type="button">
+<span class="material-symbols-outlined text-[18px]">tune</span>
+<span>General</span>
+<span class="ml-1 px-1.5 py-0.5 rounded-full text-[10px] font-label-code-sm bg-primary-fixed text-on-primary-fixed">Activo</span>
+</button>
+<button class="flex items-center gap-space-xs px-space-md py-space-sm rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high font-headline-sm text-headline-sm transition-all" type="button">
+<span class="material-symbols-outlined text-[18px]">shield</span>
+<span>Seguridad Global</span>
+</button>
+<button class="flex items-center gap-space-xs px-space-md py-space-sm rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high font-headline-sm text-headline-sm transition-all" type="button">
+<span class="material-symbols-outlined text-[18px]">phonelink_lock</span>
+<span>MFA &amp; Factores</span>
+</button>
+<button class="flex items-center gap-space-xs px-space-md py-space-sm rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high font-headline-sm text-headline-sm transition-all" type="button">
+<span class="material-symbols-outlined text-[18px]">mark_email_read</span>
+<span>Email &amp; Notificaciones (SMTP)</span>
+</button>
+</nav>
+</div>
+<!-- Main Content Grid -->
+<div class="grid grid-cols-1 xl:grid-cols-12 gap-gutter-desktop items-start">
+<!-- Left Column: Core Configuration Sections (7 cols) -->
+<div class="xl:col-span-7 flex flex-col gap-space-lg">
+<!-- Section 1: Identidad del Tenant -->
+<section class="bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden flex flex-col">
+<div class="px-space-lg py-space-md bg-surface-container-low/60 flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-[20px] text-primary">domain</span>
+<div class="flex flex-col">
+<h2 class="font-headline-md text-headline-md text-on-surface">Identidad del Tenant</h2>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Metadatos primarios y direccionamiento federado de autenticación</span>
+</div>
+</div>
+<span class="px-space-sm py-0.5 rounded-full bg-surface-container font-label-code-sm text-label-code-sm text-on-surface-variant">ID: 01-CORE</span>
+</div>
+<div class="p-space-lg flex flex-col gap-space-md">
+<!-- Org Name -->
+<div class="flex flex-col gap-1.5">
+<label class="font-headline-sm text-headline-sm text-on-surface flex items-center justify-between">
+<span>Nombre de la Organización</span>
+<span class="font-label-caps text-label-caps text-outline uppercase">Requerido</span>
+</label>
+<input class="w-full bg-surface-container-low text-on-surface font-body-md text-body-md px-space-md py-2 rounded-lg focus:bg-surface-container-lowest focus:outline-none transition-all shadow-sm" placeholder="Ingresa el nombre del tenant..." type="text" value="Acme Corp Identity"/>
+</div>
+<!-- Tenant ID with Click to Copy -->
+<div class="flex flex-col gap-1.5">
+<label class="font-headline-sm text-headline-sm text-on-surface flex items-center justify-between">
+<span>Tenant Identifier (CUID)</span>
+<span class="font-label-caps text-label-caps text-tertiary font-medium">Inmutable</span>
+</label>
+<div class="flex items-center justify-between px-space-md py-2 bg-surface-container-low rounded-lg shadow-sm">
+<div class="flex items-center gap-space-xs font-label-code-md text-label-code-md text-on-surface font-medium">
+<span class="material-symbols-outlined text-[16px] text-outline">key</span>
+<span id="tenantIdVal">tenant_nex_849204</span>
+</div>
+<button class="font-label-code-sm text-label-code-sm px-space-sm py-1 rounded bg-surface-container-lowest text-primary hover:bg-primary hover:text-on-primary transition-colors shadow-sm" onclick="navigator.clipboard.writeText('tenant_nex_849204'); this.innerText='Copiado!'; setTimeout(()=&gt;this.innerText='Copiar', 1500);" type="button">Copiar</button>
+</div>
+</div>
+<!-- Custom Domain with Verified SSL Badge -->
+<div class="flex flex-col gap-1.5">
+<label class="font-headline-sm text-headline-sm text-on-surface flex items-center justify-between">
+<span>Dominio Personalizado (Custom Domain)</span>
+<span class="font-label-code-sm text-label-code-sm text-on-surface-variant">CNAME auth-ingress.nexauth.io</span>
+</label>
+<div class="grid grid-cols-1 sm:grid-cols-12 gap-space-xs items-center">
+<div class="sm:col-span-8 flex items-center bg-surface-container-low rounded-lg px-space-md py-2 shadow-sm">
+<span class="font-label-code-sm text-label-code-sm text-outline select-none">https://</span>
+<input class="bg-transparent text-on-surface font-label-code-md text-label-code-md ml-1 w-full focus:outline-none" type="text" value="auth.acme.com"/>
+</div>
+<div class="sm:col-span-4 flex items-center justify-center gap-1.5 px-space-sm py-2 rounded-lg bg-tertiary/10 text-tertiary font-headline-sm text-headline-sm">
+<span class="w-2 h-2 rounded-full bg-tertiary animate-ping"></span>
+<span class="material-symbols-outlined text-[16px]">verified</span>
+<span>SSL Verificado</span>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-outline mt-1">Certificado Wildcard Cloudflare Auto-Managed emitido hasta el 12 de Marzo de 2026.</p>
+</div>
+</div>
+</section>
+<!-- Section 2: Ajustes de Sesión & Token -->
+<section class="bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden flex flex-col">
+<div class="px-space-lg py-space-md bg-surface-container-low/60 flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-[20px] text-primary">timelapse</span>
+<div class="flex flex-col">
+<h2 class="font-headline-md text-headline-md text-on-surface">Ajustes de Sesión &amp; Token</h2>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Parámetros de expiración, revocación activa y concurrencia segura</span>
+</div>
+</div>
+<span class="px-space-sm py-0.5 rounded-full bg-surface-container font-label-code-sm text-label-code-sm text-on-surface-variant">JWT RS256</span>
+</div>
+<div class="p-space-lg flex flex-col gap-space-lg">
+<!-- Token Metrics Mini Cards -->
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-space-md">
+<div class="p-space-md rounded-lg bg-surface-container-low flex flex-col gap-1">
+<span class="font-label-caps text-label-caps text-outline uppercase">Vida de Access Token</span>
+<div class="flex items-baseline gap-1 mt-1">
+<span class="font-headline-lg text-headline-lg text-primary">60</span>
+<span class="font-headline-sm text-headline-sm text-on-surface-variant">minutos</span>
+</div>
+<span class="font-body-sm text-body-sm text-outline">Reexpedición vía Refresh</span>
+</div>
+<div class="p-space-md rounded-lg bg-surface-container-low flex flex-col gap-1">
+<span class="font-label-caps text-label-caps text-outline uppercase">Idle Timeout</span>
+<div class="flex items-baseline gap-1 mt-1">
+<span class="font-headline-lg text-headline-lg text-on-surface">15</span>
+<span class="font-headline-sm text-headline-sm text-on-surface-variant">minutos</span>
+</div>
+<span class="font-body-sm text-body-sm text-outline">Inactividad por usuario</span>
+</div>
+<div class="p-space-md rounded-lg bg-surface-container-low flex flex-col gap-1">
+<span class="font-label-caps text-label-caps text-outline uppercase">Máx. Concurrencia</span>
+<div class="flex items-baseline gap-1 mt-1">
+<span class="font-headline-lg text-headline-lg text-on-surface">3</span>
+<span class="font-headline-sm text-headline-sm text-on-surface-variant">dispositivos</span>
+</div>
+<span class="font-body-sm text-body-sm text-outline">Revocación First-Out</span>
+</div>
+</div>
+<!-- Controls Rows -->
+<div class="flex flex-col gap-space-md">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm pb-space-sm bg-surface-container-low/30 p-space-sm rounded-lg">
+<div>
+<p class="font-headline-sm text-headline-sm text-on-surface">Access Token TTL</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Vigencia del token stateless portado por cabecera Bearer.</p>
+</div>
+<div class="flex items-center gap-space-xs">
+<input class="w-20 px-space-sm py-1.5 text-center bg-surface-container-lowest text-on-surface font-label-code-md text-label-code-md rounded-lg shadow-sm" max="1440" min="5" type="number" value="60"/>
+<select class="px-space-sm py-1.5 bg-surface-container-lowest text-on-surface font-body-sm text-body-sm rounded-lg shadow-sm focus:outline-none">
+<option selected="">Minutos</option>
+<option>Horas</option>
+</select>
+</div>
+</div>
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm pb-space-sm bg-surface-container-low/30 p-space-sm rounded-lg">
+<div>
+<p class="font-headline-sm text-headline-sm text-on-surface">Idle Session Timeout</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Cierre automático de sesión sin eventos de cursor o requests.</p>
+</div>
+<div class="flex items-center gap-space-xs">
+<input class="w-20 px-space-sm py-1.5 text-center bg-surface-container-lowest text-on-surface font-label-code-md text-label-code-md rounded-lg shadow-sm" max="180" min="1" type="number" value="15"/>
+<span class="font-body-sm text-body-sm text-on-surface-variant px-space-xs">Minutos</span>
+</div>
+</div>
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm pb-space-sm bg-surface-container-low/30 p-space-sm rounded-lg">
+<div>
+<p class="font-headline-sm text-headline-sm text-on-surface">Sesiones Simultáneas Concurrentes</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Límite por usuario para mitigar filtración de credenciales.</p>
+</div>
+<div class="flex items-center gap-space-xs">
+<select class="px-space-md py-1.5 bg-surface-container-lowest text-on-surface font-body-sm text-body-sm rounded-lg shadow-sm focus:outline-none">
+<option>1 (Estricto)</option>
+<option selected="">3 (Recomendado)</option>
+<option>5 (Flexible)</option>
+<option>Ilimitadas</option>
+</select>
+</div>
+</div>
+<!-- Single Sign-Out Toggle -->
+<div class="flex items-center justify-between p-space-md bg-surface-container-low rounded-lg">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-[20px] text-tertiary">lock_reset</span>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-on-surface">Revocación Global en Cascada (Backchannel Logout)</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Notifica a todos los clientes OIDC federados al cerrar sesión activa.</span>
+</div>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-10 h-6 bg-surface-container-high peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-container"></div>
+</label>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Right Column: Email SMTP, Templates, System Health (5 cols) -->
+<div class="xl:col-span-5 flex flex-col gap-space-lg">
+<!-- Section 3: Configuración de Email & Plantillas (SMTP) -->
+<section class="bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden flex flex-col">
+<div class="px-space-lg py-space-md bg-surface-container-low/60 flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-[20px] text-primary">forward_to_inbox</span>
+<div class="flex flex-col">
+<h2 class="font-headline-md text-headline-md text-on-surface">Email &amp; SMTP Transaccional</h2>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Entrega de tokens y enlaces mágicos</span>
+</div>
+</div>
+<span class="px-space-sm py-0.5 rounded-full bg-tertiary/10 text-tertiary font-label-code-sm text-label-code-sm font-medium">99.98% Deliverability</span>
+</div>
+<div class="p-space-lg flex flex-col gap-space-md">
+<!-- Provider Picker -->
+<div class="flex flex-col gap-1.5">
+<label class="font-headline-sm text-headline-sm text-on-surface">Proveedor de Correo</label>
+<div class="grid grid-cols-3 gap-space-xs">
+<button class="flex flex-col items-center justify-center p-space-sm rounded-lg bg-surface-container text-primary font-headline-sm text-headline-sm shadow-sm transition-all" type="button">
+<span class="material-symbols-outlined text-[20px]">bolt</span>
+<span class="mt-1">Resend</span>
+</button>
+<button class="flex flex-col items-center justify-center p-space-sm rounded-lg bg-surface-container-low text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high font-headline-sm text-headline-sm transition-all" type="button">
+<span class="material-symbols-outlined text-[20px]">cloud</span>
+<span class="mt-1">AWS SES</span>
+</button>
+<button class="flex flex-col items-center justify-center p-space-sm rounded-lg bg-surface-container-low text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high font-headline-sm text-headline-sm transition-all" type="button">
+<span class="material-symbols-outlined text-[20px]">send</span>
+<span class="mt-1">SendGrid</span>
+</button>
+</div>
+</div>
+<!-- DNS Record Verification (DKIM & SPF) -->
+<div class="flex flex-col gap-space-xs bg-surface-container-low p-space-md rounded-lg">
+<span class="font-label-caps text-label-caps text-outline uppercase tracking-wider">Validación Criptográfica DNS</span>
+<div class="flex items-center justify-between mt-1">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[18px] text-tertiary">check_circle</span>
+<span class="font-label-code-md text-label-code-md text-on-surface font-medium">DKIM (2048-bit RSA)</span>
+</div>
+<span class="px-space-xs py-0.5 rounded bg-tertiary/10 text-tertiary font-label-code-sm text-label-code-sm font-semibold">VALIDADO</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[18px] text-tertiary">check_circle</span>
+<span class="font-label-code-md text-label-code-md text-on-surface font-medium">SPF (~all Include)</span>
+</div>
+<span class="px-space-xs py-0.5 rounded bg-tertiary/10 text-tertiary font-label-code-sm text-label-code-sm font-semibold">VALIDADO</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[18px] text-tertiary">check_circle</span>
+<span class="font-label-code-md text-label-code-md text-on-surface font-medium">DMARC (p=reject)</span>
+</div>
+<span class="px-space-xs py-0.5 rounded bg-tertiary/10 text-tertiary font-label-code-sm text-label-code-sm font-semibold">POLÍTICA ACTIVA</span>
+</div>
+</div>
+<!-- Template Selector & Interactive Live Preview -->
+<div class="flex flex-col gap-1.5 mt-1">
+<div class="flex items-center justify-between">
+<label class="font-headline-sm text-headline-sm text-on-surface">Plantilla de Email Activa</label>
+<button class="font-label-code-sm text-label-code-sm text-primary hover:underline" type="button">Editar HTML</button>
+</div>
+<div class="flex items-center gap-space-xs p-1 bg-surface-container-low rounded-lg">
+<button class="flex-1 py-1 rounded bg-surface-container-lowest text-primary font-headline-sm text-headline-sm shadow-sm transition-all" id="tplOtp" onclick="switchTemplate('otp')" type="button">Código OTP</button>
+<button class="flex-1 py-1 rounded text-on-surface-variant hover:text-on-surface font-headline-sm text-headline-sm transition-all" id="tplWelcome" onclick="switchTemplate('welcome')" type="button">Bienvenida</button>
+<button class="flex-1 py-1 rounded text-on-surface-variant hover:text-on-surface font-headline-sm text-headline-sm transition-all" id="tplReset" onclick="switchTemplate('reset')" type="button">Recuperar Clave</button>
+</div>
+<!-- Preview Frame -->
+<div class="p-space-md rounded-lg bg-surface-container-low mt-2 flex flex-col gap-space-sm shadow-inner">
+<div class="flex items-center justify-between pb-space-xs border-b border-outline-variant/30">
+<span class="font-label-code-sm text-label-code-sm text-outline">Remitente: <strong class="text-on-surface">security@acme.com</strong></span>
+<span class="font-label-code-sm text-label-code-sm text-outline">Previsualización Sandbox</span>
+</div>
+<!-- Dynamic Template Container -->
+<div class="p-space-lg rounded-xl bg-surface-container-lowest shadow-sm flex flex-col items-center text-center gap-space-sm" id="templateCard">
+<div class="w-10 h-10 rounded-full bg-primary-container/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[24px]" id="tplIcon">key</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface" id="tplTitle">Código de Verificación OTP</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant max-w-xs" id="tplDesc">Has solicitado acceso temporal a la consola NexAuth. Utiliza este código de un solo uso para continuar.</p>
+<div class="tracking-widest font-label-code-lg text-label-code-lg px-space-lg py-2 rounded-lg bg-surface-container-high text-primary font-bold" id="tplCode">
+                  842 - 910
+                </div>
+<span class="font-label-code-sm text-label-code-sm text-outline">Válido durante 10 minutos. No lo compartas con nadie.</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Danger Zone Section -->
+<section class="bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden flex flex-col">
+<div class="px-space-lg py-space-md bg-error-container/40 flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-[20px] text-error">warning</span>
+<div class="flex flex-col">
+<h2 class="font-headline-md text-headline-md text-on-error-container">Zona de Peligro (Danger Zone)</h2>
+<span class="font-body-sm text-body-sm text-on-error-container/80">Acciones críticas e irreversibles sobre este tenant</span>
+</div>
+</div>
+<div class="p-space-lg flex flex-col gap-space-md">
+<!-- Transfer Ownership -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm p-space-md bg-surface-container-low rounded-lg">
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-on-surface">Transferir Propiedad</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Cede los derechos de superadministrador y facturación a otra cuenta NexAuth.</span>
+</div>
+<button class="px-space-md py-space-sm rounded-lg bg-surface-container-lowest text-on-surface hover:bg-surface-container-high transition-colors font-headline-sm text-headline-sm shadow-sm whitespace-nowrap" type="button">
+              Transferir
+            </button>
+</div>
+<!-- Delete Tenant -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm p-space-md bg-error-container/20 rounded-lg">
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-error font-semibold">Eliminar Tenant Permanente</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Revoca tokens, purga identidades registradas y cancela suscripciones activas.</span>
+</div>
+<button class="px-space-md py-space-sm rounded-lg bg-error text-on-error hover:bg-error/90 transition-colors font-headline-sm text-headline-sm shadow-sm whitespace-nowrap" type="button">
+              Eliminar Tenant
+            </button>
+</div>
+</div>
+</section>
+</div>
+</div>
+<!-- Bottom Save Bar (Sticky or anchored) -->
+<div class="mt-space-xl p-space-md bg-surface-container-lowest rounded-xl shadow-md flex flex-wrap items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-[20px] text-tertiary">cloud_done</span>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-on-surface">Configuración en memoria lista para sincronizar</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Último despliegue a edges globales: hace 4 minutos</span>
+</div>
+</div>
+<div class="flex items-center gap-space-sm">
+<button class="px-space-md py-space-sm rounded-lg bg-surface-container-high text-on-surface hover:bg-surface-variant transition-colors font-headline-sm text-headline-sm" type="button">
+        Descartar Cambios
+      </button>
+<button class="flex items-center gap-space-xs px-space-lg py-space-sm rounded-lg bg-primary-container text-on-primary hover:bg-secondary-container transition-all shadow-md font-headline-sm text-headline-sm" id="bottomSaveBtn" type="button">
+<span class="material-symbols-outlined text-[18px]">cloud_sync</span>
+<span>Guardar Cambios</span>
+</button>
+</div>
+</div>
+</div>
+<script>
+  function switchTemplate(type) {
+    const btnOtp = document.getElementById('tplOtp');
+    const btnWelcome = document.getElementById('tplWelcome');
+    const btnReset = document.getElementById('tplReset');
+    
+    const title = document.getElementById('tplTitle');
+    const desc = document.getElementById('tplDesc');
+    const code = document.getElementById('tplCode');
+    const icon = document.getElementById('tplIcon');
+
+    // Reset button states
+    [btnOtp, btnWelcome, btnReset].forEach(b => {
+      b.className = 'flex-1 py-1 rounded text-on-surface-variant hover:text-on-surface font-headline-sm text-headline-sm transition-all';
+    });
+
+    if (type === 'otp') {
+      btnOtp.className = 'flex-1 py-1 rounded bg-surface-container-lowest text-primary font-headline-sm text-headline-sm shadow-sm transition-all';
+      icon.innerText = 'key';
+      title.innerText = 'Código de Verificación OTP';
+      desc.innerText = 'Has solicitado acceso temporal a la consola NexAuth. Utiliza este código de un solo uso para continuar.';
+      code.innerText = '842 - 910';
+      code.style.display = 'block';
+    } else if (type === 'welcome') {
+      btnWelcome.className = 'flex-1 py-1 rounded bg-surface-container-lowest text-primary font-headline-sm text-headline-sm shadow-sm transition-all';
+      icon.innerText = 'handshake';
+      title.innerText = 'Bienvenido a Acme Corp Identity';
+      desc.innerText = 'Tu credencial corporativa ha sido autorizada por el equipo de seguridad. Haz clic abajo para activar tu llave de paso (Passkey).';
+      code.innerText = 'Activar Cuenta Institucional';
+      code.style.display = 'inline-block';
+    } else if (type === 'reset') {
+      btnReset.className = 'flex-1 py-1 rounded bg-surface-container-lowest text-primary font-headline-sm text-headline-sm shadow-sm transition-all';
+      icon.innerText = 'lock_reset';
+      title.innerText = 'Restablecimiento de Credenciales';
+      desc.innerText = 'Recibimos una solicitud para resetear el factor principal de autenticación. Este enlace expirará en 15 minutos.';
+      code.innerText = 'Restablecer mi Contraseña';
+      code.style.display = 'inline-block';
+    }
+  }
+
+  // Toast feedback micro-interaction
+  function triggerSaveFeedback() {
+    const origText = 'Guardar Cambios';
+    const topBtn = document.getElementById('topSaveBtn');
+    const btmBtn = document.getElementById('bottomSaveBtn');
+
+    if (topBtn) topBtn.innerHTML = '<span class="material-symbols-outlined text-[18px]">check</span><span>¡Guardado!</span>';
+    if (btmBtn) btmBtn.innerHTML = '<span class="material-symbols-outlined text-[18px]">check</span><span>¡Guardado con Éxito!</span>';
+
+    setTimeout(() => {
+      if (topBtn) topBtn.innerHTML = '<span class="material-symbols-outlined text-[18px]">save</span><span>Guardar Cambios</span>';
+      if (btmBtn) btmBtn.innerHTML = '<span class="material-symbols-outlined text-[18px]">cloud_sync</span><span>Guardar Cambios</span>';
+    }, 2000);
+  }
+
+  document.getElementById('topSaveBtn')?.addEventListener('click', triggerSaveFeedback);
+  document.getElementById('bottomSaveBtn')?.addEventListener('click', triggerSaveFeedback);
+</script></main></div></body></html>
