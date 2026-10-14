@@ -1,1 +1,84 @@
-<p>applications-list works!</p>
+<div class="flex flex-col w-full pb-space-xl">
+
+    <!-- ─── Page header + action buttons ─────────────────── -->
+    <div class="py-space-lg flex flex-col xl:flex-row xl:items-end justify-between gap-space-md">
+        <app-page-header breadcrumb="IAM Management" breadcrumbActive="Applications" title="Aplicaciones & Clientes API"
+            description="Gestiona clientes OAuth2 / OpenID Connect, credenciales y dominios autorizados para tus servicios federados." />
+
+        <div class="flex flex-wrap items-center gap-space-sm">
+            <button type="button"
+                class="flex items-center gap-space-xs px-space-md py-space-sm bg-surface-container-lowest text-on-surface rounded-lg shadow-sm hover:bg-surface-container-low transition-all">
+                <span class="material-symbols-outlined text-[18px] text-outline">file_download</span>
+                <span class="font-headline-sm text-headline-sm">Exportar Reporte</span>
+            </button>
+            <button type="button"
+                class="flex items-center gap-space-xs px-space-md py-space-sm bg-primary-container text-on-primary rounded-lg shadow-md hover:bg-primary transition-all">
+                <span class="material-symbols-outlined text-[20px]">add</span>
+                <span class="font-headline-sm text-headline-sm">Registrar Nueva Aplicación</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- ─── KPI grid ─────────────────────────────────────── -->
+    @if (kpis().length > 0) {
+    <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-space-md mb-space-lg">
+        @for (kpi of kpis(); track kpi.id) {
+        <app-kpi-card [kpi]="kpi" />
+        }
+    </div>
+    }
+
+    <!-- ─── Filter + search bar ──────────────────────────── -->
+    <div
+        class="p-space-sm bg-surface-container-lowest rounded-xl shadow-sm flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-space-sm">
+        <!-- Tabs -->
+        <div class="flex items-center gap-space-xs overflow-x-auto pb-1 lg:pb-0">
+            @for (filter of filters(); track filter.id) {
+            <button type="button" (click)="setFilter(filter.id)"
+                class="px-space-md py-space-xs rounded-lg font-headline-sm text-headline-sm whitespace-nowrap transition-colors"
+                [class]="activeFilter() === filter.id
+            ? 'bg-primary-container text-on-primary shadow-sm'
+            : 'text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high'">
+                {{ filter.label }} ({{ filter.count }})
+            </button>
+            }
+        </div>
+
+        <!-- Search -->
+        <div class="flex items-center gap-space-sm">
+            <div class="relative flex-1 sm:w-80">
+                <span
+                    class="material-symbols-outlined absolute left-space-sm top-1/2 -translate-y-1/2 text-[18px] text-outline">
+                    search
+                </span>
+                <input type="text" placeholder="Filtrar por nombre o Client ID..." (input)="onSearch($event)"
+                    class="w-full pl-9 pr-space-md py-space-xs bg-surface-container-low text-on-surface placeholder:text-outline rounded-lg text-body-md font-body-md focus:bg-surface-container-lowest focus:outline-none focus:ring-1 focus:ring-primary shadow-inner" />
+            </div>
+            <button type="button"
+                class="p-space-xs bg-surface-container-high text-on-surface-variant hover:text-on-surface rounded-lg">
+                <span class="material-symbols-outlined text-[20px]">filter_list</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- ─── Applications grid ────────────────────────────── -->
+    @if (loading()) {
+    <div class="mt-space-lg flex items-center justify-center py-space-xl">
+        <span class="material-symbols-outlined text-[32px] text-outline animate-spin">refresh</span>
+    </div>
+    } @else if (filteredApps().length === 0) {
+    <div
+        class="mt-space-lg flex flex-col items-center justify-center py-space-xl gap-space-sm bg-surface-container-lowest rounded-xl shadow-sm">
+        <span class="material-symbols-outlined text-[48px] text-outline">search_off</span>
+        <p class="font-headline-sm text-headline-sm text-on-surface">No se encontraron aplicaciones</p>
+        <p class="font-body-sm text-body-sm text-on-surface-variant">Ajusta los filtros o el término de búsqueda.</p>
+    </div>
+    } @else {
+    <div class="mt-space-lg grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-space-md">
+        @for (app of filteredApps(); track app.id) {
+        <app-application-card [app]="app" [selected]="selectedId() === app.id" (cardClick)="onCardClick($event)" />
+        }
+    </div>
+    }
+
+</div>
