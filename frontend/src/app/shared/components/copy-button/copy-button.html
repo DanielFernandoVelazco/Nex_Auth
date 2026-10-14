@@ -1,0 +1,6 @@
+<button type="button" [title]="title()" (click)="copy($event)"
+    class="text-outline hover:text-primary transition-colors p-0.5 rounded">
+    <span class="material-symbols-outlined" [style.font-size.px]="iconSize()">
+        {{ copied() ? 'check' : 'content_copy' }}
+    </span>
+</button>
