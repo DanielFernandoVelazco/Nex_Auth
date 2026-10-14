@@ -1,0 +1,117 @@
+{
+    "kpis": [
+        {
+            "id": "total-apps",
+            "label": "Total Aplicaciones",
+            "value": "18",
+            "delta": "+2 este mes",
+            "trend": "up",
+            "icon": "apps",
+            "color": "primary",
+            "footer": "7 SPA · 5 Web · 4 M2M · 2 Native"
+        },
+        {
+            "id": "active-clients",
+            "label": "Clientes Activos",
+            "value": "14 / 18",
+            "delta": "77.8%",
+            "trend": "neutral",
+            "icon": "verified_user",
+            "color": "tertiary",
+            "footer": "4 pendientes de configuración",
+            "progress": 78
+        },
+        {
+            "id": "auth-volume",
+            "label": "Autenticaciones (24h)",
+            "value": "248,392",
+            "delta": "+14.2%",
+            "trend": "up",
+            "icon": "lock_open",
+            "color": "primary",
+            "footer": "vs periodo anterior"
+        },
+        {
+            "id": "errors",
+            "label": "Errores de Auth (24h)",
+            "value": "0.084%",
+            "delta": "Baseline óptimo",
+            "trend": "neutral",
+            "icon": "shield",
+            "color": "tertiary",
+            "footer": "208 errores en 248k intentos"
+        }
+    ],
+    "applications": [
+        {
+            "id": "app-1",
+            "name": "Acme Web Portal",
+            "subtitle": "SPA · React / Next.js",
+            "icon": "web",
+            "iconColor": "primary",
+            "clientId": "app_clnt_8f92a10b48e3",
+            "type": "spa",
+            "status": "active",
+            "statusLabel": "Activa · Seleccionada",
+            "isSelected": true,
+            "domainLabel": "Dominio Principal",
+            "domainValue": "https://app.acme.com",
+            "domainIcon": "lock",
+            "metricLabel": "Logins (24h)",
+            "metricValue": "124,400",
+            "metricSecondary": "99.98%",
+            "metricSecondaryIcon": "pulse"
+        },
+        {
+            "id": "app-2",
+            "name": "Acme Mobile App",
+            "subtitle": "Native PKCE · iOS/Android",
+            "icon": "smartphone",
+            "iconColor": "secondary",
+            "clientId": "app_clnt_91ba73c1d904",
+            "type": "native",
+            "status": "active",
+            "statusLabel": "Activa",
+            "domainLabel": "URI Scheme",
+            "domainValue": "acmeapp://auth/callback",
+            "domainIcon": "link",
+            "metricLabel": "Logins (24h)",
+            "metricValue": "88,120",
+            "metricSecondary": "v3.4.1 client"
+        },
+        {
+            "id": "app-3",
+            "name": "Billing Microservice",
+            "subtitle": "Machine-to-Machine",
+            "icon": "dns",
+            "iconColor": "primary-container",
+            "clientId": "m2m_srv_44a9e201b2ff",
+            "type": "m2m",
+            "status": "active",
+            "statusLabel": "Activa",
+            "domainLabel": "Scopes Asignados",
+            "domainValue": "read:invoices · write:charges",
+            "domainIcon": "code",
+            "metricLabel": "Token Requests",
+            "metricValue": "1.4M / día",
+            "metricSecondary": "verified_user"
+        },
+        {
+            "id": "app-4",
+            "name": "Legacy Partner Portal",
+            "subtitle": "Regular Web App",
+            "icon": "language",
+            "iconColor": "outline",
+            "clientId": "app_clnt_11c088ef231a",
+            "type": "web",
+            "status": "staging",
+            "statusLabel": "Staging",
+            "domainLabel": "Dominio Staging",
+            "domainValue": "https://partners.staging.acme.io",
+            "domainIcon": "history",
+            "metricLabel": "Auth Flow",
+            "metricValue": "Auth Code + Secret",
+            "metricSecondary": "history"
+        }
+    ]
+}
