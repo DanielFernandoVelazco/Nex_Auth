@@ -1,1 +1,15 @@
-<p>main-layout works!</p>
+<div class="min-h-screen bg-background">
+    <!-- Sidebar fijo a la izquierda -->
+    <app-sidebar />
+
+    <!-- Contenido desplazado 64 (256px) a la derecha -->
+    <div class="pl-64">
+        <!-- Header fijo arriba -->
+        <app-header />
+
+        <!-- Área principal -->
+        <main class="relative w-full pt-16 bg-background px-gutter-desktop min-h-screen">
+            <router-outlet />
+        </main>
+    </div>
+</div>
