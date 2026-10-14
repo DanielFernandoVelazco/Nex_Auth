@@ -1,1 +1,56 @@
-<p>header works!</p>
+<header
+    class="fixed top-0 left-64 right-0 h-16 bg-surface-container-lowest/90 backdrop-blur-xl z-40 shadow-[0_1px_8px_rgba(0,0,0,0.04)] flex items-center justify-between px-space-lg">
+    <!-- Left: tenant selector + region -->
+    <div class="flex items-center gap-space-md">
+        <button type="button"
+            class="flex items-center gap-space-xs bg-surface-container-low px-space-sm py-space-xs rounded-lg hover:bg-surface-container transition-colors">
+            <span class="material-symbols-outlined text-[18px] text-outline">corporate_fare</span>
+            <span class="font-label-code-md text-label-code-md text-on-surface font-medium">
+                {{ tenantName() }}
+            </span>
+            <span class="material-symbols-outlined text-[16px] text-outline">expand_more</span>
+        </button>
+
+        <div class="hidden lg:flex items-center gap-space-xs text-outline font-body-sm text-body-sm">
+            <span class="w-1 h-1 rounded-full bg-outline-variant"></span>
+            <span>Region: {{ region() }}</span>
+        </div>
+    </div>
+
+    <!-- Right: links + notifications + profile -->
+    <div class="flex items-center gap-space-lg">
+        <nav class="hidden md:flex items-center gap-space-md">
+            <a href="#"
+                class="font-body-md text-body-md text-on-surface-variant hover:text-on-surface transition-colors">
+                Documentation
+            </a>
+            <a href="#"
+                class="font-body-md text-body-md text-on-surface-variant hover:text-on-surface transition-colors">
+                Compliance
+            </a>
+        </nav>
+
+        <button type="button"
+            class="relative p-space-xs rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors">
+            <span class="material-symbols-outlined text-[20px]">notifications</span>
+            @if (hasNotifications()) {
+            <span class="absolute top-1 right-1 w-2 h-2 rounded-full bg-error"></span>
+            }
+        </button>
+
+        <div class="flex items-center gap-space-sm pl-space-sm">
+            <div class="hidden sm:flex flex-col items-end">
+                <span class="font-headline-sm text-headline-sm text-on-surface leading-tight">
+                    {{ userName() }}
+                </span>
+                <span class="font-label-caps text-label-caps text-on-surface-variant">
+                    {{ userRole() }}
+                </span>
+            </div>
+            <div
+                class="w-8 h-8 rounded-full bg-primary-container text-on-primary flex items-center justify-center shadow-sm text-[13px] font-semibold">
+                {{ userInitials() }}
+            </div>
+        </div>
+    </div>
+</header>
