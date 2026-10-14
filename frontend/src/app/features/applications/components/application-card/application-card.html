@@ -1,0 +1,93 @@
+<div (click)="onClick()"
+    class="group bg-surface-container-lowest rounded-xl p-space-md flex flex-col justify-between transition-all cursor-pointer h-full"
+    [class]="selected()
+    ? 'shadow-md ring-2 ring-primary'
+    : 'shadow-sm hover:shadow-md'">
+    <!-- Top section -->
+    <div>
+        <!-- Icon + title + status badge -->
+        <div class="flex items-start gap-space-sm relative">
+
+            <!-- Icon -->
+            <div class="w-10 h-10 rounded-xl bg-surface-container-high flex items-center justify-center shrink-0 shadow-sm"
+                [class]="iconColorClass()">
+                <span class="material-symbols-outlined text-[24px]">{{ app().icon }}</span>
+            </div>
+
+            <!-- Title + subtitle -->
+            <div class="flex flex-col min-w-0 flex-1">
+                <h3 class="font-headline-sm text-headline-sm text-on-surface truncate">
+                    {{ app().name }}
+                </h3>
+                <span class="font-label-code-sm text-label-code-sm text-on-surface-variant truncate">
+                    {{ app().subtitle }}
+                </span>
+            </div>
+
+            <!-- Status badge (flotante arriba derecha si está selected) -->
+            @if (selected()) {
+            <span
+                class="absolute top-0 right-0 text-[10px] font-label-caps uppercase bg-primary text-on-primary px-2 py-0.5 rounded-full whitespace-nowrap">
+                {{ app().statusLabel }}
+            </span>
+            } @else {
+            <app-status-badge [label]="app().statusLabel"
+                [variant]="isActive() ? 'success' : (isStaging() ? 'info' : 'neutral')" />
+            }
+        </div>
+
+        <!-- Client ID -->
+        <div class="mt-space-md flex flex-col gap-space-xs">
+            <span class="font-label-caps text-label-caps text-outline uppercase">Client ID</span>
+            <div class="flex items-center justify-between bg-surface-container-low px-space-sm py-1 rounded-lg">
+                <code class="font-label-code-sm text-label-code-sm text-on-surface truncate">
+          {{ app().clientId }}
+        </code>
+                <app-copy-button [value]="app().clientId" title="Copiar Client ID" />
+            </div>
+        </div>
+
+        <!-- Domain / Scope -->
+        <div class="mt-space-sm flex flex-col gap-1">
+            <span class="font-label-caps text-label-caps text-outline uppercase">
+                {{ app().domainLabel }}
+            </span>
+            <span class="font-label-code-sm text-label-code-sm text-on-surface truncate flex items-center gap-1">
+                <span class="material-symbols-outlined text-[14px]" [class]="iconColorClass()">
+                    {{ app().domainIcon }}
+                </span>
+                {{ app().domainValue }}
+            </span>
+        </div>
+    </div>
+
+    <!-- Footer: metric -->
+    <div
+        class="mt-space-md pt-space-sm bg-surface-container-low -mx-space-md -mb-space-md px-space-md pb-space-sm rounded-b-xl flex items-center justify-between">
+        <div class="flex flex-col">
+            <span class="font-label-caps text-label-caps text-outline uppercase">
+                {{ app().metricLabel }}
+            </span>
+            <span class="font-label-code-md text-label-code-md text-on-surface font-semibold">
+                {{ app().metricValue }}
+            </span>
+        </div>
+
+        @if (app().metricSecondary) {
+        @if (app().metricSecondaryIcon === 'pulse') {
+        <div class="flex items-center gap-1 bg-surface-container-lowest px-2 py-0.5 rounded-lg text-tertiary-container">
+            <span class="w-1.5 h-1.5 rounded-full bg-tertiary-container animate-pulse"></span>
+            <span class="font-label-caps text-label-caps font-bold">{{ app().metricSecondary }}</span>
+        </div>
+        } @else if (app().metricSecondaryIcon) {
+        <span class="material-symbols-outlined text-[16px] text-tertiary-container">
+            {{ app().metricSecondaryIcon }}
+        </span>
+        } @else {
+        <span class="font-label-code-sm text-label-code-sm text-on-surface-variant">
+            {{ app().metricSecondary }}
+        </span>
+        }
+        }
+    </div>
+</div>
