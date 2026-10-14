@@ -1,0 +1,44 @@
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex flex-col justify-between h-full">
+    <!-- Header: label + icon -->
+    <div class="flex items-center justify-between">
+        <span class="font-label-caps text-label-caps uppercase text-outline">
+            {{ kpi().label }}
+        </span>
+        <span class="w-8 h-8 rounded-lg flex items-center justify-center" [class]="iconColorClass()">
+            <span class="material-symbols-outlined text-[20px]">{{ kpi().icon }}</span>
+        </span>
+    </div>
+
+    <!-- Value + delta -->
+    <div class="flex items-baseline gap-space-xs mt-space-sm">
+        <span class="font-headline-lg text-headline-lg text-on-surface font-bold tracking-tight">
+            {{ kpi().value }}
+        </span>
+        @if (kpi().delta) {
+        <span class="font-label-code-sm text-label-code-sm font-medium flex items-center gap-0.5"
+            [class]="deltaClass()">
+            @if (kpi().trend === 'up') {
+            <span class="material-symbols-outlined text-[14px]">trending_up</span>
+            }
+            @if (kpi().trend === 'down') {
+            <span class="material-symbols-outlined text-[14px]">trending_down</span>
+            }
+            {{ kpi().delta }}
+        </span>
+        }
+    </div>
+
+    <!-- Progress bar (optional) -->
+    @if (kpi().progress !== undefined) {
+    <div class="w-full bg-surface-container-high h-1.5 rounded-full overflow-hidden mt-space-sm">
+        <div class="bg-primary h-full rounded-full transition-all" [style.width]="progressWidth()"></div>
+    </div>
+    }
+
+    <!-- Footer -->
+    @if (kpi().footer) {
+    <p class="font-body-sm text-body-sm text-on-surface-variant mt-space-sm">
+        {{ kpi().footer }}
+    </p>
+    }
+</div>
