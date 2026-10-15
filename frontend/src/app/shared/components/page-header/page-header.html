@@ -1,0 +1,28 @@
+<div class="flex flex-col gap-space-xs mb-space-lg">
+    <!-- Breadcrumb -->
+    @if (breadcrumb()) {
+    <div class="flex items-center gap-space-xs">
+        <span class="font-label-caps text-label-caps uppercase tracking-wider text-primary">
+            {{ breadcrumb() }}
+        </span>
+        @if (breadcrumbActive()) {
+        <span class="text-outline-variant font-label-code-sm text-label-code-sm">/</span>
+        <span class="font-label-code-sm text-label-code-sm text-on-surface-variant font-medium">
+            {{ breadcrumbActive() }}
+        </span>
+        }
+    </div>
+    }
+
+    <!-- Title -->
+    <h1 class="font-headline-xl text-headline-xl text-on-surface tracking-tight">
+        {{ title() }}
+    </h1>
+
+    <!-- Description -->
+    @if (description()) {
+    <p class="font-body-md text-body-md text-on-surface-variant max-w-3xl">
+        {{ description() }}
+    </p>
+    }
+</div>
