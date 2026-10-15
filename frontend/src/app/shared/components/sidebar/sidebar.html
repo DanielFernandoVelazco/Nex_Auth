@@ -1,1 +1,80 @@
-<p>sidebar works!</p>
+<aside
+    class="fixed left-0 top-0 h-full w-64 bg-surface-container-low z-50 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.04)]">
+    <!-- Top: logo + env + search + nav -->
+    <div class="flex flex-col">
+        <!-- Logo -->
+        <div class="h-16 px-space-md flex items-center gap-space-sm bg-surface-container-low">
+            <div
+                class="w-8 h-8 rounded-lg bg-primary-container flex items-center justify-center text-on-primary shrink-0">
+                <span class="material-symbols-outlined text-[20px]">shield_person</span>
+            </div>
+            <div class="flex flex-col">
+                <span class="font-headline-sm text-headline-sm text-on-surface leading-tight tracking-tight">
+                    NexAuth
+                </span>
+                <span class="font-label-caps text-label-caps text-outline uppercase tracking-wider">
+                    IAM Console
+                </span>
+            </div>
+        </div>
+
+        <!-- Selector de ambiente -->
+        <div class="px-space-md py-space-sm">
+            <button type="button"
+                class="w-full flex items-center justify-between px-space-sm py-space-xs bg-surface-container-lowest rounded-lg shadow-sm hover:bg-surface-container transition-colors">
+                <div class="flex items-center gap-space-xs">
+                    <span class="w-2 h-2 rounded-full bg-tertiary-container"></span>
+                    <span class="font-label-code-sm text-label-code-sm text-on-surface font-medium">Production</span>
+                    <span class="text-outline font-label-code-sm text-label-code-sm">·</span>
+                    <span class="font-label-code-sm text-label-code-sm text-on-surface-variant">us-east-1</span>
+                </div>
+                <span class="material-symbols-outlined text-[16px] text-outline">unfold_more</span>
+            </button>
+        </div>
+
+        <!-- Search trigger -->
+        <div class="px-space-md py-space-xs">
+            <button type="button"
+                class="w-full flex items-center justify-between px-space-sm py-space-xs rounded-lg bg-surface-container-high text-on-surface-variant hover:text-on-surface transition-colors">
+                <div class="flex items-center gap-space-xs">
+                    <span class="material-symbols-outlined text-[18px]">search</span>
+                    <span class="font-body-sm text-body-sm">Search IAM...</span>
+                </div>
+                <kbd
+                    class="font-label-code-sm text-label-code-sm bg-surface-container-lowest text-on-surface-variant px-1 rounded shadow-sm">
+                    ⌘K
+                </kbd>
+            </button>
+        </div>
+
+        <!-- Navegación -->
+        <nav class="flex flex-col gap-space-xs px-space-sm mt-space-sm">
+            @for (item of navItems(); track item.path) {
+            <a [routerLink]="item.path" routerLinkActive="bg-primary-container text-on-primary font-headline-sm"
+                [routerLinkActiveOptions]="{ exact: false }"
+                class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors">
+                <span class="material-symbols-outlined text-[20px]">{{ item.icon }}</span>
+                <span>{{ item.label }}</span>
+            </a>
+            }
+        </nav>
+    </div>
+
+    <!-- Bottom: system status -->
+    <div class="p-space-md bg-surface-container-low">
+        <div class="p-space-sm bg-surface-container-lowest rounded-lg shadow-sm flex flex-col gap-space-xs">
+            <div class="flex items-center justify-between">
+                <span class="font-label-caps text-label-caps uppercase text-outline">System Status</span>
+                <span class="font-label-code-sm text-label-code-sm text-tertiary-container font-medium">
+                    Operational
+                </span>
+            </div>
+            <div class="w-full bg-surface-container-high h-1 rounded-full overflow-hidden">
+                <div class="bg-tertiary-container h-full w-full"></div>
+            </div>
+            <span class="font-label-code-sm text-label-code-sm text-on-surface-variant">
+                v4.18.2-core
+            </span>
+        </div>
+    </div>
+</aside>
