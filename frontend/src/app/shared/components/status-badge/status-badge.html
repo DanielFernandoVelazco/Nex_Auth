@@ -1,0 +1,8 @@
+<span
+    class="inline-flex items-center gap-1.5 px-space-sm py-0.5 rounded-full font-label-code-sm text-label-code-sm font-medium"
+    [class]="containerClass()">
+    @if (withDot()) {
+    <span class="w-1.5 h-1.5 rounded-full" [class]="dotClass()"></span>
+    }
+    {{ label() }}
+</span>
