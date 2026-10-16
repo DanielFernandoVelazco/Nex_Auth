@@ -102,7 +102,7 @@
                     <div class="flex items-center gap-space-xs">
                         <input type="text" readonly [value]="detail().clientId"
                             class="flex-1 bg-surface-container-low text-on-surface font-label-code-md text-label-code-md px-space-md py-space-xs rounded-lg focus:outline-none" />
-                        <button type="button"
+                        <button type="button" (click)="copyClientId()"
                             class="px-space-md py-space-xs bg-surface-container-high hover:bg-surface-container-highest text-on-surface rounded-lg font-headline-sm text-headline-sm flex items-center gap-1 transition-colors">
                             <span class="material-symbols-outlined text-[16px]">content_copy</span>
                             Copiar
@@ -133,7 +133,7 @@
                             </button>
                         </div>
 
-                        <button type="button"
+                        <button type="button" (click)="rotateSecret()"
                             class="px-space-md py-space-xs bg-surface-container-high hover:bg-surface-container-highest text-on-surface rounded-lg font-headline-sm text-headline-sm flex items-center gap-1 transition-colors">
                             <span class="material-symbols-outlined text-[16px]">sync</span>
                             Rotar Secreto
@@ -267,18 +267,18 @@
     <!-- ───── FOOTER ───── -->
     <div
         class="p-space-lg bg-surface-container-low flex flex-col sm:flex-row items-center justify-between gap-space-md">
-        <button type="button"
+        <button type="button" (click)="deleteApplication()"
             class="w-full sm:w-auto px-space-md py-space-sm rounded-lg text-error hover:bg-error-container/50 font-headline-sm text-headline-sm flex items-center justify-center gap-space-xs transition-colors">
             <span class="material-symbols-outlined text-[18px]">delete_forever</span>
             Eliminar Aplicación
         </button>
 
         <div class="flex items-center gap-space-sm w-full sm:w-auto justify-end">
-            <button type="button"
+            <button type="button" (click)="discardChanges()"
                 class="w-full sm:w-auto px-space-md py-space-sm bg-surface-container-lowest text-on-surface-variant hover:text-on-surface rounded-lg font-headline-sm text-headline-sm transition-colors shadow-sm">
                 Descartar Cambios
             </button>
-            <button type="button"
+            <button type="button" (click)="saveChanges()"
                 class="w-full sm:w-auto px-space-xl py-space-sm bg-primary-container text-on-primary rounded-lg font-headline-sm text-headline-sm shadow-md hover:bg-primary transition-all flex items-center justify-center gap-space-xs">
                 <span class="material-symbols-outlined text-[18px]">save</span>
                 Guardar Cambios
