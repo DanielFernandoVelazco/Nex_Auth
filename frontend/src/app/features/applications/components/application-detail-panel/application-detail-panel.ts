@@ -2,7 +2,6 @@ import { Component, input, signal, computed } from '@angular/core';
 import { ApplicationDetail } from '../../../../core/models/application-detail.model';
 import { SdkQuickstart } from '../sdk-quickstart/sdk-quickstart';
 import { LiveMetrics } from '../live-metrics/live-metrics';
-import { CopyButton } from '../../../../shared/components/copy-button/copy-button';
 
 type TabId = 'config' | 'credentials' | 'urls' | 'tokens';
 
@@ -14,7 +13,7 @@ interface Tab {
 
 @Component({
     selector: 'app-application-detail-panel',
-    imports: [SdkQuickstart, LiveMetrics, CopyButton],
+    imports: [SdkQuickstart, LiveMetrics],
     templateUrl: './application-detail-panel.html',
     styleUrl: './application-detail-panel.scss',
 })
