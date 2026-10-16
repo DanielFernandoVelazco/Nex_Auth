@@ -1,0 +1,42 @@
+<div class="bg-inverse-surface rounded-xl p-space-md text-inverse-on-surface shadow-xl flex flex-col gap-space-sm">
+    <!-- Header: title + language tabs -->
+    <div class="flex items-center justify-between">
+        <div class="flex items-center gap-space-xs">
+            <span class="material-symbols-outlined text-[20px] text-tertiary-fixed">code</span>
+            <span class="font-headline-sm text-headline-sm text-white">SDK Quickstart</span>
+        </div>
+
+        <div class="flex items-center gap-1 bg-surface-container-high/20 p-0.5 rounded-lg">
+            @for (tab of tabs; track tab.id) {
+            <button type="button" (click)="setTab(tab.id)"
+                class="px-2 py-0.5 font-label-code-sm text-label-code-sm rounded transition-colors" [class]="activeTab() === tab.id
+            ? 'bg-primary-container text-white font-medium'
+            : 'text-surface-dim hover:text-white'">
+                {{ tab.label }}
+            </button>
+            }
+        </div>
+    </div>
+
+    <!-- Subtitle -->
+    <p class="font-body-sm text-body-sm text-surface-dim">
+        Inicializa el cliente de autenticación con PKCE habilitado en tu runtime:
+    </p>
+
+    <!-- Code block -->
+    <div class="relative bg-black/40 rounded-lg p-space-md overflow-x-auto">
+        <pre
+            class="font-label-code-sm text-label-code-sm text-tertiary-fixed-dim leading-relaxed whitespace-pre-wrap"><code>{{ currentSnippet() }}</code></pre>
+
+        <button type="button" (click)="copySnippet()"
+            class="absolute top-2 right-2 px-2 py-1 bg-surface-container-high/30 hover:bg-surface-container-high/50 text-white rounded font-label-code-sm text-[10px] transition-colors">
+            {{ copied() ? 'Copiado!' : 'Copiar' }}
+        </button>
+    </div>
+
+    <!-- Info line -->
+    <div class="flex items-center gap-space-xs text-surface-dim font-label-code-sm text-[11px] pt-1">
+        <span class="material-symbols-outlined text-[14px] text-tertiary-fixed">info</span>
+        <span>Soporta SSR y Middleware de Next.js Edge.</span>
+    </div>
+</div>
