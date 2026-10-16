@@ -1,0 +1,106 @@
+<div class="flex flex-col bg-surface-container-lowest">
+
+    <!-- Header -->
+    <div class="px-space-lg py-space-md flex items-center justify-between bg-surface-container-low">
+        <div class="flex items-center gap-space-sm">
+            <div class="w-9 h-9 rounded-lg bg-primary-container text-on-primary flex items-center justify-center">
+                <span class="material-symbols-outlined text-[20px]">add_moderator</span>
+            </div>
+            <div class="flex flex-col">
+                <span class="font-headline-md text-headline-md text-on-surface">
+                    Registrar Nueva Aplicación
+                </span>
+                <span class="font-body-sm text-body-sm text-on-surface-variant">
+                    Crea un nuevo cliente OAuth2 / OIDC
+                </span>
+            </div>
+        </div>
+
+        <button type="button" (click)="cancel()"
+            class="text-outline hover:text-on-surface p-1 rounded-lg hover:bg-surface-container-high transition-colors">
+            <span class="material-symbols-outlined text-[20px]">close</span>
+        </button>
+    </div>
+
+    <!-- Body -->
+    <div class="p-space-lg flex flex-col gap-space-md">
+
+        <!-- Nombre -->
+        <div class="flex flex-col gap-1.5">
+            <label class="font-headline-sm text-headline-sm text-on-surface">
+                Nombre de la aplicación
+            </label>
+            <input type="text" placeholder="ej. Acme Web Portal" [value]="name()" (input)="onNameInput($event)"
+                class="w-full bg-surface-container-low text-on-surface font-body-md text-body-md px-space-md py-2 rounded-lg focus:bg-surface-container-lowest focus:outline-none focus:ring-1 focus:ring-primary shadow-sm placeholder:text-outline" />
+        </div>
+
+        <!-- Tipo (grid de radio buttons) -->
+        <div class="flex flex-col gap-1.5">
+            <label class="font-headline-sm text-headline-sm text-on-surface">
+                Tipo de aplicación
+            </label>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-space-sm">
+                @for (opt of typeOptions; track opt.id) {
+                <button type="button" (click)="type.set(opt.id)"
+                    class="flex flex-col items-center gap-1 p-space-sm rounded-lg transition-all shadow-sm" [class]="type() === opt.id
+              ? 'bg-primary/10 text-primary ring-2 ring-primary'
+              : 'bg-surface-container-low text-on-surface-variant hover:bg-surface-container'">
+                    <span class="material-symbols-outlined text-[24px]">{{ opt.icon }}</span>
+                    <span class="font-headline-sm text-headline-sm">{{ opt.label }}</span>
+                    <span
+                        class="font-label-code-sm text-label-code-sm text-outline text-center text-[10px] leading-tight">
+                        {{ opt.description }}
+                    </span>
+                </button>
+                }
+            </div>
+        </div>
+
+        <!-- Dominio -->
+        <div class="flex flex-col gap-1.5">
+            <label class="font-headline-sm text-headline-sm text-on-surface">
+                Dominio principal
+            </label>
+            <div class="flex items-center bg-surface-container-low rounded-lg px-space-md py-2 shadow-sm">
+                <span class="font-label-code-sm text-label-code-sm text-outline select-none">https://</span>
+                <input type="text" placeholder="app.tuempresa.com" [value]="domain()" (input)="onDomainInput($event)"
+                    class="bg-transparent text-on-surface font-label-code-md text-label-code-md ml-1 w-full focus:outline-none placeholder:text-outline" />
+            </div>
+        </div>
+
+        <!-- Scopes -->
+        <div class="flex flex-col gap-1.5">
+            <label class="font-headline-sm text-headline-sm text-on-surface">
+                Scopes autorizados
+            </label>
+            <div class="flex flex-wrap gap-1.5 p-space-sm rounded-lg bg-surface-container-low min-h-[60px]">
+                @for (scope of availableScopes(); track scope) {
+                <button type="button" (click)="toggleScope(scope)"
+                    class="px-2.5 py-1 rounded-full font-label-code-sm text-label-code-sm transition-all" [class]="isScopeSelected(scope)
+              ? 'bg-primary-container text-on-primary'
+              : 'bg-surface-container-lowest text-on-surface-variant hover:bg-surface-container'">
+                    {{ scope }}
+                </button>
+                }
+            </div>
+            <span class="font-body-sm text-body-sm text-outline">
+                Los scopes definen qué recursos puede acceder la aplicación.
+            </span>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <div class="px-space-lg py-space-md flex items-center justify-end gap-space-sm bg-surface-container-low">
+        <button type="button" (click)="cancel()"
+            class="px-space-md py-space-sm rounded-lg bg-surface-container-lowest hover:bg-surface-container text-on-surface font-headline-sm text-headline-sm transition-colors">
+            Cancelar
+        </button>
+        <button type="button" (click)="submit()" [disabled]="!isValid()"
+            class="px-space-lg py-space-sm rounded-lg bg-primary-container text-on-primary font-headline-sm text-headline-sm shadow-md hover:bg-primary transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2">
+            <span class="material-symbols-outlined text-[18px]">add</span>
+            Crear Aplicación
+        </button>
+    </div>
+
+</div>
