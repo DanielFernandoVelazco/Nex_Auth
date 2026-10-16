@@ -1,9 +1,15 @@
 import { Component, computed, inject, signal, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ApplicationService } from '../../../core/services/application.service';
+import { ToastService } from '../../../core/services/toast.service';
 import { PageHeader } from '../../../shared/components/page-header/page-header';
 import { KpiCard } from '../../../shared/components/kpi-card/kpi-card';
 import { ApplicationCard } from '../components/application-card/application-card';
 import { ApplicationDetailPanel } from '../components/application-detail-panel/application-detail-panel';
+import {
+  RegisterApplicationDialog,
+  RegisterApplicationResult,
+} from '../components/register-application-dialog/register-application-dialog';
 import { AppType } from '../../../core/models/application.model';
 
 type FilterType = 'all' | AppType;
@@ -22,6 +28,8 @@ interface FilterOption {
 })
 export class ApplicationsList implements OnInit {
   private readonly appService = inject(ApplicationService);
+  private readonly dialog = inject(MatDialog);
+  private readonly toast = inject(ToastService);
 
   protected readonly kpis = this.appService.kpis;
   protected readonly applications = this.appService.applications;
@@ -70,5 +78,20 @@ export class ApplicationsList implements OnInit {
 
   protected onCardClick(id: string): void {
     this.appService.select(id);
+  }
+
+  protected openRegisterDialog(): void {
+    const ref = this.dialog.open(RegisterApplicationDialog, {
+      width: '680px',
+      maxWidth: '95vw',
+      panelClass: 'nexauth-dialog',
+      autoFocus: 'first-tabbable',
+    });
+
+    ref.afterClosed().subscribe((result: RegisterApplicationResult | undefined) => {
+      if (!result) return;
+      const app = this.appService.add(result);
+      this.toast.success('Aplicación creada', `${app.name} fue registrada exitosamente.`);
+    });
   }
 }
