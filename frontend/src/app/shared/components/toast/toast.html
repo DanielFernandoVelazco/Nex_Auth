@@ -1,0 +1,21 @@
+<div class="flex items-center gap-space-sm min-w-[300px] max-w-md">
+    <span class="material-symbols-outlined text-[20px] shrink-0" [class]="iconClass()">
+        {{ data.icon }}
+    </span>
+
+    <div class="flex flex-col flex-1 min-w-0">
+        <span class="font-headline-sm text-headline-sm text-inverse-on-surface truncate">
+            {{ data.title }}
+        </span>
+        @if (data.message) {
+        <span class="font-body-sm text-body-sm text-outline-variant truncate">
+            {{ data.message }}
+        </span>
+        }
+    </div>
+
+    <button type="button" (click)="close()"
+        class="shrink-0 text-outline-variant hover:text-inverse-on-surface transition-colors">
+        <span class="material-symbols-outlined text-[18px]">close</span>
+    </button>
+</div>
