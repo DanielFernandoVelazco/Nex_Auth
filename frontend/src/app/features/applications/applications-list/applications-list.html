@@ -31,7 +31,6 @@
     <!-- ─── Filter + search bar ──────────────────────────── -->
     <div
         class="p-space-sm bg-surface-container-lowest rounded-xl shadow-sm flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-space-sm">
-        <!-- Tabs -->
         <div class="flex items-center gap-space-xs overflow-x-auto pb-1 lg:pb-0">
             @for (filter of filters(); track filter.id) {
             <button type="button" (click)="setFilter(filter.id)"
@@ -44,7 +43,6 @@
             }
         </div>
 
-        <!-- Search -->
         <div class="flex items-center gap-space-sm">
             <div class="relative flex-1 sm:w-80">
                 <span
@@ -79,6 +77,11 @@
         <app-application-card [app]="app" [selected]="selectedId() === app.id" (cardClick)="onCardClick($event)" />
         }
     </div>
+    }
+
+    <!-- ─── Detail panel (solo si hay app seleccionada) ──── -->
+    @if (selectedDetail(); as detail) {
+    <app-application-detail-panel [detail]="detail" />
     }
 
 </div>
