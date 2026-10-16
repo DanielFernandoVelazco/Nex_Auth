@@ -1,0 +1,74 @@
+<div class="bg-surface-container-low rounded-xl p-space-md flex flex-col gap-space-md">
+    <span class="font-headline-sm text-headline-sm text-on-surface">
+        Métricas de Conexión en Vivo
+    </span>
+
+    <!-- Big success rate + sparkline -->
+    <div class="flex items-center justify-between">
+        <div class="flex flex-col">
+            <span class="font-headline-xl text-headline-xl text-on-surface font-bold">
+                {{ successRate() }}%
+            </span>
+            <span class="font-label-caps text-label-caps text-outline uppercase">
+                Tasa de Autorización Exitosa
+            </span>
+        </div>
+
+        <!-- SVG Sparkline -->
+        <div class="w-36 h-12">
+            <svg class="w-full h-full" fill="none" viewBox="0 0 144 48">
+                <path d="M 0 36 C 20 34, 30 18, 50 22 C 70 26, 85 10, 100 12 C 120 14, 130 4, 144 2" fill="none"
+                    stroke="#4f46e5" stroke-linecap="round" stroke-width="2.5" />
+                <path d="M 0 36 C 20 34, 30 18, 50 22 C 70 26, 85 10, 100 12 C 120 14, 130 4, 144 2 L 144 48 L 0 48 Z"
+                    fill="url(#sparkline-grad)" opacity="0.2" />
+                <defs>
+                    <linearGradient id="sparkline-grad" x1="0" x2="0" y1="0" y2="1">
+                        <stop offset="0%" stop-color="#4f46e5" />
+                        <stop offset="100%" stop-color="#4f46e5" stop-opacity="0" />
+                    </linearGradient>
+                </defs>
+            </svg>
+        </div>
+    </div>
+
+    <!-- PKCE distribution -->
+    <div class="flex flex-col gap-space-xs">
+        <div class="flex justify-between font-label-code-sm text-label-code-sm text-on-surface-variant">
+            <span>PKCE Code Exchanges</span>
+            <span class="text-on-surface font-semibold">
+                {{ pkceFormatted() }} ({{ pkcePct() }}%)
+            </span>
+        </div>
+        <div class="w-full bg-surface-container-highest h-1.5 rounded-full overflow-hidden">
+            <div class="bg-primary-container h-full rounded-full transition-all" [style.width.%]="pkcePct()"></div>
+        </div>
+    </div>
+
+    <!-- Refresh distribution -->
+    <div class="flex flex-col gap-space-xs">
+        <div class="flex justify-between font-label-code-sm text-label-code-sm text-on-surface-variant">
+            <span>Refresh Token Grants</span>
+            <span class="text-on-surface font-semibold">
+                {{ refreshFormatted() }} ({{ refreshPct() }}%)
+            </span>
+        </div>
+        <div class="w-full bg-surface-container-highest h-1.5 rounded-full overflow-hidden">
+            <div class="bg-secondary-container h-full rounded-full transition-all" [style.width.%]="refreshPct()"></div>
+        </div>
+    </div>
+
+    <!-- OWASP stamp -->
+    <div class="pt-space-sm flex items-center gap-space-sm bg-surface-container-lowest p-space-sm rounded-lg">
+        <span class="material-symbols-outlined text-tertiary-container text-[20px]">
+            verified_user
+        </span>
+        <div class="flex flex-col">
+            <span class="font-headline-sm text-headline-sm text-on-surface text-[13px]">
+                OWASP Top 10 Compliance
+            </span>
+            <span class="font-body-sm text-body-sm text-outline">
+                Sin vectores detectados de clickjacking o open redirect.
+            </span>
+        </div>
+    </div>
+</div>
