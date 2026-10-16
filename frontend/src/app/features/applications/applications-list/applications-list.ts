@@ -3,6 +3,7 @@ import { ApplicationService } from '../../../core/services/application.service';
 import { PageHeader } from '../../../shared/components/page-header/page-header';
 import { KpiCard } from '../../../shared/components/kpi-card/kpi-card';
 import { ApplicationCard } from '../components/application-card/application-card';
+import { ApplicationDetailPanel } from '../components/application-detail-panel/application-detail-panel';
 import { AppType } from '../../../core/models/application.model';
 
 type FilterType = 'all' | AppType;
@@ -15,24 +16,22 @@ interface FilterOption {
 
 @Component({
   selector: 'app-applications-list',
-  imports: [PageHeader, KpiCard, ApplicationCard],
+  imports: [PageHeader, KpiCard, ApplicationCard, ApplicationDetailPanel],
   templateUrl: './applications-list.html',
   styleUrl: './applications-list.scss',
 })
 export class ApplicationsList implements OnInit {
   private readonly appService = inject(ApplicationService);
 
-  // Exponer estado del servicio
   protected readonly kpis = this.appService.kpis;
   protected readonly applications = this.appService.applications;
   protected readonly loading = this.appService.loading;
   protected readonly selectedId = this.appService.selectedId;
+  protected readonly selectedDetail = this.appService.selectedDetail;
 
-  // Filtro local
   protected readonly activeFilter = signal<FilterType>('all');
   protected readonly searchQuery = signal<string>('');
 
-  // Opciones de filtro con conteo dinámico
   protected readonly filters = computed<FilterOption[]>(() => {
     const apps = this.applications();
     return [
@@ -44,7 +43,6 @@ export class ApplicationsList implements OnInit {
     ];
   });
 
-  // Lista filtrada
   protected readonly filteredApps = computed(() => {
     const filter = this.activeFilter();
     const q = this.searchQuery().trim().toLowerCase();
