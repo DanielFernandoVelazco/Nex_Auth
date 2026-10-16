@@ -5,9 +5,14 @@
 @tailwind utilities;
 
 /* ─── Base ─────────────────────────────────────────── */
-*, *::before, *::after { box-sizing: border-box; }
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
 
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   height: 100%;
@@ -19,8 +24,14 @@ html, body {
 }
 
 /* Scrollbar oculto como en los renders */
-::-webkit-scrollbar { display: none; }
-* { scrollbar-width: none; -ms-overflow-style: none; }
+::-webkit-scrollbar {
+  display: none;
+}
+
+* {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
 
 /* Material 3 tokens — override para alinear con NexAuth */
 :root {
@@ -36,4 +47,32 @@ html, body {
 /* Material Symbols config */
 .material-symbols-outlined {
   font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+/* ─── Toast SnackBar (MatSnackBar) ─────────────────────── */
+.nexauth-toast {
+  --mdc-snackbar-container-color: #283044;
+  --mdc-snackbar-supporting-text-color: #eef0ff;
+  --mat-snack-bar-button-color: #c3c0ff;
+  border-radius: 0.75rem !important;
+  box-shadow:
+    0 20px 25px -5px rgb(0 0 0 / 0.15),
+    0 8px 10px -6px rgb(0 0 0 / 0.15) !important;
+  margin-bottom: 1.5rem !important;
+}
+
+.nexauth-toast .mat-mdc-snack-bar-label {
+  padding: 12px 16px !important;
+}
+
+/* ─── Dialog panel (MatDialog) ─────────────────────────── */
+.nexauth-dialog .mat-mdc-dialog-surface {
+  border-radius: 0.75rem !important;
+  overflow: hidden !important;
+  padding: 0 !important;
+  background: transparent !important;
+}
+
+.nexauth-dialog .mat-mdc-dialog-container {
+  --mat-dialog-container-color: transparent;
 }
