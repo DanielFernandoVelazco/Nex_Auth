@@ -1,0 +1,288 @@
+<div class="mt-space-xl bg-surface-container-lowest rounded-xl shadow-lg overflow-hidden">
+
+    <!-- ───── HEADER ───── -->
+    <div
+        class="p-space-lg bg-surface-container-low flex flex-col md:flex-row md:items-center justify-between gap-space-md">
+
+        <!-- Left: icon + identity -->
+        <div class="flex items-center gap-space-md">
+            <div
+                class="w-12 h-12 rounded-xl bg-primary-container text-on-primary flex items-center justify-center shadow-md">
+                <span class="material-symbols-outlined text-[28px]">{{ detail().icon }}</span>
+            </div>
+
+            <div class="flex flex-col">
+                <div class="flex items-center gap-space-xs flex-wrap">
+                    <span class="font-headline-md text-headline-md text-on-surface font-semibold">
+                        {{ detail().name }}
+                    </span>
+
+                    @if (detail().tlsVerified) {
+                    <span
+                        class="px-2 py-0.5 rounded-full font-label-caps text-[10px] bg-surface-container-lowest text-tertiary-container shadow-sm font-bold flex items-center gap-1">
+                        <span class="w-1.5 h-1.5 rounded-full bg-tertiary-container"></span>
+                        TLS 1.3 Verificado
+                    </span>
+                    }
+                </div>
+
+                <span class="font-body-sm text-body-sm text-on-surface-variant">
+                    Client ID: <code class="font-label-code-sm text-primary font-medium">{{ detail().clientId }}</code>
+                    · Tipo: {{ detail().clientType }}
+                </span>
+            </div>
+        </div>
+
+        <!-- Right: metadata + kebab menu -->
+        <div class="flex items-center gap-space-sm self-start md:self-auto">
+            <span
+                class="font-label-code-sm text-label-code-sm text-on-surface-variant bg-surface-container-high px-space-sm py-1 rounded-lg">
+                Creado {{ detail().createdAgo }} por {{ detail().createdBy }}
+            </span>
+            <button type="button"
+                class="p-space-xs bg-surface-container-lowest text-on-surface-variant hover:text-on-surface rounded-lg shadow-sm">
+                <span class="material-symbols-outlined text-[20px]">more_vert</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- ───── TABS ───── -->
+    <div class="px-space-lg bg-surface-container-lowest flex items-center gap-space-lg overflow-x-auto shadow-sm">
+        @for (tab of tabs; track tab.id) {
+        <button type="button" (click)="setTab(tab.id)"
+            class="py-space-md font-headline-sm text-headline-sm flex items-center gap-space-xs border-b-2 transition-colors whitespace-nowrap -mb-[2px]"
+            [class]="activeTab() === tab.id
+          ? 'text-primary border-primary'
+          : 'text-on-surface-variant border-transparent hover:text-on-surface'">
+            <span class="material-symbols-outlined text-[18px]">{{ tab.icon }}</span>
+            {{ tab.label }}
+        </button>
+        }
+    </div>
+
+    <!-- ───── MAIN CONTENT: split pane 7/5 ───── -->
+    <div class="p-space-lg grid grid-cols-1 lg:grid-cols-12 gap-space-xl">
+
+        <!-- ═══ LEFT COLUMN: Form (7 cols) ═══ -->
+        <div class="lg:col-span-7 flex flex-col gap-space-lg">
+
+            @if (activeTab() === 'config') {
+            <!-- Section 1: Client credentials -->
+            <div class="flex flex-col gap-space-sm">
+                <span class="font-headline-sm text-headline-sm text-on-surface">
+                    Credenciales del Cliente
+                </span>
+                <p class="font-body-sm text-body-sm text-on-surface-variant">
+                    Estas cadenas identifican tu aplicación ante los servidores de autorización.
+                </p>
+
+                <!-- Issuer Domain -->
+                <div class="flex flex-col gap-space-xs mt-1">
+                    <label class="font-label-caps text-label-caps text-on-surface-variant uppercase">
+                        Dominio de Autenticación (Issuer Domain)
+                    </label>
+                    <div class="relative flex items-center">
+                        <input type="text" readonly [value]="detail().issuerDomain"
+                            class="w-full bg-surface-container-low text-on-surface font-label-code-md text-label-code-md px-space-md py-space-xs rounded-lg focus:outline-none" />
+                        @if (detail().issuerSslActive) {
+                        <span
+                            class="absolute right-space-sm flex items-center gap-1 bg-surface-container-lowest px-2 py-0.5 rounded font-label-code-sm text-tertiary-container shadow-sm">
+                            <span class="material-symbols-outlined text-[14px]">verified</span>
+                            SSL Activo
+                        </span>
+                        }
+                    </div>
+                </div>
+
+                <!-- Client ID -->
+                <div class="flex flex-col gap-space-xs">
+                    <label class="font-label-caps text-label-caps text-on-surface-variant uppercase">
+                        Client ID
+                    </label>
+                    <div class="flex items-center gap-space-xs">
+                        <input type="text" readonly [value]="detail().clientId"
+                            class="flex-1 bg-surface-container-low text-on-surface font-label-code-md text-label-code-md px-space-md py-space-xs rounded-lg focus:outline-none" />
+                        <button type="button"
+                            class="px-space-md py-space-xs bg-surface-container-high hover:bg-surface-container-highest text-on-surface rounded-lg font-headline-sm text-headline-sm flex items-center gap-1 transition-colors">
+                            <span class="material-symbols-outlined text-[16px]">content_copy</span>
+                            Copiar
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Client Secret -->
+                <div class="flex flex-col gap-space-xs">
+                    <div class="flex items-center justify-between">
+                        <label class="font-label-caps text-label-caps text-on-surface-variant uppercase">
+                            Client Secret (Firma PKCE & Webhook Sign)
+                        </label>
+                        <span class="font-label-code-sm text-label-code-sm text-outline">
+                            Última rotación: {{ detail().lastRotationDays }} días
+                        </span>
+                    </div>
+
+                    <div class="flex items-center gap-space-xs">
+                        <div class="relative flex-1">
+                            <input type="text" readonly [value]="maskedSecret()"
+                                class="w-full bg-surface-container-low text-on-surface font-label-code-md text-label-code-md px-space-md py-space-xs rounded-lg focus:outline-none tracking-wider" />
+                            <button type="button" (click)="toggleSecret()"
+                                class="absolute right-space-sm top-1/2 -translate-y-1/2 text-outline hover:text-on-surface transition-colors">
+                                <span class="material-symbols-outlined text-[18px]">
+                                    {{ secretVisible() ? 'visibility_off' : 'visibility' }}
+                                </span>
+                            </button>
+                        </div>
+
+                        <button type="button"
+                            class="px-space-md py-space-xs bg-surface-container-high hover:bg-surface-container-highest text-on-surface rounded-lg font-headline-sm text-headline-sm flex items-center gap-1 transition-colors">
+                            <span class="material-symbols-outlined text-[16px]">sync</span>
+                            Rotar Secreto
+                        </button>
+                    </div>
+
+                    <p class="font-body-sm text-body-sm text-outline">
+                        Nunca expongas este valor en repositorios públicos o bundles de navegador.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Section 2: URLs -->
+            <div class="flex flex-col gap-space-sm pt-space-md">
+                <span class="font-headline-sm text-headline-sm text-on-surface">
+                    Configuración de Dominios y Redirecciones
+                </span>
+
+                <div class="flex flex-col gap-space-xs">
+                    <label class="font-label-caps text-label-caps text-on-surface-variant uppercase">
+                        Allowed Callback URLs
+                    </label>
+                    <textarea rows="2" [value]="detail().callbackUrls"
+                        class="w-full bg-surface-container-low text-on-surface font-label-code-md text-label-code-md p-space-sm rounded-lg focus:outline-none focus:ring-1 focus:ring-primary shadow-inner resize-y"></textarea>
+                    <span class="font-body-sm text-body-sm text-on-surface-variant">
+                        URLs permitidas tras la autenticación exitosa (una por línea).
+                    </span>
+                </div>
+
+                <div class="flex flex-col gap-space-xs mt-1">
+                    <label class="font-label-caps text-label-caps text-on-surface-variant uppercase">
+                        Allowed Logout URLs
+                    </label>
+                    <textarea rows="1" [value]="detail().logoutUrls"
+                        class="w-full bg-surface-container-low text-on-surface font-label-code-md text-label-code-md p-space-sm rounded-lg focus:outline-none focus:ring-1 focus:ring-primary shadow-inner resize-none"></textarea>
+                </div>
+
+                <div class="flex flex-col gap-space-xs mt-1">
+                    <label class="font-label-caps text-label-caps text-on-surface-variant uppercase">
+                        Allowed Web Origins (CORS)
+                    </label>
+                    <input type="text" [value]="detail().corsOrigins"
+                        class="w-full bg-surface-container-low text-on-surface font-label-code-md text-label-code-md px-space-md py-space-xs rounded-lg focus:outline-none focus:ring-1 focus:ring-primary shadow-inner" />
+                </div>
+            </div>
+
+            <!-- Section 3: Token lifecycle -->
+            <div class="flex flex-col gap-space-sm pt-space-md">
+                <span class="font-headline-sm text-headline-sm text-on-surface">
+                    Expiración y Ciclo de Vida del Token
+                </span>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-space-md">
+                    <div class="flex flex-col gap-space-xs bg-surface-container-low p-space-sm rounded-xl">
+                        <label class="font-label-caps text-label-caps text-on-surface-variant uppercase">
+                            Access Token TTL (seg)
+                        </label>
+                        <div class="flex items-center gap-2">
+                            <input type="number" [value]="detail().accessTokenTtl"
+                                class="w-full bg-surface-container-lowest text-on-surface font-label-code-md text-label-code-md px-space-sm py-1 rounded-lg" />
+                            <span class="font-label-code-sm text-label-code-sm text-outline whitespace-nowrap">
+                                ~ 1 hora
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col gap-space-xs bg-surface-container-low p-space-sm rounded-xl">
+                        <label class="font-label-caps text-label-caps text-on-surface-variant uppercase">
+                            Refresh Token TTL
+                        </label>
+                        <div class="flex items-center gap-2">
+                            <input type="number" [value]="detail().refreshTokenTtl"
+                                class="w-full bg-surface-container-lowest text-on-surface font-label-code-md text-label-code-md px-space-sm py-1 rounded-lg" />
+                            <span class="font-label-code-sm text-label-code-sm text-outline whitespace-nowrap">
+                                ~ 30 días
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Rotation toggle -->
+                <div
+                    class="mt-space-xs p-space-md bg-surface-container-low rounded-xl flex items-center justify-between gap-space-md">
+                    <div class="flex flex-col gap-0.5">
+                        <div class="flex items-center gap-space-xs">
+                            <span class="font-headline-sm text-headline-sm text-on-surface">
+                                Rotación Automática de Refresh Tokens
+                            </span>
+                            <span
+                                class="bg-primary/10 text-primary px-1.5 py-0.5 rounded font-label-code-sm text-[10px] font-semibold">
+                                Recomendado SPA
+                            </span>
+                        </div>
+                        <p class="font-body-sm text-body-sm text-on-surface-variant">
+                            Invalida el refresh token anterior al emitir un nuevo juego de credenciales.
+                        </p>
+                    </div>
+
+                    <button type="button" (click)="toggleRotation()"
+                        class="relative inline-flex items-center cursor-pointer shrink-0 w-11 h-6 rounded-full transition-colors"
+                        [class]="refreshRotation() ? 'bg-primary-container' : 'bg-surface-container-highest'">
+                        <span class="absolute w-5 h-5 bg-white rounded-full shadow-sm transition-transform"
+                            [class]="refreshRotation() ? 'translate-x-[22px]' : 'translate-x-0.5'"></span>
+                    </button>
+                </div>
+            </div>
+            } @else {
+            <!-- Placeholder para las otras tabs -->
+            <div class="flex flex-col items-center justify-center py-space-xl gap-space-sm">
+                <span class="material-symbols-outlined text-[40px] text-outline">construction</span>
+                <p class="font-headline-sm text-headline-sm text-on-surface">
+                    Sección en construcción
+                </p>
+                <p class="font-body-sm text-body-sm text-on-surface-variant">
+                    Próximamente disponible.
+                </p>
+            </div>
+            }
+
+        </div>
+
+        <!-- ═══ RIGHT COLUMN: SDK + Metrics (5 cols) ═══ -->
+        <div class="lg:col-span-5 flex flex-col gap-space-md">
+            <app-sdk-quickstart [snippets]="detail().sdkSnippets" />
+
+            <app-live-metrics [successRate]="detail().successRate" [pkceExchanges]="detail().pkceCodeExchanges"
+                [refreshGrants]="detail().refreshTokenGrants" />
+        </div>
+    </div>
+
+    <!-- ───── FOOTER ───── -->
+    <div
+        class="p-space-lg bg-surface-container-low flex flex-col sm:flex-row items-center justify-between gap-space-md">
+        <button type="button"
+            class="w-full sm:w-auto px-space-md py-space-sm rounded-lg text-error hover:bg-error-container/50 font-headline-sm text-headline-sm flex items-center justify-center gap-space-xs transition-colors">
+            <span class="material-symbols-outlined text-[18px]">delete_forever</span>
+            Eliminar Aplicación
+        </button>
+
+        <div class="flex items-center gap-space-sm w-full sm:w-auto justify-end">
+            <button type="button"
+                class="w-full sm:w-auto px-space-md py-space-sm bg-surface-container-lowest text-on-surface-variant hover:text-on-surface rounded-lg font-headline-sm text-headline-sm transition-colors shadow-sm">
+                Descartar Cambios
+            </button>
+            <button type="button"
+                class="w-full sm:w-auto px-space-xl py-space-sm bg-primary-container text-on-primary rounded-lg font-headline-sm text-headline-sm shadow-md hover:bg-primary transition-all flex items-center justify-center gap-space-xs">
+                <span class="material-symbols-outlined text-[18px]">save</span>
+                Guardar Cambios
+            </button>
+        </div>
+    </div>
+</div>
