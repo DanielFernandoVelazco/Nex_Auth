@@ -113,5 +113,119 @@
             "metricValue": "Auth Code + Secret",
             "metricSecondary": "history"
         }
-    ]
+    ],
+    "details": {
+        "app-1": {
+            "id": "app-1",
+            "name": "Acme Web Portal",
+            "icon": "web",
+            "clientId": "app_clnt_8f92a10b48e3",
+            "clientType": "SPA OIDC RFC 8252",
+            "tlsVerified": true,
+            "createdBy": "@s.alarcon",
+            "createdAgo": "hace 3 meses",
+            "issuerDomain": "auth.acme.com",
+            "issuerSslActive": true,
+            "clientSecret": "sec_prod_live_90x1f88a2e4b9c10d3f82aa0",
+            "lastRotationDays": 14,
+            "callbackUrls": "https://app.acme.com/api/auth/callback\nhttps://staging.acme.com/callback",
+            "logoutUrls": "https://app.acme.com/login, https://app.acme.com/logout-success",
+            "corsOrigins": "https://app.acme.com, https://admin.acme.com",
+            "accessTokenTtl": 3600,
+            "refreshTokenTtl": 2592000,
+            "refreshRotationEnabled": true,
+            "successRate": 99.98,
+            "pkceCodeExchanges": 108200,
+            "refreshTokenGrants": 16200,
+            "sdkSnippets": {
+                "nodejs": "import { AuthShieldClient } from '@authshield/nextjs';\n\nexport const auth = new AuthShieldClient({\n  domain: 'auth.acme.com',\n  clientId: 'app_clnt_8f92a10b48e3',\n  redirectUri: 'https://app.acme.com/callback',\n  audience: 'https://api.acme.com/v1',\n  scope: 'openid profile email offline_access',\n  useRefreshTokens: true\n});",
+                "python": "from authshield import AuthShieldClient\n\nauth = AuthShieldClient(\n    domain='auth.acme.com',\n    client_id='app_clnt_8f92a10b48e3',\n    redirect_uri='https://app.acme.com/callback',\n    use_refresh_tokens=True,\n)",
+                "curl": "curl -X POST https://auth.acme.com/oauth/token \\\n  -H 'Content-Type: application/json' \\\n  -d '{\n    \"grant_type\": \"authorization_code\",\n    \"client_id\": \"app_clnt_8f92a10b48e3\",\n    \"code\": \"...\",\n    \"code_verifier\": \"...\"\n  }'"
+            }
+        },
+        "app-2": {
+            "id": "app-2",
+            "name": "Acme Mobile App",
+            "icon": "smartphone",
+            "clientId": "app_clnt_91ba73c1d904",
+            "clientType": "Native PKCE RFC 8252",
+            "tlsVerified": true,
+            "createdBy": "@m.chen",
+            "createdAgo": "hace 5 meses",
+            "issuerDomain": "auth.acme.com",
+            "issuerSslActive": true,
+            "clientSecret": "sec_mobile_live_44b2fa90a12e33bc",
+            "lastRotationDays": 30,
+            "callbackUrls": "acmeapp://auth/callback",
+            "logoutUrls": "acmeapp://logout",
+            "corsOrigins": "",
+            "accessTokenTtl": 3600,
+            "refreshTokenTtl": 2592000,
+            "refreshRotationEnabled": true,
+            "successRate": 99.88,
+            "pkceCodeExchanges": 78120,
+            "refreshTokenGrants": 10290,
+            "sdkSnippets": {
+                "nodejs": "// Mobile SDK — React Native\nimport { AuthShieldRN } from '@authshield/react-native';\n\nconst auth = new AuthShieldRN({\n  domain: 'auth.acme.com',\n  clientId: 'app_clnt_91ba73c1d904',\n  scheme: 'acmeapp'\n});",
+                "python": "# Not applicable for native mobile",
+                "curl": "curl -X POST https://auth.acme.com/oauth/token \\\n  -d 'grant_type=refresh_token&client_id=app_clnt_91ba73c1d904&refresh_token=...'"
+            }
+        },
+        "app-3": {
+            "id": "app-3",
+            "name": "Billing Microservice",
+            "icon": "dns",
+            "clientId": "m2m_srv_44a9e201b2ff",
+            "clientType": "Machine-to-Machine",
+            "tlsVerified": true,
+            "createdBy": "@d.chen",
+            "createdAgo": "hace 1 año",
+            "issuerDomain": "auth.acme.com",
+            "issuerSslActive": true,
+            "clientSecret": "sec_m2m_live_11c088ef231a44a9",
+            "lastRotationDays": 7,
+            "callbackUrls": "",
+            "logoutUrls": "",
+            "corsOrigins": "",
+            "accessTokenTtl": 900,
+            "refreshTokenTtl": 0,
+            "refreshRotationEnabled": false,
+            "successRate": 100.0,
+            "pkceCodeExchanges": 0,
+            "refreshTokenGrants": 1400000,
+            "sdkSnippets": {
+                "nodejs": "const response = await fetch('https://auth.acme.com/oauth/token', {\n  method: 'POST',\n  headers: { 'Content-Type': 'application/x-www-form-urlencoded' },\n  body: new URLSearchParams({\n    grant_type: 'client_credentials',\n    client_id: 'm2m_srv_44a9e201b2ff',\n    client_secret: process.env.CLIENT_SECRET,\n    scope: 'read:invoices write:charges'\n  })\n});",
+                "python": "import requests\n\nresponse = requests.post('https://auth.acme.com/oauth/token', data={\n    'grant_type': 'client_credentials',\n    'client_id': 'm2m_srv_44a9e201b2ff',\n    'client_secret': os.environ['CLIENT_SECRET'],\n    'scope': 'read:invoices write:charges'\n})",
+                "curl": "curl -X POST https://auth.acme.com/oauth/token \\\n  -d 'grant_type=client_credentials' \\\n  -d 'client_id=m2m_srv_44a9e201b2ff' \\\n  -d 'client_secret=$CLIENT_SECRET' \\\n  -d 'scope=read:invoices write:charges'"
+            }
+        },
+        "app-4": {
+            "id": "app-4",
+            "name": "Legacy Partner Portal",
+            "icon": "language",
+            "clientId": "app_clnt_11c088ef231a",
+            "clientType": "Regular Web App",
+            "tlsVerified": false,
+            "createdBy": "@legacy.team",
+            "createdAgo": "hace 2 años",
+            "issuerDomain": "partners.staging.acme.io",
+            "issuerSslActive": true,
+            "clientSecret": "sec_stg_live_55e201aa88f122bc",
+            "lastRotationDays": 90,
+            "callbackUrls": "https://partners.staging.acme.io/callback",
+            "logoutUrls": "https://partners.staging.acme.io/logout",
+            "corsOrigins": "https://partners.staging.acme.io",
+            "accessTokenTtl": 7200,
+            "refreshTokenTtl": 604800,
+            "refreshRotationEnabled": false,
+            "successRate": 98.5,
+            "pkceCodeExchanges": 4230,
+            "refreshTokenGrants": 890,
+            "sdkSnippets": {
+                "nodejs": "// Legacy Node.js integration\nconst { Issuer } = require('openid-client');\n\nconst issuer = await Issuer.discover('https://partners.staging.acme.io');",
+                "python": "import authlib\n\nclient = authlib.OAuth2Session(\n    client_id='app_clnt_11c088ef231a',\n    redirect_uri='https://partners.staging.acme.io/callback'\n)",
+                "curl": "curl https://partners.staging.acme.io/.well-known/openid-configuration"
+            }
+        }
+    }
 }
