@@ -1,1 +1,245 @@
-<p>user-directory works!</p>
+<div class="flex flex-col w-full pb-space-xl">
+
+    <!-- ─── Header ─────────────────────────────────────── -->
+    <div class="py-space-lg flex flex-col lg:flex-row lg:items-end justify-between gap-space-md">
+        <div class="flex flex-col">
+            <div class="flex items-center gap-space-xs">
+                <span class="font-label-caps text-label-caps text-primary uppercase tracking-wider">
+                    Identidades & Gobernanza
+                </span>
+                <span class="text-outline-variant font-label-code-sm">/</span>
+                <span class="font-label-code-sm text-on-surface-variant font-medium">
+                    acme-tenant-primary
+                </span>
+            </div>
+            <h1 class="font-headline-xl text-headline-xl text-on-surface mt-space-xs">
+                Directorio de Usuarios
+            </h1>
+            <p class="font-body-md text-body-md text-on-surface-variant max-w-3xl">
+                Explora identidades registradas, sesiones activas, roles asignados y conexiones federadas en tiempo
+                real.
+            </p>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-space-sm">
+            <button type="button" (click)="importUsers()"
+                class="flex items-center gap-space-xs px-space-md py-space-sm bg-surface-container-lowest hover:bg-surface-container-high text-on-surface font-headline-sm text-headline-sm rounded-lg shadow-sm transition-colors">
+                <span class="material-symbols-outlined text-[18px] text-on-surface-variant">upload_file</span>
+                Importar (CSV/JSON)
+            </button>
+            <button type="button" (click)="exportUsers()"
+                class="flex items-center gap-space-xs px-space-md py-space-sm bg-surface-container-lowest hover:bg-surface-container-high text-on-surface font-headline-sm text-headline-sm rounded-lg shadow-sm transition-colors">
+                <span class="material-symbols-outlined text-[18px] text-on-surface-variant">file_download</span>
+                Exportar
+            </button>
+            <button type="button" (click)="createUser()"
+                class="flex items-center gap-space-xs px-space-md py-space-sm bg-primary-container hover:bg-primary text-on-primary font-headline-sm text-headline-sm rounded-lg shadow-md transition-colors">
+                <span class="material-symbols-outlined text-[18px]">person_add</span>
+                Crear Usuario
+            </button>
+        </div>
+    </div>
+
+    <!-- ─── KPIs ───────────────────────────────────────── -->
+    @if (kpis().length > 0) {
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-md mb-space-lg">
+        @for (kpi of kpis(); track kpi.id) {
+        <app-kpi-card [kpi]="kpi" />
+        }
+    </div>
+    }
+
+    <!-- ─── Filter bar ─────────────────────────────────── -->
+    <div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex flex-col gap-space-md mb-space-lg">
+
+        <div class="flex flex-col lg:flex-row gap-space-sm items-stretch lg:items-center">
+            <!-- Search con Lucid Query -->
+            <div class="flex-1 relative flex items-center bg-surface-container-low rounded-lg">
+                <span class="material-symbols-outlined text-[20px] text-outline ml-space-md">search</span>
+                <input type="text" placeholder="Busca por email:*, user_id:*, connection:google, ip:..."
+                    [value]="searchQuery()" (input)="onSearch($event)"
+                    class="w-full bg-transparent px-space-sm py-space-sm font-label-code-md text-label-code-md text-on-surface placeholder:text-outline focus:outline-none" />
+                <div class="hidden sm:flex items-center gap-space-xs mr-space-md">
+                    <span
+                        class="font-label-code-sm text-label-code-sm bg-surface-container-high px-space-xs py-0.5 rounded text-on-surface-variant">
+                        Lucid Query
+                    </span>
+                </div>
+            </div>
+
+            <!-- Filtros -->
+            <div class="flex flex-wrap items-center gap-space-sm">
+                <!-- Conexión -->
+                <div class="relative">
+                    <select [value]="connectionFilter()" (change)="onConnectionFilter($event)"
+                        class="appearance-none bg-surface-container-low text-on-surface font-body-md text-body-md pl-space-md pr-8 py-space-sm rounded-lg focus:outline-none cursor-pointer shadow-sm">
+                        <option value="all">Todas las Conexiones</option>
+                        <option value="google">Google Workspace</option>
+                        <option value="github">GitHub Enterprise</option>
+                        <option value="database">AuthShield Database</option>
+                        <option value="okta">SAML Okta</option>
+                    </select>
+                    <span
+                        class="material-symbols-outlined absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none text-outline text-[18px]">
+                        expand_more
+                    </span>
+                </div>
+
+                <!-- Rol -->
+                <div class="relative">
+                    <select [value]="roleFilter()" (change)="onRoleFilter($event)"
+                        class="appearance-none bg-surface-container-low text-on-surface font-body-md text-body-md pl-space-md pr-8 py-space-sm rounded-lg focus:outline-none cursor-pointer shadow-sm">
+                        <option value="all">Todos los Roles</option>
+                        <option value="t-admin">Tenant Admin</option>
+                        <option value="devops">Developer Ops</option>
+                        <option value="product">Product</option>
+                        <option value="external">External</option>
+                    </select>
+                    <span
+                        class="material-symbols-outlined absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none text-outline text-[18px]">
+                        expand_more
+                    </span>
+                </div>
+
+                <!-- Estado -->
+                <div class="relative">
+                    <select [value]="statusFilter()" (change)="onStatusFilter($event)"
+                        class="appearance-none bg-surface-container-low text-on-surface font-body-md text-body-md pl-space-md pr-8 py-space-sm rounded-lg focus:outline-none cursor-pointer shadow-sm">
+                        <option value="all">Estado: Cualquiera</option>
+                        <option value="active">Activos</option>
+                        <option value="blocked">Bloqueados</option>
+                        <option value="pending">Pendientes</option>
+                    </select>
+                    <span
+                        class="material-symbols-outlined absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none text-outline text-[18px]">
+                        expand_more
+                    </span>
+                </div>
+
+                <!-- Reset -->
+                <button type="button" (click)="resetFilters()"
+                    class="p-space-sm bg-surface-container-low hover:bg-surface-container-high rounded-lg text-on-surface-variant hover:text-on-surface transition-colors"
+                    title="Restablecer filtros">
+                    <span class="material-symbols-outlined text-[18px]">filter_alt_off</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Active filter chips -->
+        @if (hasActiveFilters()) {
+        <div class="flex items-center gap-space-sm pt-space-xs overflow-x-auto">
+            <span class="font-label-caps text-label-caps text-outline uppercase tracking-wider whitespace-nowrap">
+                Filtros Activos:
+            </span>
+            @if (connectionFilter() !== 'all') {
+            <span
+                class="inline-flex items-center gap-space-xs px-space-sm py-0.5 rounded-full bg-surface-container font-label-code-sm text-label-code-sm text-primary">
+                connection: {{ connectionFilter() }}
+                <button type="button" (click)="connectionFilter.set('all')" class="hover:text-error">
+                    <span class="material-symbols-outlined text-[14px]">close</span>
+                </button>
+            </span>
+            }
+            @if (statusFilter() !== 'all') {
+            <span
+                class="inline-flex items-center gap-space-xs px-space-sm py-0.5 rounded-full bg-surface-container font-label-code-sm text-label-code-sm text-primary">
+                estado: {{ statusFilter() }}
+                <button type="button" (click)="statusFilter.set('all')" class="hover:text-error">
+                    <span class="material-symbols-outlined text-[14px]">close</span>
+                </button>
+            </span>
+            }
+        </div>
+        }
+    </div>
+
+    <!-- ─── Table + Inspector split ────────────────────── -->
+    <div class="relative w-full flex flex-col xl:flex-row gap-space-lg items-start">
+
+        <!-- Table -->
+        <div class="w-full xl:flex-1 bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden flex flex-col">
+            @if (loading()) {
+            <div class="flex items-center justify-center py-space-xl">
+                <span class="material-symbols-outlined text-[32px] text-outline animate-spin">refresh</span>
+            </div>
+            } @else {
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr
+                            class="bg-surface-container-low text-outline font-label-caps text-label-caps uppercase tracking-wider">
+                            <th class="py-space-sm px-space-md w-10">
+                                <input type="checkbox"
+                                    class="rounded accent-primary-container cursor-pointer w-4 h-4" />
+                            </th>
+                            <th class="py-space-sm px-space-md">Usuario & Credenciales</th>
+                            <th class="py-space-sm px-space-md">Conexión SSO / DB</th>
+                            <th class="py-space-sm px-space-md">Estado</th>
+                            <th class="py-space-sm px-space-md">Factor MFA</th>
+                            <th class="py-space-sm px-space-md">Último Login</th>
+                            <th class="py-space-sm px-space-md text-right">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-body-md font-body-md text-on-surface">
+                        @for (user of filteredUsers(); track user.id) {
+                        <app-user-row [user]="user" [selected]="selectedUser()?.id === user.id"
+                            (rowClick)="onRowClick($event)" />
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Pagination -->
+            <div
+                class="flex flex-col sm:flex-row items-center justify-between gap-space-md p-space-md bg-surface-container-low/50">
+                <div class="flex items-center gap-space-md">
+                    <span class="font-body-sm text-body-sm text-on-surface-variant">
+                        Mostrando <span class="font-medium text-on-surface">{{ filteredUsers().length }}</span>
+                        de <span class="font-medium text-on-surface">42,850</span> usuarios
+                    </span>
+                    <div class="flex items-center gap-space-xs">
+                        <span class="font-body-sm text-body-sm text-outline">Filas:</span>
+                        <select
+                            class="bg-surface-container-lowest text-on-surface font-label-code-sm px-space-xs py-1 rounded shadow-sm">
+                            <option>10</option>
+                            <option selected>25</option>
+                            <option>50</option>
+                            <option>100</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-space-xs">
+                    <button type="button"
+                        class="p-space-xs rounded bg-surface-container-lowest text-outline opacity-50 cursor-not-allowed">
+                        <span class="material-symbols-outlined text-[18px]">chevron_left</span>
+                    </button>
+                    <button type="button"
+                        class="w-8 h-8 rounded bg-primary-container text-on-primary font-label-code-sm font-semibold flex items-center justify-center shadow-sm">
+                        1
+                    </button>
+                    <button type="button"
+                        class="w-8 h-8 rounded bg-surface-container-lowest hover:bg-surface-container-high text-on-surface font-label-code-sm flex items-center justify-center transition-colors">
+                        2
+                    </button>
+                    <button type="button"
+                        class="w-8 h-8 rounded bg-surface-container-lowest hover:bg-surface-container-high text-on-surface font-label-code-sm flex items-center justify-center transition-colors">
+                        3
+                    </button>
+                    <button type="button"
+                        class="p-space-xs rounded bg-surface-container-lowest hover:bg-surface-container-high text-on-surface transition-colors shadow-sm">
+                        <span class="material-symbols-outlined text-[18px]">chevron_right</span>
+                    </button>
+                </div>
+            </div>
+            }
+        </div>
+
+        <!-- Inspector -->
+        @if (selectedUser(); as user) {
+        <app-user-inspector [user]="user" (close)="closeInspector()" />
+        }
+
+    </div>
+
+</div>
