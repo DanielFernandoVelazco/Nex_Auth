@@ -1,0 +1,272 @@
+<aside class="w-full xl:w-[460px] bg-surface-container-lowest rounded-xl shadow-xl flex flex-col">
+
+    <!-- ───── Header ───── -->
+    <div class="p-space-lg bg-surface-container-low/40 rounded-t-xl flex flex-col gap-space-md">
+
+        <div class="flex items-start justify-between">
+            <div class="flex items-center gap-space-sm">
+                <div class="w-14 h-14 rounded-full flex items-center justify-center font-headline-md text-headline-md font-bold shadow-md"
+                    [class]="user().avatarBg === 'error'
+            ? 'bg-error-container text-on-error-container'
+            : (user().avatarBg === 'primary'
+              ? 'bg-primary-container text-on-primary'
+              : 'bg-secondary-fixed text-on-secondary-fixed')">
+                    {{ user().initials }}
+                </div>
+
+                <div class="flex flex-col min-w-0">
+                    <div class="flex items-center gap-space-xs">
+                        <h3 class="font-headline-md text-headline-md text-on-surface truncate">
+                            {{ user().name }}
+                        </h3>
+                        @if (user().status === 'active') {
+                        <span class="material-symbols-outlined text-[18px] text-tertiary-container" title="Verificado">
+                            verified
+                        </span>
+                        }
+                    </div>
+                    <span class="font-label-code-sm text-label-code-sm text-on-surface-variant truncate">
+                        {{ user().email }}
+                    </span>
+                    <div class="flex items-center gap-space-xs mt-1">
+                        <span class="font-label-code-sm text-label-code-sm px-space-xs py-0.5 rounded font-medium"
+                            [class]="roleClass()">
+                            {{ user().roleLabel }}
+                        </span>
+                        <span
+                            class="font-label-code-sm text-label-code-sm bg-surface-container text-on-surface-variant px-space-xs py-0.5 rounded">
+                            {{ user().connection.label }}
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <button type="button" (click)="closeDrawer()"
+                class="p-space-xs rounded-lg text-outline hover:text-on-surface hover:bg-surface-container-high transition-colors">
+                <span class="material-symbols-outlined text-[20px]">close</span>
+            </button>
+        </div>
+
+        <!-- Quick actions + copy -->
+        <div class="flex items-center gap-space-xs pt-space-xs relative">
+            <div class="relative flex-1">
+                <button type="button" (click)="toggleQuickActions()"
+                    class="w-full flex items-center justify-between px-space-md py-space-sm bg-surface-container-lowest hover:bg-surface-container-high text-on-surface font-headline-sm text-headline-sm rounded-lg shadow-sm transition-colors">
+                    <span class="flex items-center gap-space-xs">
+                        <span class="material-symbols-outlined text-[18px] text-primary">bolt</span>
+                        <span>Acciones Rápidas</span>
+                    </span>
+                    <span class="material-symbols-outlined text-[16px] text-outline">expand_more</span>
+                </button>
+
+                @if (quickActionsOpen()) {
+                <div
+                    class="absolute left-0 right-0 top-full mt-1 bg-surface-container-lowest rounded-lg shadow-xl z-30 p-space-xs flex flex-col gap-1">
+                    <button type="button" (click)="sendPasswordReset()"
+                        class="w-full flex items-center gap-space-xs px-space-sm py-space-xs rounded font-body-sm text-body-sm text-on-surface hover:bg-surface-container-high text-left">
+                        <span class="material-symbols-outlined text-[18px] text-secondary">lock_reset</span>
+                        Enviar Restablecimiento de Contraseña
+                    </button>
+                    <button type="button" (click)="unlinkMfa()"
+                        class="w-full flex items-center gap-space-xs px-space-sm py-space-xs rounded font-body-sm text-body-sm text-on-surface hover:bg-surface-container-high text-left">
+                        <span class="material-symbols-outlined text-[18px] text-secondary">phonelink_erase</span>
+                        Desvincular Factores MFA
+                    </button>
+                    <button type="button" (click)="revokeSessions()"
+                        class="w-full flex items-center gap-space-xs px-space-sm py-space-xs rounded font-body-sm text-body-sm text-error hover:bg-error-container/30 text-left">
+                        <span class="material-symbols-outlined text-[18px]">power_settings_new</span>
+                        Revocar Todas las Sesiones
+                    </button>
+                    <button type="button" (click)="blockAccount()"
+                        class="w-full flex items-center gap-space-xs px-space-sm py-space-xs rounded font-body-sm text-body-sm text-error hover:bg-error-container/30 text-left font-medium">
+                        <span class="material-symbols-outlined text-[18px]">block</span>
+                        Bloquear Cuenta
+                    </button>
+                </div>
+                }
+            </div>
+
+            <button type="button" (click)="copyUserId()"
+                class="p-space-sm bg-surface-container-lowest hover:bg-surface-container-high rounded-lg text-on-surface-variant hover:text-on-surface shadow-sm transition-colors"
+                title="Copiar email">
+                <span class="material-symbols-outlined text-[18px]">content_copy</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- ───── Stats ───── -->
+    <div class="grid grid-cols-3 gap-space-xs p-space-md">
+        <div class="p-space-sm bg-surface-container-low rounded-lg flex flex-col">
+            <span class="font-label-caps text-label-caps text-outline uppercase">Sesiones</span>
+            <span class="font-headline-md text-headline-md text-on-surface font-bold mt-1">{{ user().stats.sessions
+                }}</span>
+            <span class="font-label-code-sm text-label-code-sm text-tertiary-container mt-0.5">{{
+                user().stats.sessionsSub }}</span>
+        </div>
+        <div class="p-space-sm bg-surface-container-low rounded-lg flex flex-col">
+            <span class="font-label-caps text-label-caps text-outline uppercase">Logins</span>
+            <span class="font-headline-md text-headline-md text-on-surface font-bold mt-1">{{ user().stats.logins
+                }}</span>
+            <span class="font-label-code-sm text-label-code-sm text-outline mt-0.5">{{ user().stats.loginsSub }}</span>
+        </div>
+        <div class="p-space-sm bg-surface-container-low rounded-lg flex flex-col">
+            <span class="font-label-caps text-label-caps text-outline uppercase">Creado</span>
+            <span class="font-headline-md text-headline-md text-on-surface font-bold mt-1">{{ user().stats.created
+                }}</span>
+            <span class="font-label-code-sm text-label-code-sm text-outline mt-0.5">{{ user().stats.createdSub }}</span>
+        </div>
+    </div>
+
+    <!-- ───── Tabs ───── -->
+    <div class="px-space-md flex items-center gap-space-md border-b border-surface-container">
+        @for (tab of tabs; track tab.id) {
+        <button type="button" (click)="setTab(tab.id)"
+            class="py-space-sm font-headline-sm text-headline-sm flex items-center gap-space-xs border-b-2 -mb-[2px] transition-colors"
+            [class]="activeTab() === tab.id
+          ? 'text-primary border-primary'
+          : 'text-outline hover:text-on-surface border-transparent'">
+            {{ tab.label }}
+        </button>
+        }
+    </div>
+
+    <!-- ───── Tab content ───── -->
+    <div class="p-space-md flex-1 flex flex-col gap-space-md max-h-[480px] overflow-y-auto">
+
+        @switch (activeTab()) {
+        @case ('identities') {
+        <!-- Principal SSO -->
+        <div class="p-space-md bg-surface-container-low rounded-xl flex flex-col gap-space-xs">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-space-xs">
+                    <span class="material-symbols-outlined text-[18px] text-primary">cloud</span>
+                    <span class="font-headline-sm text-headline-sm text-on-surface">
+                        {{ user().connection.identifier }}
+                    </span>
+                </div>
+                <span
+                    class="font-label-code-sm text-label-code-sm bg-tertiary-container/15 text-tertiary px-space-xs py-0.5 rounded font-semibold">
+                    Principal SSO
+                </span>
+            </div>
+            <div class="flex flex-col mt-space-xs">
+                <span class="font-label-caps text-label-caps text-outline uppercase">User ID Federado</span>
+                <div
+                    class="flex items-center justify-between bg-surface-container-lowest p-space-xs rounded mt-1 font-label-code-sm text-label-code-sm text-on-surface">
+                    <span class="truncate">{{ user().connection.identifier }}</span>
+                    <span class="material-symbols-outlined text-[16px] text-outline">content_copy</span>
+                </div>
+            </div>
+            <div
+                class="flex items-center justify-between text-body-sm font-body-sm text-on-surface-variant pt-space-xs">
+                <span>Vinculado: {{ user().stats.created }} {{ user().stats.createdSub }}</span>
+                <button type="button" class="text-error font-label-code-sm text-label-code-sm hover:underline">
+                    Desvincular
+                </button>
+            </div>
+        </div>
+
+        <!-- MFA -->
+        <div class="p-space-md bg-surface-container-low rounded-xl flex flex-col gap-space-xs">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-space-xs">
+                    <span class="material-symbols-outlined text-[18px] text-secondary">{{ user().mfa.icon }}</span>
+                    <span class="font-headline-sm text-headline-sm text-on-surface">{{ user().mfa.label }}</span>
+                </div>
+                <span
+                    class="font-label-code-sm text-label-code-sm bg-surface-container-high text-on-surface-variant px-space-xs py-0.5 rounded">
+                    {{ user().mfa.factor.toUpperCase() }}
+                </span>
+            </div>
+            <span class="font-label-code-sm text-label-code-sm text-on-surface-variant">
+                Último uso: {{ user().lastLogin.relative }} desde {{ user().lastLogin.ip }}
+            </span>
+        </div>
+
+        <button type="button"
+            class="w-full flex items-center justify-center gap-space-xs py-space-sm bg-surface-container-low hover:bg-surface-container-high text-primary font-headline-sm text-headline-sm rounded-lg transition-colors">
+            <span class="material-symbols-outlined text-[18px]">add_link</span>
+            Vincular Nueva Identidad
+        </button>
+        }
+
+        @case ('metadata') {
+        <div class="flex items-center justify-between">
+            <span class="font-label-caps text-label-caps text-outline uppercase">
+                app_metadata & user_metadata
+            </span>
+            <button type="button"
+                class="text-primary hover:underline font-label-code-sm text-label-code-sm flex items-center gap-1">
+                <span class="material-symbols-outlined text-[14px]">save</span>
+                Guardar
+            </button>
+        </div>
+
+        <div
+            class="bg-inverse-surface rounded-lg p-space-md font-label-code-sm text-label-code-sm text-inverse-on-surface overflow-x-auto shadow-inner">
+            <pre class="leading-relaxed whitespace-pre-wrap"><code>{{ metadataJson }}</code></pre>
+        </div>
+        }
+
+        @case ('audit') {
+        <div class="flex items-center justify-between">
+            <span class="font-label-caps text-label-caps text-outline uppercase">Últimos Eventos</span>
+            <span class="font-label-code-sm text-label-code-sm text-outline">Sync en vivo</span>
+        </div>
+
+        <div class="flex flex-col gap-space-xs font-body-sm text-body-sm">
+            <div class="flex items-start gap-space-sm p-space-xs rounded bg-surface-container-low">
+                <span class="material-symbols-outlined text-[16px] text-tertiary-container mt-0.5">login</span>
+                <div class="flex flex-col flex-1 min-w-0">
+                    <div class="flex items-center justify-between">
+                        <span class="font-medium text-on-surface truncate">Inicio de Sesión</span>
+                        <span class="font-label-code-sm text-outline">09:41 UTC</span>
+                    </div>
+                    <span class="font-label-code-sm text-on-surface-variant truncate">
+                        FIDO2 passkey · {{ user().lastLogin.ip }}
+                    </span>
+                </div>
+            </div>
+
+            <div class="flex items-start gap-space-sm p-space-xs rounded bg-surface-container-low">
+                <span class="material-symbols-outlined text-[16px] text-primary mt-0.5">token</span>
+                <div class="flex flex-col flex-1 min-w-0">
+                    <div class="flex items-center justify-between">
+                        <span class="font-medium text-on-surface truncate">OAuth2 Token Grant</span>
+                        <span class="font-label-code-sm text-outline">09:41 UTC</span>
+                    </div>
+                    <span class="font-label-code-sm text-on-surface-variant truncate">
+                        Client: CLI · audience: api/v2
+                    </span>
+                </div>
+            </div>
+
+            @if (user().isAnomaly) {
+            <div class="flex items-start gap-space-sm p-space-xs rounded bg-error-container/30">
+                <span class="material-symbols-outlined text-[16px] text-error mt-0.5">warning</span>
+                <div class="flex flex-col flex-1 min-w-0">
+                    <div class="flex items-center justify-between">
+                        <span class="font-medium text-error truncate">Intento Bloqueado</span>
+                        <span class="font-label-code-sm text-error">3 días atrás</span>
+                    </div>
+                    <span class="font-label-code-sm text-error truncate">
+                        IP no autorizada · VPN desconocida
+                    </span>
+                </div>
+            </div>
+            }
+        </div>
+        }
+        }
+
+    </div>
+
+    <!-- ───── Footer ───── -->
+    <div class="p-space-md bg-surface-container-low rounded-b-xl flex items-center justify-between">
+        <span class="font-label-code-sm text-label-code-sm text-outline">Tenant: us-east-1a</span>
+        <button type="button" class="text-primary hover:underline font-label-code-sm text-label-code-sm">
+            Descargar JSON
+        </button>
+    </div>
+
+</aside>
