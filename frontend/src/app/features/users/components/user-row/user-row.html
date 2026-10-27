@@ -1,0 +1,107 @@
+<tr (click)="onClick()" class="transition-colors cursor-pointer" [class]="user().isAnomaly
+    ? 'bg-error-container/10 hover:bg-error-container/20'
+    : (selected() ? 'bg-surface-container-high/40' : 'hover:bg-surface-container-low')">
+    <!-- Checkbox -->
+    <td class="py-space-md px-space-md">
+        <input type="checkbox" class="rounded accent-primary-container cursor-pointer w-4 h-4"
+            (click)="$event.stopPropagation()" />
+    </td>
+
+    <!-- Usuario & Credenciales -->
+    <td class="py-space-md px-space-md">
+        <div class="flex items-center gap-space-sm">
+            <div class="relative">
+                <div class="w-10 h-10 rounded-full flex items-center justify-center font-headline-sm text-headline-sm font-bold shadow-sm"
+                    [class]="avatarBgClass()">
+                    {{ user().initials }}
+                </div>
+                @if (user().online) {
+                <span
+                    class="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-tertiary-container ring-2 ring-surface-container-lowest"></span>
+                }
+            </div>
+
+            <div class="flex flex-col min-w-0">
+                <div class="flex items-center gap-space-xs">
+                    <span class="font-headline-sm text-headline-sm truncate"
+                        [class]="user().isAnomaly ? 'text-error' : 'text-on-surface'">
+                        {{ user().name }}
+                    </span>
+                    <span class="font-label-code-sm text-label-code-sm px-1.5 py-0.2 rounded" [class]="roleClass()">
+                        {{ user().roleLabel }}
+                    </span>
+                </div>
+                <span class="font-label-code-sm text-label-code-sm truncate"
+                    [class]="user().isAnomaly ? 'text-error' : 'text-on-surface-variant'">
+                    {{ user().email }}
+                </span>
+            </div>
+        </div>
+    </td>
+
+    <!-- Conexión SSO/DB -->
+    <td class="py-space-md px-space-md">
+        <div class="flex items-center gap-space-xs">
+            <span class="material-symbols-outlined text-[18px]" [class]="connectionIconClass()">
+                {{ user().connection.icon }}
+            </span>
+            <div class="flex flex-col">
+                <span class="font-body-md text-body-md font-medium text-on-surface">
+                    {{ user().connection.label }}
+                </span>
+                <span class="font-label-code-sm text-label-code-sm"
+                    [class]="user().isAnomaly ? 'text-error' : 'text-outline'">
+                    {{ user().connection.identifier }}
+                </span>
+            </div>
+        </div>
+    </td>
+
+    <!-- Estado -->
+    <td class="py-space-md px-space-md">
+        <app-status-badge [label]="user().statusLabel" [variant]="badgeVariant()" />
+    </td>
+
+    <!-- Factor MFA -->
+    <td class="py-space-md px-space-md">
+        <div
+            class="inline-flex items-center gap-1.5 px-space-sm py-0.5 rounded bg-surface-container font-label-code-sm text-label-code-sm">
+            <span class="material-symbols-outlined text-[16px]" [class]="mfaIconClass()">
+                {{ user().mfa.icon }}
+            </span>
+            <span [class]="user().mfa.factor === 'revoked' ? 'text-error' : 'text-on-surface'">
+                {{ user().mfa.label }}
+            </span>
+        </div>
+    </td>
+
+    <!-- Último Login -->
+    <td class="py-space-md px-space-md">
+        <div class="flex flex-col">
+            <span class="font-body-md text-body-md font-medium"
+                [class]="user().lastLogin.isCritical ? 'text-error' : 'text-on-surface'">
+                {{ user().lastLogin.relative }}
+            </span>
+            <span class="font-label-code-sm text-label-code-sm"
+                [class]="user().lastLogin.isCritical ? 'text-error' : 'text-outline'">
+                {{ user().lastLogin.ip }} · {{ user().lastLogin.country }}
+            </span>
+        </div>
+    </td>
+
+    <!-- Acciones -->
+    <td class="py-space-md px-space-md text-right">
+        <div class="flex items-center justify-end gap-space-xs">
+            <button type="button"
+                class="p-1 rounded hover:bg-surface-container-highest text-on-surface-variant hover:text-on-surface"
+                title="Inspeccionar">
+                <span class="material-symbols-outlined text-[20px]">visibility</span>
+            </button>
+            <button type="button"
+                class="p-1 rounded hover:bg-surface-container-highest text-on-surface-variant hover:text-on-surface"
+                (click)="$event.stopPropagation()">
+                <span class="material-symbols-outlined text-[20px]">more_vert</span>
+            </button>
+        </div>
+    </td>
+</tr>
