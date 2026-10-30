@@ -1,0 +1,58 @@
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex flex-col justify-between gap-space-md">
+
+    <div class="flex flex-col gap-space-sm">
+        <!-- Top: icon + badge -->
+        <div class="flex items-start justify-between">
+            <div class="w-10 h-10 rounded-lg flex items-center justify-center" [class]="iconBgClass()">
+                <span class="material-symbols-outlined text-[22px]">{{ factor().icon }}</span>
+            </div>
+            <span class="px-2 py-0.5 rounded-full font-label-code-sm text-label-code-sm font-semibold"
+                [class]="badgeClass()">
+                {{ factor().badgeLabel }}
+            </span>
+        </div>
+
+        <!-- Title + description -->
+        <div>
+            <h3 class="font-headline-sm text-headline-sm text-on-surface">{{ factor().name }}</h3>
+            <p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
+                {{ factor().description }}
+            </p>
+        </div>
+
+        <!-- Info block -->
+        <div class="bg-surface-container-low p-space-xs rounded-lg flex items-center justify-between text-outline">
+            <span class="font-label-code-sm text-label-code-sm">
+                {{ factor().infoLabel }}{{ factor().infoValue ? ': ' + factor().infoValue : '' }}
+            </span>
+            <span class="material-symbols-outlined text-[16px]"
+                [class]="factor().infoStatus === 'ok' ? 'text-tertiary' : 'text-outline'">
+                {{ factor().infoStatus === 'ok' ? 'check' : 'warning' }}
+            </span>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="flex items-center justify-between pt-space-xs">
+        @if (factor().isRecovery) {
+        <button type="button" (click)="download()"
+            class="text-primary hover:text-secondary font-body-sm text-body-sm flex items-center gap-1 font-medium">
+            <span class="material-symbols-outlined text-[16px]">file_download</span>
+            Formato de descarga
+        </button>
+        <span class="font-label-code-sm text-label-code-sm text-tertiary font-medium">
+            {{ factor().enabledLabel }}
+        </span>
+        } @else {
+        <span class="font-label-code-sm text-label-code-sm font-medium" [class]="enabledLabelClass()">
+            {{ factor().enabledLabel }}
+        </span>
+        <button type="button" (click)="toggle()"
+            class="relative inline-flex items-center cursor-pointer w-9 h-5 rounded-full transition-colors"
+            [class]="factor().enabled ? 'bg-primary-container' : 'bg-surface-variant'">
+            <span class="absolute w-4 h-4 bg-white rounded-full shadow-sm transition-transform"
+                [class]="factor().enabled ? 'translate-x-[18px]' : 'translate-x-0.5'"></span>
+        </button>
+        }
+    </div>
+</div>
