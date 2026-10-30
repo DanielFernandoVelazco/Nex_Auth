@@ -1,0 +1,293 @@
+{
+    "kpis": [
+        {
+            "id": "active-connections",
+            "label": "Conexiones Activas",
+            "value": "7 / 8",
+            "delta": "1 Enterprise SAML",
+            "deltaIcon": "check_circle",
+            "deltaStyle": "success",
+            "icon": "dataset",
+            "iconColor": "primary"
+        },
+        {
+            "id": "fido2-adoption",
+            "label": "Adopción FIDO2 / Passkeys",
+            "value": "84.2%",
+            "delta": "+12% este mes",
+            "deltaIcon": "trending_up",
+            "deltaStyle": "success",
+            "icon": "key",
+            "iconColor": "tertiary"
+        },
+        {
+            "id": "blocked-attacks",
+            "label": "Ataques Bloqueados (24h)",
+            "value": "14,290",
+            "delta": "IP Throttling activo",
+            "deltaIcon": "block",
+            "deltaStyle": "warning",
+            "icon": "shield",
+            "iconColor": "error"
+        },
+        {
+            "id": "posture-level",
+            "label": "Nivel de Postura Global",
+            "value": "Tier 1",
+            "delta": "Zero-Trust Enforced",
+            "deltaIcon": "verified",
+            "deltaStyle": "primary",
+            "icon": "lock_clock",
+            "iconColor": "primary"
+        }
+    ],
+    "socialConnections": [
+        {
+            "id": "google",
+            "name": "Google OAuth2",
+            "identifier": "oauth2:google-v2",
+            "icon": "google",
+            "enabled": true,
+            "enabledLabel": "Habilitado",
+            "infoLabel": "Client ID",
+            "infoValue": "89104••••.apps.googleusercontent.com",
+            "footerLabel": "Apps conectadas",
+            "footerValue": "2 aplicaciones",
+            "footerValueColor": "success"
+        },
+        {
+            "id": "github",
+            "name": "GitHub",
+            "identifier": "oauth2:github",
+            "icon": "github",
+            "enabled": true,
+            "enabledLabel": "Habilitado",
+            "infoLabel": "Scopes Requeridos",
+            "infoValue": "",
+            "scopes": [
+                "read:user",
+                "user:email"
+            ],
+            "footerLabel": "Org Sync",
+            "footerValue": "@acme-core",
+            "footerValueColor": "success"
+        },
+        {
+            "id": "azure",
+            "name": "Azure AD / MS",
+            "identifier": "oidc:azure-common",
+            "icon": "azure",
+            "enabled": true,
+            "enabledLabel": "Habilitado",
+            "infoLabel": "Tenant Mode",
+            "infoValue": "Common (Multi-Tenant)",
+            "footerLabel": "Token Endpoint",
+            "footerValue": "v2.0 validated",
+            "footerValueColor": "neutral"
+        },
+        {
+            "id": "apple",
+            "name": "Apple Sign-in",
+            "identifier": "apple:private-relay",
+            "icon": "apple",
+            "enabled": false,
+            "enabledLabel": "Deshabilitado",
+            "infoLabel": "Apple Team ID",
+            "infoValue": "No aprovisionado",
+            "warningText": "Falta .p8 key",
+            "footerLabel": "Service ID Key",
+            "footerValue": "Falta .p8 key",
+            "footerValueColor": "error",
+            "isDisabledStyle": true
+        }
+    ],
+    "dbConnections": [
+        {
+            "id": "default-db",
+            "name": "AuthShield Default DB",
+            "icon": "storage",
+            "iconColor": "primary",
+            "algorithmBadge": "Argon2id (m=64MB, t=3, p=4)",
+            "userCount": "128,492 usuarios",
+            "features": [
+                {
+                    "id": "public-reg",
+                    "label": "Permitir registro público",
+                    "enabled": true
+                },
+                {
+                    "id": "email-verify",
+                    "label": "Email Verification obligatorio",
+                    "enabled": true
+                }
+            ]
+        }
+    ],
+    "passwordlessRoutes": [
+        {
+            "id": "passwordless",
+            "name": "Passwordless Magic Links / OTP",
+            "icon": "mark_email_read",
+            "iconColor": "secondary",
+            "ttlBadge": "TTL: 10m",
+            "enabled": true,
+            "features": [
+                "Email Link (Resend API)",
+                "SMS OTP (Twilio Verify)",
+                "Rate-limited (3 req/min)"
+            ]
+        }
+    ],
+    "enterpriseSso": [
+        {
+            "id": "okta",
+            "initials": "OK",
+            "initialsColor": "primary",
+            "name": "Okta SAML Connection",
+            "identifier": "EntityID: https://saml.okta.com/app/exk482",
+            "metaLabel": "X.509",
+            "metaValue": "Válido",
+            "statusLabel": "Conectado"
+        },
+        {
+            "id": "google-workspace",
+            "initials": "GW",
+            "initialsColor": "tertiary",
+            "name": "Google Workspace Enterprise",
+            "identifier": "Dominio: acmecorp.com • SCIM v2 habilitado",
+            "metaLabel": "Asignaciones",
+            "metaValue": "2,104",
+            "statusLabel": "Conectado"
+        }
+    ],
+    "mfaPolicies": [
+        {
+            "id": "disabled",
+            "label": "Deshabilitado",
+            "description": "Sin segundo factor"
+        },
+        {
+            "id": "optional",
+            "label": "Opcional / Por usuario",
+            "description": "A discreción del usuario"
+        },
+        {
+            "id": "admins-only",
+            "label": "Sólo Administradores",
+            "description": "Roles con permisos write/admin"
+        },
+        {
+            "id": "required",
+            "label": "Requerido para Todos",
+            "description": "Obligatorio en todo inicio de sesión"
+        }
+    ],
+    "activeMfaPolicyId": "required",
+    "mfaFactors": [
+        {
+            "id": "passkeys",
+            "name": "Passkeys / FIDO2",
+            "icon": "fingerprint",
+            "iconColor": "primary",
+            "badgeLabel": "Máxima Seguridad",
+            "badgeStyle": "success",
+            "description": "Apple TouchID, Windows Hello, YubiKey FIDO2 y Titan Keys. Inmune a phishing directo.",
+            "infoLabel": "User Verification",
+            "infoValue": "Required",
+            "infoStatus": "ok",
+            "enabledLabel": "Recomendado",
+            "enabledLabelColor": "success",
+            "enabled": true
+        },
+        {
+            "id": "totp",
+            "name": "TOTP Authenticator Apps",
+            "icon": "timer",
+            "iconColor": "primary",
+            "badgeLabel": "Estándar RFC 6238",
+            "badgeStyle": "neutral",
+            "description": "Google Authenticator, 1Password, Microsoft Authenticator o Authy con rotación cada 30 segundos.",
+            "infoLabel": "Algoritmo",
+            "infoValue": "SHA-1 • 6 dígitos",
+            "infoStatus": "ok",
+            "enabledLabel": "Activo",
+            "enabledLabelColor": "success",
+            "enabled": true
+        },
+        {
+            "id": "sms",
+            "name": "SMS / WhatsApp OTP",
+            "icon": "sms",
+            "iconColor": "primary",
+            "badgeLabel": "Vulnerable a SIM-Swap",
+            "badgeStyle": "danger",
+            "description": "Envío de código OTP al número móvil. Recomendado sólo como método de respaldo de última instancia.",
+            "infoLabel": "Fallback únicamente",
+            "infoValue": "",
+            "infoStatus": "warning",
+            "enabledLabel": "Habilitado como Fallback",
+            "enabledLabelColor": "neutral",
+            "enabled": true
+        },
+        {
+            "id": "recovery",
+            "name": "Códigos de Recuperación",
+            "icon": "vpn_key_alert",
+            "iconColor": "primary",
+            "badgeLabel": "10 Códigos",
+            "badgeStyle": "neutral",
+            "description": "Códigos de uso único de 12 caracteres emitidos durante el enrolamiento para rescate de cuentas.",
+            "infoLabel": "Generación",
+            "infoValue": "Obligatoria al inicio",
+            "infoStatus": "ok",
+            "enabledLabel": "Enforced",
+            "enabledLabelColor": "success",
+            "enabled": true,
+            "isRecovery": true
+        }
+    ],
+    "threats": [
+        {
+            "id": "credential-stuffing",
+            "icon": "security_update_warning",
+            "iconColor": "error",
+            "title": "Detección de Credential Stuffing",
+            "description": "Monitorea bases de datos de brechas públicas conocidas e inspecciona hashes de passwords contra la red global de AuthShield.",
+            "actionLabel": "Acción automatizada",
+            "actionValue": "Bloqueo automático por reputación de IP y notificación a usuario.",
+            "footerLabel": "Feed: HIBP Enterprise + AbuseIPDB",
+            "footerValue": "Activo",
+            "footerValueColor": "success",
+            "enabled": true
+        },
+        {
+            "id": "brute-force",
+            "icon": "lock_reset",
+            "iconColor": "primary",
+            "title": "Protección contra Fuerza Bruta",
+            "description": "Aplica aislamiento progresivo al registrar múltiples contraseñas incorrectas desde una misma IP o contra un correo específico.",
+            "actionLabel": "Umbral de bloqueo",
+            "actionValue": "Bloqueo tras 5 intentos fallidos",
+            "thresholdLabel": "Duración",
+            "thresholdValue": "15 minutos",
+            "thresholdHighlight": "primary",
+            "footerLabel": "Captcha: Cloudflare Turnstile Invisible",
+            "footerValue": "Enlazado",
+            "footerValueColor": "success",
+            "enabled": true
+        },
+        {
+            "id": "impossible-travel",
+            "icon": "public",
+            "iconColor": "secondary",
+            "title": "Geolocalización Anómala",
+            "description": "Calcula la velocidad cinemática entre dos inicios de sesión consecutivos (Impossible Travel) y valida países habituales.",
+            "actionLabel": "Desafío condicional",
+            "actionValue": "Disparar desafío MFA estricto si el login es desde un nuevo país.",
+            "footerLabel": "MaxMind GeoIP2 Precision",
+            "footerValue": "Online",
+            "footerValueColor": "success",
+            "enabled": true
+        }
+    ]
+}
