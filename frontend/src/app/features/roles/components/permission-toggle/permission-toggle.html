@@ -1,0 +1,13 @@
+<div class="flex items-center gap-1.5">
+    <span class="font-label-caps text-label-caps uppercase" [class]="danger() ? 'text-error' : 'text-outline'">
+        {{ label() }}
+    </span>
+    <button type="button" (click)="onClick()" [disabled]="locked()" [title]="locked() ? lockedReason() : ''"
+        class="w-9 h-5 rounded-full relative p-0.5 transition-colors" [class]="locked()
+      ? 'bg-outline-variant/40 cursor-not-allowed opacity-60'
+      : (enabled() ? 'bg-primary-container cursor-pointer' : 'bg-outline-variant/40 cursor-pointer')">
+        <span class="w-4 h-4 rounded-full shadow-sm transition-transform block" [class]="enabled() && !locked()
+        ? 'bg-on-primary ml-auto'
+        : 'bg-surface-container-lowest mr-auto'"></span>
+    </button>
+</div>
