@@ -1,0 +1,51 @@
+<div (click)="onClick()"
+    class="cursor-pointer p-space-md rounded-xl flex flex-col gap-space-xs relative overflow-hidden transition-all"
+    [class]="selected()
+    ? 'bg-surface-container-lowest shadow-md'
+    : 'bg-surface-container-lowest shadow-sm hover:bg-surface-container-low'">
+    <!-- Indicador izq si está seleccionado -->
+    @if (selected()) {
+    <div class="absolute left-0 top-0 bottom-0 w-1.5 bg-primary"></div>
+    }
+
+    <!-- Row 1: dot + name + tag + count -->
+    <div class="flex items-center justify-between">
+        <div class="flex items-center gap-space-xs" [class.pl-1]="selected()">
+            <span class="w-2 h-2 rounded-full" [class]="dotClass()"></span>
+            <span class="font-headline-sm text-headline-sm font-semibold"
+                [class]="selected() ? 'text-primary font-bold' : 'text-on-surface'">
+                {{ role().name }}
+            </span>
+            <span class="px-1.5 py-0.5 rounded font-label-code-sm text-label-code-sm" [class]="tagClass()">
+                {{ role().tagLabel }}
+            </span>
+        </div>
+        <span class="font-label-code-sm text-label-code-sm"
+            [class]="selected() ? 'text-on-surface font-medium' : 'text-outline'">
+            {{ role().assignmentsLabel }}
+        </span>
+    </div>
+
+    <!-- Descripción -->
+    <p class="font-body-sm text-body-sm text-on-surface-variant" [class.pl-1]="selected()"
+        [class.line-clamp-1]="!selected()">
+        {{ role().description }}
+    </p>
+
+    <!-- Row 3: scope -->
+    <div class="flex items-center justify-between mt-1" [class.pl-1]="selected()">
+        <div class="flex items-center gap-space-xs">
+            <span class="font-label-code-sm text-label-code-sm"
+                [class]="selected() ? 'text-primary font-medium' : 'text-outline'">
+                {{ role().id }}
+            </span>
+            <span class="text-outline-variant font-label-code-sm text-label-code-sm">·</span>
+            <span class="font-label-caps text-label-caps uppercase" [class]="scopeClass()">
+                {{ role().scopeLabel }}
+            </span>
+        </div>
+        @if (selected()) {
+        <span class="material-symbols-outlined text-[18px] text-primary">arrow_forward_ios</span>
+        }
+    </div>
+</div>
