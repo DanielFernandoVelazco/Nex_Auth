@@ -1,1 +1,376 @@
-<p>security-settings works!</p>
+<div class="flex flex-col w-full pb-24">
+
+    <!-- ─── Ambientes decorativos de fondo ─── -->
+    <div class="relative w-full h-1 pointer-events-none overflow-hidden">
+        <div class="absolute -top-12 left-1/4 w-96 h-24 bg-primary/20 blur-3xl rounded-full"></div>
+        <div class="absolute -top-12 right-1/4 w-96 h-24 bg-secondary-container/15 blur-3xl rounded-full"></div>
+    </div>
+
+    <!-- ═══ HEADER ═══════════════════════════════════════ -->
+    <header class="flex flex-col gap-space-md pt-space-lg mb-space-lg">
+
+        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-md">
+            <div class="flex flex-col gap-space-xs">
+                <div class="flex items-center gap-space-xs">
+                    <span class="font-label-caps text-label-caps text-primary tracking-wider uppercase">
+                        Seguridad Perimetral & IAM
+                    </span>
+                    <span class="text-outline font-label-code-sm">/</span>
+                    <span class="font-label-code-sm text-on-surface-variant">
+                        Cluster: auth-core-us-east-1
+                    </span>
+                </div>
+                <h1 class="font-headline-xl text-headline-xl text-on-surface">
+                    Autenticación & Políticas de Seguridad
+                </h1>
+                <p class="font-body-lg text-body-lg text-on-surface-variant max-w-4xl">
+                    Configura fuentes de identidad (Social, Enterprise, DB), factores de autenticación múltiple (MFA) y
+                    detección de anomalías en tiempo real.
+                </p>
+            </div>
+
+            <!-- Live Defense Pill -->
+            <div
+                class="flex items-center gap-space-md bg-surface-container px-space-md py-space-sm rounded-lg shadow-sm">
+                <div class="flex items-center gap-space-xs">
+                    <span class="relative flex h-2.5 w-2.5">
+                        <span
+                            class="animate-ping absolute inline-flex h-full w-full rounded-full bg-tertiary-fixed-dim opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-tertiary-container"></span>
+                    </span>
+                    <span class="font-label-code-md text-label-code-md text-on-surface font-medium">Mitigación
+                        Activa</span>
+                </div>
+                <span class="text-outline font-label-code-sm">•</span>
+                <div class="flex items-center gap-space-xs text-on-surface-variant font-label-code-sm">
+                    <span class="material-symbols-outlined text-[16px] text-tertiary">verified_user</span>
+                    <span>99.98% Clean Auth Traffic</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabs -->
+        <div
+            class="flex items-center gap-space-lg overflow-x-auto bg-surface-container-low px-space-md pt-space-xs rounded-lg mt-space-sm">
+            @for (tab of tabs; track tab.id) {
+            <button type="button" (click)="setTab(tab.id)"
+                class="relative py-space-sm font-headline-sm text-headline-sm flex items-center gap-space-xs transition-colors"
+                [class]="activeTab() === tab.id
+            ? 'text-primary'
+            : 'text-on-surface-variant hover:text-on-surface'">
+                <span class="material-symbols-outlined text-[18px]">{{ tab.icon }}</span>
+                <span>{{ tab.label }}</span>
+                @if (tab.badge) {
+                <span
+                    class="bg-error-container text-on-error-container font-label-code-sm text-label-code-sm px-1.5 py-0.5 rounded-full font-medium">
+                    {{ tab.badge }}
+                </span>
+                }
+                @if (activeTab() === tab.id) {
+                <span class="absolute bottom-0 left-0 right-0 h-0.5 bg-primary rounded-full"></span>
+                }
+            </button>
+            }
+        </div>
+    </header>
+
+    <!-- ═══ KPIs ═════════════════════════════════════════ -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-space-md mb-space-xl">
+        @for (kpi of kpis(); track kpi.id) {
+        <div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex items-center justify-between">
+            <div class="flex flex-col">
+                <span class="font-label-caps text-label-caps text-on-surface-variant uppercase">{{ kpi.label }}</span>
+                <span class="font-headline-lg text-headline-lg text-on-surface mt-1">{{ kpi.value }}</span>
+                <span class="font-body-sm text-body-sm flex items-center gap-1 mt-0.5" [class]="kpi.deltaStyle === 'success'
+              ? 'text-tertiary'
+              : (kpi.deltaStyle === 'warning' ? 'text-outline' : 'text-primary')">
+                    <span class="material-symbols-outlined text-[14px]">{{ kpi.deltaIcon }}</span>
+                    {{ kpi.delta }}
+                </span>
+            </div>
+            <div class="w-12 h-12 rounded-xl bg-surface-container flex items-center justify-center" [class]="kpi.iconColor === 'error'
+            ? 'text-error'
+            : (kpi.iconColor === 'primary'
+              ? 'text-primary'
+              : (kpi.iconColor === 'secondary' ? 'text-secondary' : 'text-tertiary-container'))">
+                <span class="material-symbols-outlined text-[24px]">{{ kpi.icon }}</span>
+            </div>
+        </div>
+        }
+    </div>
+
+    <!-- ═══ SECCIÓN 1: CONEXIONES ═══════════════════════ -->
+    <section class="flex flex-col gap-space-lg mb-space-xl">
+        <div class="flex items-center justify-between">
+            <div class="flex flex-col">
+                <div class="flex items-center gap-space-xs">
+                    <span class="w-2 h-2 rounded-full bg-primary"></span>
+                    <h2 class="font-headline-lg text-headline-lg text-on-surface">Conexiones de Autenticación</h2>
+                </div>
+                <p class="font-body-md text-body-md text-on-surface-variant">
+                    Federación externa de identidades, bases de datos internas seguras y proveedores federados
+                    corporativos.
+                </p>
+            </div>
+            <button type="button"
+                class="bg-primary text-on-primary px-space-md py-space-sm rounded-lg font-headline-sm text-headline-sm flex items-center gap-space-xs shadow-sm hover:bg-secondary transition-colors">
+                <span class="material-symbols-outlined text-[18px]">add_link</span>
+                <span>Crear Nueva Conexión</span>
+            </button>
+        </div>
+
+        <!-- Social Connections -->
+        <div class="flex flex-col gap-space-sm">
+            <div class="flex items-center justify-between">
+                <span class="font-label-caps text-label-caps text-on-surface uppercase">Proveedores Sociales OAuth2 /
+                    OIDC</span>
+                <span class="font-label-code-sm text-label-code-sm text-outline">3 de 4 federaciones habilitadas</span>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-space-md">
+                @for (conn of socialConnections(); track conn.id) {
+                <app-connection-card [connection]="conn" (toggled)="onToggleSocialConnection($event)" />
+                }
+            </div>
+        </div>
+
+        <!-- Database & Enterprise (2 columnas) -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-space-md">
+
+            <!-- Database & Passwordless -->
+            <div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex flex-col gap-space-md">
+                <div class="flex items-center justify-between pb-space-xs">
+                    <div class="flex items-center gap-space-sm">
+                        <div
+                            class="w-9 h-9 rounded-lg bg-surface-container flex items-center justify-center text-primary">
+                            <span class="material-symbols-outlined text-[20px]">database</span>
+                        </div>
+                        <div>
+                            <h3 class="font-headline-sm text-headline-sm text-on-surface">Database & Passwordless</h3>
+                            <p class="font-body-sm text-body-sm text-on-surface-variant">Almacenes internos con esquemas
+                                criptográficos.</p>
+                        </div>
+                    </div>
+                    <span
+                        class="bg-surface-container-high px-2 py-0.5 font-label-code-sm text-on-surface-variant rounded">2
+                        Rutas</span>
+                </div>
+
+                @for (db of dbConnections(); track db.id) {
+                <div class="p-space-sm bg-surface-container-low rounded-lg flex flex-col gap-space-sm">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-space-xs">
+                            <span class="material-symbols-outlined text-[18px] text-primary">{{ db.icon }}</span>
+                            <span class="font-headline-sm text-headline-sm text-on-surface">{{ db.name }}</span>
+                            <span
+                                class="font-label-code-sm text-label-code-sm text-tertiary bg-surface-container px-1.5 rounded">
+                                {{ db.algorithmBadge }}
+                            </span>
+                        </div>
+                        <span class="font-label-code-sm text-label-code-sm text-outline">{{ db.userCount }}</span>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-space-sm pt-1">
+                        @for (feature of db.features; track feature.id) {
+                        <label
+                            class="flex items-center justify-between bg-surface-container-lowest px-space-sm py-space-xs rounded shadow-sm cursor-pointer">
+                            <span class="font-body-sm text-body-sm text-on-surface">{{ feature.label }}</span>
+                            <input type="checkbox" [checked]="feature.enabled"
+                                class="rounded text-primary focus:ring-0 w-4 h-4" />
+                        </label>
+                        }
+                    </div>
+                </div>
+                }
+
+                @for (route of passwordlessRoutes(); track route.id) {
+                <div class="p-space-sm bg-surface-container-low rounded-lg flex flex-col gap-space-sm">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-space-xs">
+                            <span class="material-symbols-outlined text-[18px] text-secondary">{{ route.icon }}</span>
+                            <span class="font-headline-sm text-headline-sm text-on-surface">{{ route.name }}</span>
+                            <span
+                                class="font-label-code-sm text-label-code-sm text-on-surface-variant bg-surface-container px-1.5 rounded">
+                                {{ route.ttlBadge }}
+                            </span>
+                        </div>
+                        <button type="button"
+                            class="relative inline-flex items-center cursor-pointer w-9 h-5 rounded-full transition-colors"
+                            [class]="route.enabled ? 'bg-primary-container' : 'bg-surface-variant'">
+                            <span class="absolute w-4 h-4 bg-white rounded-full shadow-sm transition-transform"
+                                [class]="route.enabled ? 'translate-x-[18px]' : 'translate-x-0.5'"></span>
+                        </button>
+                    </div>
+                    <div
+                        class="flex items-center gap-space-md text-on-surface-variant font-body-sm text-body-sm flex-wrap">
+                        @for (feat of route.features; track feat) {
+                        <span class="flex items-center gap-1">
+                            <span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span>
+                            {{ feat }}
+                        </span>
+                        }
+                    </div>
+                </div>
+                }
+            </div>
+
+            <!-- Enterprise SSO -->
+            <div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex flex-col gap-space-md">
+                <div class="flex items-center justify-between pb-space-xs">
+                    <div class="flex items-center gap-space-sm">
+                        <div
+                            class="w-9 h-9 rounded-lg bg-surface-container flex items-center justify-center text-primary">
+                            <span class="material-symbols-outlined text-[20px]">domain</span>
+                        </div>
+                        <div>
+                            <h3 class="font-headline-sm text-headline-sm text-on-surface">Enterprise SSO (SAML 2.0 /
+                                OIDC)</h3>
+                            <p class="font-body-sm text-body-sm text-on-surface-variant">Federación corporativa con
+                                mapeo de claims.</p>
+                        </div>
+                    </div>
+                    <button type="button"
+                        class="text-primary hover:text-secondary font-headline-sm text-headline-sm flex items-center gap-1">
+                        <span class="material-symbols-outlined text-[16px]">add</span>
+                        Integrar
+                    </button>
+                </div>
+
+                @for (sso of enterpriseSso(); track sso.id) {
+                <div class="p-space-sm bg-surface-container-low rounded-lg flex items-center justify-between">
+                    <div class="flex items-center gap-space-sm">
+                        <div class="w-8 h-8 rounded bg-surface-container-lowest flex items-center justify-center font-label-code-md font-bold"
+                            [class]="sso.initialsColor === 'primary' ? 'text-primary' : 'text-tertiary'">
+                            {{ sso.initials }}
+                        </div>
+                        <div class="flex flex-col">
+                            <div class="flex items-center gap-space-xs">
+                                <span class="font-headline-sm text-headline-sm text-on-surface">{{ sso.name }}</span>
+                                <span
+                                    class="inline-flex items-center gap-1 px-1.5 py-0.2 rounded bg-surface-container text-tertiary font-label-code-sm font-medium">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-tertiary-container"></span>
+                                    {{ sso.statusLabel }}
+                                </span>
+                            </div>
+                            <span class="font-label-code-sm text-label-code-sm text-outline">{{ sso.identifier }}</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-space-xs">
+                        <span
+                            class="px-2 py-0.5 rounded bg-surface-container text-on-surface-variant font-label-code-sm">
+                            {{ sso.metaLabel }}: {{ sso.metaValue }}
+                        </span>
+                        <button type="button" class="p-1 text-outline hover:text-on-surface">
+                            <span class="material-symbols-outlined text-[18px]">more_vert</span>
+                        </button>
+                    </div>
+                </div>
+                }
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ SECCIÓN 2: MFA & WebAuthn ═══════════════════ -->
+    <section class="flex flex-col gap-space-lg mb-space-xl">
+        <div class="flex flex-col">
+            <div class="flex items-center gap-space-xs">
+                <span class="w-2 h-2 rounded-full bg-secondary-container"></span>
+                <h2 class="font-headline-lg text-headline-lg text-on-surface">Multi-Factor Authentication (MFA) &
+                    WebAuthn</h2>
+            </div>
+            <p class="font-body-md text-body-md text-on-surface-variant">
+                Políticas de cumplimiento, credenciales sin contraseña basadas en hardware y factores de segundo paso.
+            </p>
+        </div>
+
+        <!-- MFA Policy Selector -->
+        <div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex flex-col gap-space-sm">
+            <div class="flex items-center justify-between">
+                <span class="font-label-caps text-label-caps text-on-surface uppercase">
+                    Directiva General de Requerimiento de MFA
+                </span>
+                <span class="font-label-code-sm text-label-code-sm text-primary font-medium">
+                    Cumplimiento ISO 27001 / SOC2 Type II
+                </span>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-sm">
+                @for (policy of mfaPolicies(); track policy.id) {
+                <label class="flex items-center gap-space-sm p-space-sm rounded-lg cursor-pointer transition-colors"
+                    [class]="activeMfaPolicy() === policy.id
+              ? 'bg-primary/10 shadow-sm'
+              : 'bg-surface-container-low hover:bg-surface-container'">
+                    <input type="radio" name="mfa-policy" [checked]="activeMfaPolicy() === policy.id"
+                        (change)="setMfaPolicy(policy.id)" class="text-primary focus:ring-0" />
+                    <div class="flex flex-col">
+                        <span class="font-headline-sm text-headline-sm"
+                            [class]="activeMfaPolicy() === policy.id ? 'text-primary' : 'text-on-surface'">
+                            {{ policy.label }}
+                        </span>
+                        <span class="font-body-sm text-body-sm text-on-surface-variant">{{ policy.description }}</span>
+                    </div>
+                </label>
+                }
+            </div>
+        </div>
+
+        <!-- MFA Factors -->
+        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-space-md">
+            @for (factor of mfaFactors(); track factor.id) {
+            <app-mfa-factor-card [factor]="factor" (toggled)="onToggleMfaFactor($event)"
+                (downloadRequested)="onDownloadRecovery()" />
+            }
+        </div>
+    </section>
+
+    <!-- ═══ SECCIÓN 3: THREAT INTELLIGENCE ══════════════ -->
+    <section class="flex flex-col gap-space-lg mb-space-xl">
+        <div class="flex flex-col">
+            <div class="flex items-center gap-space-xs">
+                <span class="w-2 h-2 rounded-full bg-error"></span>
+                <h2 class="font-headline-lg text-headline-lg text-on-surface">Threat Intelligence & Detección de
+                    Anomalías</h2>
+            </div>
+            <p class="font-body-md text-body-md text-on-surface-variant">
+                Protección proactiva contra filtraciones masivas de credenciales y ataques de diccionario distribuidos.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-space-md">
+            @for (threat of threats(); track threat.id) {
+            <app-threat-card [threat]="threat" (toggled)="onToggleThreat($event)" />
+            }
+        </div>
+    </section>
+
+    <!-- ═══ STICKY SAVE BAR ═══════════════════════════════ -->
+    @if (hasUnsavedChanges()) {
+    <div class="fixed bottom-6 left-64 right-0 px-gutter-desktop z-40 pointer-events-none">
+        <div
+            class="max-w-5xl mx-auto bg-inverse-surface text-inverse-on-surface px-space-lg py-space-sm rounded-xl shadow-xl flex items-center justify-between gap-space-md pointer-events-auto">
+            <div class="flex items-center gap-space-sm min-w-0">
+                <span class="w-2.5 h-2.5 rounded-full bg-secondary-fixed-dim animate-pulse"></span>
+                <div class="flex flex-col min-w-0">
+                    <span class="font-headline-sm text-headline-sm truncate text-inverse-on-surface">
+                        Tienes cambios sin guardar en las políticas de MFA
+                    </span>
+                    <span class="font-label-code-sm text-label-code-sm text-outline-variant truncate">
+                        El cambio a 'Requerido para Todos' entrará en vigencia de inmediato.
+                    </span>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-space-sm shrink-0">
+                <button type="button" (click)="discardChanges()"
+                    class="px-space-md py-space-xs rounded-lg font-headline-sm text-headline-sm bg-inverse-surface text-inverse-on-surface hover:bg-surface-container-high/20 transition-colors">
+                    Descartar
+                </button>
+                <button type="button" (click)="saveChanges()"
+                    class="px-space-md py-space-xs rounded-lg font-headline-sm text-headline-sm bg-primary-container text-on-primary hover:bg-secondary transition-colors flex items-center gap-space-xs shadow-md">
+                    <span class="material-symbols-outlined text-[18px]">publish</span>
+                    <span>Guardar y Desplegar Políticas</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    }
+
+</div>
