@@ -1,0 +1,47 @@
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex flex-col justify-between gap-space-md">
+    <div class="flex flex-col gap-space-sm">
+
+        <!-- Header: icon + title + toggle -->
+        <div class="flex items-center justify-between">
+            <div class="flex items-center gap-space-xs" [class]="iconColorClass()">
+                <span class="material-symbols-outlined text-[20px]">{{ threat().icon }}</span>
+                <span class="font-headline-sm text-headline-sm text-on-surface">{{ threat().title }}</span>
+            </div>
+
+            <button type="button" (click)="toggle()"
+                class="relative inline-flex items-center cursor-pointer w-9 h-5 rounded-full transition-colors"
+                [class]="threat().enabled ? 'bg-primary-container' : 'bg-surface-variant'">
+                <span class="absolute w-4 h-4 bg-white rounded-full shadow-sm transition-transform"
+                    [class]="threat().enabled ? 'translate-x-[18px]' : 'translate-x-0.5'"></span>
+            </button>
+        </div>
+
+        <!-- Description -->
+        <p class="font-body-sm text-body-sm text-on-surface-variant">
+            {{ threat().description }}
+        </p>
+
+        <!-- Action block -->
+        <div class="bg-surface-container-low p-space-sm rounded-lg flex flex-col gap-1">
+            <span class="font-label-caps text-label-caps text-outline">{{ threat().actionLabel }}</span>
+            <div class="flex items-center justify-between">
+                <span class="font-body-sm text-body-sm text-on-surface font-medium">
+                    {{ threat().actionValue }}
+                </span>
+                @if (threat().thresholdValue) {
+                <span class="font-label-code-sm text-label-code-sm font-medium"
+                    [class]="threat().thresholdHighlight === 'primary' ? 'text-primary' : 'text-on-surface'">
+                    {{ threat().thresholdValue }}
+                </span>
+                }
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <div class="flex items-center justify-between text-outline font-label-code-sm text-label-code-sm pt-space-xs">
+        <span>{{ threat().footerLabel }}</span>
+        <span [class]="footerValueClass()">{{ threat().footerValue }}</span>
+    </div>
+</div>
