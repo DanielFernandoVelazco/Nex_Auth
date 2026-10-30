@@ -1,1 +1,323 @@
-<p>roles-list works!</p>
+<div class="flex flex-col w-full pb-space-xl">
+
+    <!-- ═══ HEADER ═════════════════════════════════════ -->
+    <div class="pt-space-md mb-space-lg flex flex-col lg:flex-row lg:items-center justify-between gap-space-md">
+        <div class="flex flex-col">
+            <div class="flex items-center gap-space-xs text-on-surface-variant mb-1">
+                <span class="font-label-caps text-label-caps uppercase tracking-wider text-outline">IAM
+                    Management</span>
+                <span class="text-outline-variant font-label-code-sm">/</span>
+                <span class="font-label-caps text-label-caps uppercase tracking-wider text-primary">Access
+                    Control</span>
+            </div>
+            <h1 class="font-headline-xl text-headline-xl text-on-surface tracking-tight">
+                Roles y Asignación de Permisos (RBAC)
+            </h1>
+            <p class="font-body-md text-body-md text-on-surface-variant mt-0.5">
+                Control granular basado en roles, delegación de alcances criptográficos y asignación de políticas
+                multi-tenant.
+            </p>
+        </div>
+
+        <div class="flex items-center gap-space-sm self-start lg:self-center">
+            <button type="button" (click)="exportMatrix()"
+                class="flex items-center gap-space-xs px-space-md py-space-sm bg-surface-container text-on-surface rounded-lg shadow-sm hover:bg-surface-container-high transition-colors">
+                <span class="material-symbols-outlined text-[18px]">file_download</span>
+                <span class="font-headline-sm text-headline-sm">Exportar Matriz</span>
+            </button>
+            <button type="button" (click)="createRole()"
+                class="flex items-center gap-space-xs px-space-md py-space-sm bg-primary-container text-on-primary rounded-lg shadow-md hover:bg-primary transition-all">
+                <span class="material-symbols-outlined text-[18px]">add</span>
+                <span class="font-headline-sm text-headline-sm">Crear Nuevo Rol</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- ═══ KPIs ═════════════════════════════════════════ -->
+    @if (kpis(); as k) {
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-space-md mb-space-lg">
+
+        <div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex items-center justify-between">
+            <div class="flex flex-col">
+                <span class="font-label-caps text-label-caps uppercase text-outline">Roles Configurados</span>
+                <div class="flex items-baseline gap-space-xs mt-1">
+                    <span class="font-headline-xl text-headline-xl text-on-surface font-bold">{{ k.rolesCount }}</span>
+                    <span class="font-label-code-sm text-label-code-sm text-tertiary-container font-medium">{{
+                        k.rolesDelta }}</span>
+                </div>
+                <span class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">{{ k.rolesBreakdown }}</span>
+            </div>
+            <div class="w-12 h-12 rounded-lg bg-surface-container-low flex items-center justify-center text-primary">
+                <span class="material-symbols-outlined text-[26px]">admin_panel_settings</span>
+            </div>
+        </div>
+
+        <div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex items-center justify-between">
+            <div class="flex flex-col">
+                <span class="font-label-caps text-label-caps uppercase text-outline">Asignaciones Activas</span>
+                <div class="flex items-baseline gap-space-xs mt-1">
+                    <span class="font-headline-xl text-headline-xl text-on-surface font-bold">{{ k.assignmentsCount
+                        }}</span>
+                    <span class="font-label-code-sm text-label-code-sm text-secondary font-medium">{{ k.assignmentsDelta
+                        }}</span>
+                </div>
+                <span class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">{{ k.assignmentsBreakdown
+                    }}</span>
+            </div>
+            <div class="w-12 h-12 rounded-lg bg-surface-container-low flex items-center justify-center text-secondary">
+                <span class="material-symbols-outlined text-[26px]">group</span>
+            </div>
+        </div>
+
+        <div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex items-center justify-between">
+            <div class="flex flex-col">
+                <span class="font-label-caps text-label-caps uppercase text-outline">Roles Huérfanos</span>
+                <div class="flex items-baseline gap-space-xs mt-1">
+                    <span class="font-headline-xl text-headline-xl text-on-surface font-bold">{{ k.orphanRoles }}</span>
+                    <span class="font-label-code-sm text-label-code-sm text-tertiary-container font-medium">{{
+                        k.orphanStatus }}</span>
+                </div>
+                <span class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">{{ k.orphanBreakdown }}</span>
+            </div>
+            <div
+                class="w-12 h-12 rounded-lg bg-surface-container-low flex items-center justify-center text-tertiary-container">
+                <span class="material-symbols-outlined text-[26px]">verified_user</span>
+            </div>
+        </div>
+    </div>
+    }
+
+    <!-- ═══ SPLIT VIEW ═══════════════════════════════════ -->
+    <div class="grid grid-cols-1 xl:grid-cols-12 gap-space-lg items-start">
+
+        <!-- ═══ LEFT COLUMN: Lista de roles ═══════════════ -->
+        <div class="xl:col-span-5 flex flex-col gap-space-md">
+
+            <!-- Search -->
+            <div
+                class="flex items-center justify-between gap-space-sm bg-surface-container-lowest p-space-sm rounded-lg shadow-sm">
+                <div
+                    class="flex items-center gap-space-xs flex-1 bg-surface-container-low px-space-sm py-1.5 rounded-lg">
+                    <span class="material-symbols-outlined text-[18px] text-outline">search</span>
+                    <input type="text" placeholder="Filtrar rol por id, módulo o tag..."
+                        class="bg-transparent border-none outline-none font-body-sm text-body-sm text-on-surface w-full placeholder:text-outline" />
+                </div>
+                <div class="flex items-center gap-1">
+                    <button type="button"
+                        class="p-1.5 text-outline hover:text-on-surface bg-surface-container-low rounded-lg transition-colors">
+                        <span class="material-symbols-outlined text-[18px]">tune</span>
+                    </button>
+                    <button type="button"
+                        class="p-1.5 text-outline hover:text-on-surface bg-surface-container-low rounded-lg transition-colors">
+                        <span class="material-symbols-outlined text-[18px]">sort</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Lista de roles -->
+            @if (loading()) {
+            <div class="flex items-center justify-center py-space-xl">
+                <span class="material-symbols-outlined text-[32px] text-outline animate-spin">refresh</span>
+            </div>
+            } @else {
+            <div class="flex flex-col gap-space-xs">
+                @for (role of roles(); track role.id) {
+                <app-role-list-item [role]="role" [selected]="selectedId() === role.id"
+                    (clicked)="selectRole($event)" />
+                }
+            </div>
+            }
+        </div>
+
+        <!-- ═══ RIGHT COLUMN: Detalle del rol ════════════ -->
+        <div class="xl:col-span-7 flex flex-col gap-space-md">
+            @if (selectedDetail(); as role) {
+            <div class="bg-surface-container-lowest rounded-xl shadow-md p-space-lg flex flex-col gap-space-lg">
+
+                <!-- ─── Header del detalle ─── -->
+                <div class="flex flex-col md:flex-row md:items-start justify-between gap-space-md pb-space-md">
+                    <div class="flex flex-col gap-space-xs">
+                        <div class="flex items-center gap-space-xs">
+                            <span
+                                class="px-2 py-0.5 rounded font-label-code-sm text-label-code-sm bg-tertiary/10 text-tertiary font-semibold flex items-center gap-1">
+                                <span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span>
+                                Active Role
+                            </span>
+                            <span class="font-label-code-sm text-label-code-sm text-outline">{{ role.version }}</span>
+                        </div>
+                        <h2 class="font-headline-lg text-headline-lg text-on-surface tracking-tight font-bold">
+                            {{ role.name }}
+                        </h2>
+                        <div
+                            class="flex items-center gap-space-xs bg-surface-container-low px-space-sm py-1 rounded-lg w-fit">
+                            <span class="font-label-code-sm text-label-code-sm text-outline">ID Técnico:</span>
+                            <code
+                                class="font-label-code-md text-label-code-md text-primary font-bold">{{ role.id }}</code>
+                            <button type="button" (click)="copyRoleId()"
+                                class="text-outline hover:text-primary transition-colors flex items-center p-0.5"
+                                title="Copiar ID técnico">
+                                <span class="material-symbols-outlined text-[16px]">content_copy</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center gap-space-xs">
+                        <button type="button" (click)="cloneRole()"
+                            class="flex items-center gap-1 px-space-sm py-1.5 bg-surface-container text-on-surface rounded-lg shadow-sm hover:bg-surface-container-high transition-colors font-headline-sm text-headline-sm">
+                            <span class="material-symbols-outlined text-[18px]">content_copy</span>
+                            <span>Clonar Rol</span>
+                        </button>
+                        <button type="button" (click)="saveChanges()"
+                            class="flex items-center gap-1 px-space-md py-1.5 bg-primary-container text-on-primary rounded-lg shadow-md hover:bg-primary transition-all font-headline-sm text-headline-sm">
+                            <span class="material-symbols-outlined text-[18px]">check</span>
+                            <span>Guardar Cambios</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- ─── Descripción ─── -->
+                <div class="flex flex-col gap-space-xs">
+                    <label class="font-label-caps text-label-caps uppercase text-outline">
+                        Descripción del Rol & Justificación de Seguridad
+                    </label>
+                    <div class="bg-surface-container-low p-space-sm rounded-lg">
+                        <p class="font-body-md text-body-md text-on-surface">{{ role.description }}</p>
+                    </div>
+                </div>
+
+                <!-- ─── Usuarios y Grupos Asignados ─── -->
+                <div class="flex flex-col gap-space-sm">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-space-xs">
+                            <span class="font-label-caps text-label-caps uppercase text-outline">
+                                Usuarios & Grupos Asignados
+                            </span>
+                            <span
+                                class="px-1.5 py-0.5 rounded font-label-code-sm text-label-code-sm bg-surface-container-high text-on-surface font-medium">
+                                {{ role.membersCount }} miembros
+                            </span>
+                        </div>
+                        <button type="button" (click)="assignEntity()"
+                            class="font-headline-sm text-headline-sm text-primary hover:underline flex items-center gap-0.5">
+                            <span>+ Asignar Entidad</span>
+                        </button>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-space-sm">
+                        @for (assignment of role.assignments; track assignment.id) {
+                        <div class="flex items-center justify-between p-space-sm bg-surface-container-low rounded-lg">
+                            <div class="flex items-center gap-space-sm min-w-0">
+                                @if (assignment.type === 'group') {
+                                <div
+                                    class="w-8 h-8 rounded-lg bg-primary-fixed flex items-center justify-center text-primary shrink-0">
+                                    <span class="material-symbols-outlined text-[18px]">{{ assignment.icon }}</span>
+                                </div>
+                                } @else {
+                                <div class="flex -space-x-2 overflow-hidden shrink-0">
+                                    @for (av of assignment.avatars; track av.initials) {
+                                    <div class="inline-flex h-8 w-8 rounded-full ring-2 ring-surface-container-lowest items-center justify-center font-label-code-sm font-bold"
+                                        [class]="av.bg === 'primary'
+                              ? 'bg-primary-container text-on-primary'
+                              : (av.bg === 'secondary'
+                                ? 'bg-secondary-fixed text-on-secondary-fixed'
+                                : 'bg-tertiary-container text-on-tertiary')">
+                                        {{ av.initials }}
+                                    </div>
+                                    }
+                                </div>
+                                }
+                                <div class="flex flex-col min-w-0">
+                                    <span class="font-headline-sm text-headline-sm text-on-surface truncate">{{
+                                        assignment.label }}</span>
+                                    <span class="font-body-sm text-body-sm text-outline truncate">{{ assignment.subLabel
+                                        }}</span>
+                                </div>
+                            </div>
+                            <span
+                                class="material-symbols-outlined text-[16px] text-outline hover:text-error cursor-pointer shrink-0">
+                                {{ assignment.type === 'group' ? 'close' : 'open_in_new' }}
+                            </span>
+                        </div>
+                        }
+                    </div>
+                </div>
+
+                <!-- ─── Matriz de Permisos ─── -->
+                <div class="flex flex-col gap-space-sm">
+                    <div class="flex items-center justify-between">
+                        <span class="font-label-caps text-label-caps uppercase text-outline">
+                            Matriz de Permisos por Módulo
+                        </span>
+                        <span class="font-label-code-sm text-label-code-sm text-outline">
+                            {{ role.modules.length }} permisos evaluados
+                        </span>
+                    </div>
+
+                    <div
+                        class="flex flex-col gap-space-xs overflow-hidden rounded-xl bg-surface-container-low p-space-xs">
+                        @for (mod of role.modules; track mod.id) {
+                        <div
+                            class="bg-surface-container-lowest p-space-md rounded-lg flex flex-col md:flex-row md:items-center justify-between gap-space-sm">
+                            <div class="flex items-center gap-space-md min-w-0">
+                                <div class="w-9 h-9 rounded-lg bg-surface-container-high flex items-center justify-center shrink-0"
+                                    [class]="mod.iconColor === 'primary'
+                        ? 'text-primary'
+                        : (mod.iconColor === 'secondary' ? 'text-secondary' : 'text-on-surface-variant')">
+                                    <span class="material-symbols-outlined text-[20px]">{{ mod.icon }}</span>
+                                </div>
+                                <div class="flex flex-col min-w-0">
+                                    <span class="font-headline-sm text-headline-sm text-on-surface">{{ mod.name
+                                        }}</span>
+                                    <span class="font-label-code-sm text-label-code-sm text-outline truncate">{{
+                                        mod.scope }}</span>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center gap-space-lg self-end md:self-center">
+                                <app-permission-toggle label="Lectura" [enabled]="mod.permissions.read"
+                                    (toggled)="togglePermission(mod.id, 'read')" />
+                                <app-permission-toggle label="Escritura" [enabled]="mod.permissions.write"
+                                    [locked]="mod.permissions.writeLocked ?? false"
+                                    [lockedReason]="'Bloqueado por compliance'"
+                                    (toggled)="togglePermission(mod.id, 'write')" />
+                                <app-permission-toggle [label]="mod.permissions.deleteLabel ?? 'Eliminación'"
+                                    [danger]="true" [enabled]="mod.permissions.delete"
+                                    [locked]="mod.permissions.deleteLocked ?? false"
+                                    [lockedReason]="mod.permissions.deleteLockedReason ?? 'Bloqueado'"
+                                    (toggled)="togglePermission(mod.id, 'delete')" />
+                            </div>
+                        </div>
+                        }
+                    </div>
+                </div>
+
+                <!-- ─── Footer de auditoría ─── -->
+                <div
+                    class="p-space-sm bg-surface-container-low rounded-lg flex items-center justify-between text-on-surface-variant">
+                    <div class="flex items-center gap-space-xs flex-wrap">
+                        <span class="material-symbols-outlined text-[18px] text-tertiary">history_edu</span>
+                        <span class="font-body-sm text-body-sm">
+                            Última mutación por <strong class="text-on-surface">{{ role.audit.mutatedBy }}</strong>
+                            {{ role.audit.mutatedAgo }}. Hash de auditoría:
+                        </span>
+                        <span class="font-label-code-sm text-label-code-sm text-outline">{{ role.audit.hash }}</span>
+                    </div>
+                    <span class="font-label-caps text-label-caps text-tertiary-container uppercase">
+                        {{ role.audit.statusLabel }}
+                    </span>
+                </div>
+            </div>
+            } @else {
+            <div
+                class="bg-surface-container-lowest rounded-xl shadow-md p-space-xl flex flex-col items-center justify-center gap-space-sm min-h-[400px]">
+                <span class="material-symbols-outlined text-[64px] text-outline">admin_panel_settings</span>
+                <p class="font-headline-md text-headline-md text-on-surface">Selecciona un rol</p>
+                <p class="font-body-sm text-body-sm text-on-surface-variant text-center max-w-xs">
+                    Elige un rol de la lista de la izquierda para ver sus permisos y configuración.
+                </p>
+            </div>
+            }
+        </div>
+    </div>
+
+</div>
