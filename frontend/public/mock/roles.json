@@ -1,0 +1,300 @@
+{
+    "kpis": {
+        "rolesCount": "8",
+        "rolesDelta": "+2 este trimestre",
+        "rolesBreakdown": "5 nativos del sistema · 3 custom",
+        "assignmentsCount": "42.8k",
+        "assignmentsDelta": "99.4% validadas",
+        "assignmentsBreakdown": "38.2k identidades · 4.6k service accounts",
+        "orphanRoles": "0",
+        "orphanStatus": "Zero Risk",
+        "orphanBreakdown": "Sin políticas residuales sin herencia"
+    },
+    "roles": [
+        {
+            "id": "role_superadmin_00",
+            "name": "SuperAdmin",
+            "description": "Acceso total sin restricciones al cluster, identidades, rotación de claves maestras y auditoría.",
+            "tag": "system-native",
+            "tagLabel": "System-Native",
+            "assignmentsCount": 4,
+            "assignmentsLabel": "4 usuarios",
+            "scopeSummary": "Full Wildcard (*:*)",
+            "color": "error",
+            "scopeLabel": "Full Wildcard (*:*)",
+            "scopeLabelColor": "error"
+        },
+        {
+            "id": "role_sec_analyst_01",
+            "name": "Security Analyst",
+            "description": "Lectura analítica de telemetría de autenticación, revocación de tokens y mitigación de amenazas en tiempo real.",
+            "tag": "custom",
+            "tagLabel": "En Edición",
+            "assignmentsCount": 1248,
+            "assignmentsLabel": "1,248 asignaciones",
+            "scopeSummary": "Compliance Scope",
+            "color": "secondary",
+            "scopeLabel": "Compliance Scope",
+            "scopeLabelColor": "tertiary"
+        },
+        {
+            "id": "role_app_dev_03",
+            "name": "Application Developer",
+            "description": "Gestión de credenciales OIDC, clientes OAuth2, certificados SAML y configuración de webhooks.",
+            "tag": "custom",
+            "tagLabel": "Custom",
+            "assignmentsCount": 18400,
+            "assignmentsLabel": "18.4k asignaciones",
+            "scopeSummary": "Scopes: apps:* , keys:*",
+            "color": "secondary",
+            "scopeLabel": "Scopes: apps:* , keys:*",
+            "scopeLabelColor": "outline"
+        },
+        {
+            "id": "role_support_spec_04",
+            "name": "Support Specialist",
+            "description": "Soporte asistido a usuarios finales, reseteo de contraseñas y desbloqueo transitorio de cuentas.",
+            "tag": "system-native",
+            "tagLabel": "System-Native",
+            "assignmentsCount": 23100,
+            "assignmentsLabel": "23.1k asignaciones",
+            "scopeSummary": "Scopes: users:read , pwd:reset",
+            "color": "outline",
+            "scopeLabel": "Scopes: users:read , pwd:reset",
+            "scopeLabelColor": "outline"
+        },
+        {
+            "id": "role_auditor_immutable_05",
+            "name": "Auditor",
+            "description": "Inspección forense de trazas de autenticación, pipelines de auditoría y reportes SOC2 Type II.",
+            "tag": "read-only",
+            "tagLabel": "Read-Only",
+            "assignmentsCount": 82,
+            "assignmentsLabel": "82 asignaciones",
+            "scopeSummary": "SOC2 Certified",
+            "color": "tertiary",
+            "scopeLabel": "SOC2 Certified",
+            "scopeLabelColor": "tertiary"
+        }
+    ],
+    "details": {
+        "role_superadmin_00": {
+            "id": "role_superadmin_00",
+            "name": "SuperAdmin",
+            "description": "Acceso total sin restricciones al cluster, identidades, rotación de claves maestras y auditoría.",
+            "tag": "system-native",
+            "tagLabel": "System-Native",
+            "assignmentsCount": 4,
+            "assignmentsLabel": "4 usuarios",
+            "scopeSummary": "Full Wildcard (*:*)",
+            "color": "error",
+            "scopeLabel": "Full Wildcard (*:*)",
+            "scopeLabelColor": "error",
+            "version": "v1.0.0-rev",
+            "membersCount": 4,
+            "assignments": [
+                {
+                    "id": "grp_root",
+                    "type": "group",
+                    "label": "grp_root_admins",
+                    "subLabel": "Grupo IAM · 4 miembros",
+                    "icon": "shield_person"
+                }
+            ],
+            "modules": [],
+            "audit": {
+                "mutatedBy": "system",
+                "mutatedAgo": "inmutable",
+                "hash": "locked",
+                "statusLabel": "System Immutable"
+            }
+        },
+        "role_sec_analyst_01": {
+            "id": "role_sec_analyst_01",
+            "name": "Security Analyst",
+            "description": "Habilita a los ingenieros del SOC y analistas forenses la inspección irrestricta de telemetría de eventos de autenticación, revocación expedita de sesiones anómalas e invocación de mitigaciones de fuerza bruta en Edge. Excluye deliberadamente la lectura o exportación de claves criptográficas maestras.",
+            "tag": "custom",
+            "tagLabel": "En Edición",
+            "assignmentsCount": 1248,
+            "assignmentsLabel": "1,248 asignaciones",
+            "scopeSummary": "Compliance Scope",
+            "color": "secondary",
+            "scopeLabel": "Compliance Scope",
+            "scopeLabelColor": "tertiary",
+            "version": "v2.4.0-rev",
+            "membersCount": 1248,
+            "assignments": [
+                {
+                    "id": "grp_soc",
+                    "type": "group",
+                    "label": "grp_soc_l2_operators",
+                    "subLabel": "Grupo IAM · 1,240 miembros",
+                    "icon": "shield_person"
+                },
+                {
+                    "id": "users_direct",
+                    "type": "users",
+                    "label": "8 Asignaciones Directas",
+                    "subLabel": "Sofia, Liam, Chen + 5",
+                    "icon": "open_in_new",
+                    "avatars": [
+                        {
+                            "initials": "SA",
+                            "bg": "primary"
+                        },
+                        {
+                            "initials": "LC",
+                            "bg": "secondary"
+                        },
+                        {
+                            "initials": "CH",
+                            "bg": "tertiary"
+                        }
+                    ],
+                    "moreCount": 5
+                }
+            ],
+            "modules": [
+                {
+                    "id": "auth",
+                    "icon": "fingerprint",
+                    "iconColor": "primary",
+                    "name": "Authentication & Session Management",
+                    "scope": "scope: auth.session.*",
+                    "permissions": {
+                        "read": true,
+                        "write": true,
+                        "delete": true,
+                        "deleteLabel": "Revocación"
+                    }
+                },
+                {
+                    "id": "audit",
+                    "icon": "receipt_long",
+                    "iconColor": "secondary",
+                    "name": "Audit Trail & Telemetry Streaming",
+                    "scope": "scope: audit.logs.read, audit.siem.export",
+                    "permissions": {
+                        "read": true,
+                        "write": false,
+                        "delete": false,
+                        "writeLocked": true,
+                        "deleteLocked": true,
+                        "deleteLockedReason": "Restringido por SOC2"
+                    }
+                },
+                {
+                    "id": "users",
+                    "icon": "manage_accounts",
+                    "iconColor": "on-surface-variant",
+                    "name": "User Profiles & Risk States",
+                    "scope": "scope: users.profile.read, users.mfa.reset",
+                    "permissions": {
+                        "read": true,
+                        "write": true,
+                        "delete": false,
+                        "deleteLocked": true,
+                        "deleteLockedReason": "Requiere elevación"
+                    }
+                },
+                {
+                    "id": "apps",
+                    "icon": "hub",
+                    "iconColor": "on-surface-variant",
+                    "name": "Registered Clients & Keyrings",
+                    "scope": "scope: apps.metadata.read",
+                    "permissions": {
+                        "read": true,
+                        "write": false,
+                        "delete": false,
+                        "writeLocked": true,
+                        "deleteLocked": true
+                    }
+                }
+            ],
+            "audit": {
+                "mutatedBy": "sofia.alarcon@nexauth.corp",
+                "mutatedAgo": "hace 4 horas",
+                "hash": "f8b2..41a9",
+                "statusLabel": "Policy Synchronized"
+            }
+        },
+        "role_app_dev_03": {
+            "id": "role_app_dev_03",
+            "name": "Application Developer",
+            "description": "Gestión de credenciales OIDC, clientes OAuth2, certificados SAML y configuración de webhooks.",
+            "tag": "custom",
+            "tagLabel": "Custom",
+            "assignmentsCount": 18400,
+            "assignmentsLabel": "18.4k asignaciones",
+            "scopeSummary": "Scopes: apps:* , keys:*",
+            "color": "secondary",
+            "scopeLabel": "Scopes: apps:* , keys:*",
+            "scopeLabelColor": "outline",
+            "version": "v3.1.2",
+            "membersCount": 18400,
+            "assignments": [
+                {
+                    "id": "grp_devs",
+                    "type": "group",
+                    "label": "grp_dev_engineers",
+                    "subLabel": "Grupo IAM · 18,400 miembros",
+                    "icon": "terminal"
+                }
+            ],
+            "modules": [],
+            "audit": {
+                "mutatedBy": "m.chen@nexauth.corp",
+                "mutatedAgo": "hace 2 días",
+                "hash": "a3f1..77cd",
+                "statusLabel": "Policy Synchronized"
+            }
+        },
+        "role_support_spec_04": {
+            "id": "role_support_spec_04",
+            "name": "Support Specialist",
+            "description": "Soporte asistido a usuarios finales, reseteo de contraseñas y desbloqueo transitorio de cuentas.",
+            "tag": "system-native",
+            "tagLabel": "System-Native",
+            "assignmentsCount": 23100,
+            "assignmentsLabel": "23.1k asignaciones",
+            "scopeSummary": "Scopes: users:read , pwd:reset",
+            "color": "outline",
+            "scopeLabel": "Scopes: users:read , pwd:reset",
+            "scopeLabelColor": "outline",
+            "version": "v1.4.0",
+            "membersCount": 23100,
+            "assignments": [],
+            "modules": [],
+            "audit": {
+                "mutatedBy": "system",
+                "mutatedAgo": "hace 6 meses",
+                "hash": "b7e9..22fa",
+                "statusLabel": "Policy Synchronized"
+            }
+        },
+        "role_auditor_immutable_05": {
+            "id": "role_auditor_immutable_05",
+            "name": "Auditor",
+            "description": "Inspección forense de trazas de autenticación, pipelines de auditoría y reportes SOC2 Type II.",
+            "tag": "read-only",
+            "tagLabel": "Read-Only",
+            "assignmentsCount": 82,
+            "assignmentsLabel": "82 asignaciones",
+            "scopeSummary": "SOC2 Certified",
+            "color": "tertiary",
+            "scopeLabel": "SOC2 Certified",
+            "scopeLabelColor": "tertiary",
+            "version": "v1.0.0",
+            "membersCount": 82,
+            "assignments": [],
+            "modules": [],
+            "audit": {
+                "mutatedBy": "system",
+                "mutatedAgo": "hace 1 año",
+                "hash": "immutable",
+                "statusLabel": "SOC2 Immutable"
+            }
+        }
+    }
+}
