@@ -1,0 +1,175 @@
+{
+    "kpis": [
+        {
+            "id": "total-scopes",
+            "label": "Total Scopes RFC",
+            "value": "48",
+            "deltaLabel": "+4 este ciclo",
+            "deltaStyle": "success",
+            "icon": "key",
+            "iconColor": "primary",
+            "footer": "Registrados en 4 Resource Servers"
+        },
+        {
+            "id": "sensitive-scopes",
+            "label": "Scopes Sensibles",
+            "value": "9",
+            "deltaLabel": "MFA Forzado",
+            "deltaStyle": "danger",
+            "icon": "gpp_maybe",
+            "iconColor": "error",
+            "footer": "Requieren Step-Up elevación criptográfica"
+        },
+        {
+            "id": "delegated-apps",
+            "label": "Apps Delegadas",
+            "value": "142",
+            "deltaLabel": "Consentimientos activos",
+            "deltaStyle": "neutral",
+            "icon": "token",
+            "iconColor": "secondary",
+            "footer": "M2M Clients & SPA Delegations"
+        },
+        {
+            "id": "risk-distribution",
+            "label": "Distribución de Riesgo",
+            "value": "",
+            "deltaLabel": "",
+            "deltaStyle": "neutral",
+            "icon": "analytics",
+            "iconColor": "tertiary",
+            "footer": ""
+        }
+    ],
+    "riskDistribution": {
+        "lowPct": 55,
+        "mediumPct": 25,
+        "highPct": 20
+    },
+    "permissions": [
+        {
+            "id": "perm-1",
+            "scopeIdentifier": "users:read",
+            "urnIdentifier": "urn:nexauth:scope:users.profile.read",
+            "resourceServerId": "USER_MGMT",
+            "resourceServerLabel": "User Management API",
+            "resourceServerMeta": "v2.4 · Cluster US-East",
+            "resourceServerIcon": "supervised_user_circle",
+            "resourceServerIconColor": "tertiary",
+            "consentDescription": "Consulta de perfiles de usuario, metadatos públicos y estado del ciclo de vida.",
+            "consentPrompt": "Permite ver tu información de perfil básica",
+            "criticality": "low",
+            "consumers": {
+                "rolesCount": 12,
+                "appsCount": 34
+            }
+        },
+        {
+            "id": "perm-2",
+            "scopeIdentifier": "users:write",
+            "urnIdentifier": "urn:nexauth:scope:users.profile.write",
+            "resourceServerId": "USER_MGMT",
+            "resourceServerLabel": "User Management API",
+            "resourceServerMeta": "v2.4 · Cluster US-East",
+            "resourceServerIcon": "supervised_user_circle",
+            "resourceServerIconColor": "tertiary",
+            "consentDescription": "Modificación de atributos de identidad, sincronización SCIM y resets de credenciales temporales.",
+            "consentPrompt": "Permite actualizar datos de cuenta en tu nombre",
+            "criticality": "medium",
+            "consumers": {
+                "rolesCount": 5,
+                "appsCount": 11
+            }
+        },
+        {
+            "id": "perm-3",
+            "scopeIdentifier": "tokens:revoke",
+            "urnIdentifier": "urn:nexauth:core:token.lifecycle.revoke",
+            "resourceServerId": "AUTH_CORE",
+            "resourceServerLabel": "Auth Engine Core",
+            "resourceServerMeta": "RFC 7009 · Core Engine",
+            "resourceServerIcon": "security",
+            "resourceServerIconColor": "primary",
+            "consentDescription": "Invalidación inmediata de Refresh Tokens y revocación masiva de sesiones concurrentes.",
+            "criticality": "high",
+            "requiresStepUp": true,
+            "consumers": {
+                "rolesCount": 2,
+                "appsCount": 3
+            }
+        },
+        {
+            "id": "perm-4",
+            "scopeIdentifier": "audit:export",
+            "urnIdentifier": "urn:nexauth:telemetry:audit.trail.dump",
+            "resourceServerId": "AUDIT",
+            "resourceServerLabel": "Audit Stream API",
+            "resourceServerMeta": "Kinesis / SIEM Export",
+            "resourceServerIcon": "history_edu",
+            "resourceServerIconColor": "secondary",
+            "consentDescription": "Volcado por lotes de registros inmutables SOC2/HIPAA y transacciones de control administrativo.",
+            "criticality": "high",
+            "requiresElevation": true,
+            "consumers": {
+                "rolesCount": 1,
+                "appsCount": 1
+            }
+        },
+        {
+            "id": "perm-5",
+            "scopeIdentifier": "apps:credentials:rotate",
+            "urnIdentifier": "urn:nexauth:core:client.secrets.rotate",
+            "resourceServerId": "AUTH_CORE",
+            "resourceServerLabel": "Auth Engine Core",
+            "resourceServerMeta": "KMS / Vault Keyring",
+            "resourceServerIcon": "security",
+            "resourceServerIconColor": "primary",
+            "consentDescription": "Regeneración criptográfica de Client Secrets OAuth y claves privadas asimétricas JWKS.",
+            "criticality": "high",
+            "requiresDoubleApproval": true,
+            "consumers": {
+                "rolesCount": 1,
+                "appsCount": 2
+            }
+        },
+        {
+            "id": "perm-6",
+            "scopeIdentifier": "billing:invoices:read",
+            "urnIdentifier": "urn:nexauth:gateway:finance.invoice.read",
+            "resourceServerId": "BILLING",
+            "resourceServerLabel": "Billing Gateway",
+            "resourceServerMeta": "Stripe Connect Engine",
+            "resourceServerIcon": "receipt_long",
+            "resourceServerIconColor": "outline",
+            "consentDescription": "Acceso de lectura a facturación agregada, líneas de consumo métrico y balances del tenant.",
+            "consentPrompt": "Permite ver el historial financiero y facturas",
+            "criticality": "medium",
+            "consumers": {
+                "rolesCount": 3,
+                "appsCount": 7
+            }
+        }
+    ],
+    "jwtPreviewJson": "{\n  \"iss\": \"https://auth.corp.nexauth.io/oauth/v2\",\n  \"sub\": \"usr_99x82f019a84\",\n  \"aud\": [\"https://api.nexauth.internal/v2/users\", \"https://vault.nexauth.internal/core\"],\n  \"client_id\": \"app_console_admin_production\",\n  \"scope\": \"openid profile users:read users:write tokens:revoke\",\n  \"amr\": [\"pwd\", \"mfa\", \"hwk\"],\n  \"step_up_verified\": true,\n  \"exp\": 1718919600,\n  \"iat\": 1718916000\n}",
+    "jwtKid": "k-prod-2024-east-jwk99",
+    "policies": [
+        {
+            "id": "network-context",
+            "label": "Validar Contexto de Red",
+            "description": "Restringir scopes sensibles a VPN/CIDR",
+            "enabled": true
+        },
+        {
+            "id": "consent-screen",
+            "label": "Consentimiento de Pantalla",
+            "description": "OAuth Prompt = Consent Forzado",
+            "enabled": true
+        },
+        {
+            "id": "jwks-rotation",
+            "label": "Rotación Instantánea JWKS",
+            "description": "Auto-revocación ante anomalías",
+            "enabled": true
+        }
+    ]
+}
