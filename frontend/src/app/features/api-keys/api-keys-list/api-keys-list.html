@@ -1,1 +1,422 @@
-<p>api-keys-list works!</p>
+<div class="flex flex-col w-full pb-space-xl">
+
+    <!-- ═══ SECURITY ADVISORY BANNER ═══════════════════ -->
+    <section class="mb-space-lg mt-space-lg">
+        <div class="relative overflow-hidden rounded-xl bg-surface-container-high p-space-md text-on-surface shadow-sm">
+            <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-md">
+                <div class="flex items-start gap-space-md">
+                    <div
+                        class="p-space-xs rounded-lg bg-primary-container text-on-primary flex items-center justify-center shrink-0">
+                        <span class="material-symbols-outlined text-[22px]">verified_user</span>
+                    </div>
+                    <div class="flex flex-col gap-space-xs">
+                        <div class="flex items-center gap-space-sm flex-wrap">
+                            <span class="font-headline-sm text-headline-sm text-on-surface">
+                                M2M Security Advisory & Secret Governance
+                            </span>
+                            <span
+                                class="font-label-caps text-label-caps px-2 py-0.5 rounded bg-tertiary-container text-on-tertiary">
+                                PCI-DSS / SOC2 Compliant
+                            </span>
+                        </div>
+                        <p class="font-body-sm text-body-sm text-on-surface-variant max-w-4xl">
+                            Las claves API con permisos globales no deben almacenarse en repositorios de código ni
+                            variables de entorno sin cifrar. Configure rotación programada automatizada a través de
+                            HashiCorp Vault o AWS Secrets Manager y use tokens de vida corta (&lt;90 días).
+                        </p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-space-sm shrink-0">
+                    <button type="button"
+                        class="px-space-md py-1.5 rounded-lg bg-surface-container-lowest text-on-surface font-headline-sm text-headline-sm hover:bg-surface-container transition-colors shadow-sm flex items-center gap-1">
+                        <span class="material-symbols-outlined text-[16px]">menu_book</span>
+                        <span>Vault Guide</span>
+                    </button>
+                    <button type="button"
+                        class="px-space-md py-1.5 rounded-lg bg-primary text-on-primary font-headline-sm text-headline-sm hover:bg-secondary transition-colors shadow-sm flex items-center gap-1">
+                        <span class="material-symbols-outlined text-[16px]">autorenew</span>
+                        <span>Configurar Rotación</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ HEADER ══════════════════════════════════════ -->
+    <header class="flex flex-col md:flex-row md:items-end justify-between gap-space-md mb-space-lg">
+        <div class="flex flex-col">
+            <div
+                class="flex items-center gap-space-xs text-outline font-label-code-sm text-label-code-sm uppercase tracking-wider mb-1">
+                <span>Credenciales</span>
+                <span>/</span>
+                <span class="text-primary font-medium">Machine-to-Machine</span>
+            </div>
+            <h1 class="font-headline-xl text-headline-xl text-on-surface tracking-tight">
+                API Keys & Machine-to-Machine Credentials
+            </h1>
+            <p class="font-body-md text-body-md text-on-surface-variant mt-1">
+                Controle tokens de servicio autenticados, límites de tasa y delegación granular de scopes en su
+                infraestructura cloud.
+            </p>
+        </div>
+
+        <div class="flex items-center gap-space-sm">
+            <button type="button" (click)="toggleLiveStream()"
+                class="px-space-md py-2 rounded-lg bg-surface-container-lowest text-on-surface font-headline-sm text-headline-sm hover:bg-surface-container shadow-sm flex items-center gap-space-xs transition-colors">
+                <span class="material-symbols-outlined text-[18px]">terminal</span>
+                <span>Live Stream</span>
+            </button>
+            <button type="button" (click)="generateKey()"
+                class="px-space-lg py-2 rounded-lg bg-primary-container text-on-primary font-headline-sm text-headline-sm hover:bg-primary transition-all shadow-md flex items-center gap-space-xs">
+                <span class="material-symbols-outlined text-[18px]">add</span>
+                <span>Generar Nueva API Key</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- ═══ KPIs ════════════════════════════════════════ -->
+    @if (kpis(); as k) {
+    <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-md mb-space-xl">
+
+        <!-- Active Keys -->
+        <div class="relative overflow-hidden rounded-xl bg-surface-container-lowest p-space-md shadow-sm">
+            <div class="flex justify-between items-start mb-space-xs">
+                <span class="font-label-caps text-label-caps uppercase text-outline">Claves Activas</span>
+                <span class="p-1 rounded bg-surface-container text-primary">
+                    <span class="material-symbols-outlined text-[18px]">key</span>
+                </span>
+            </div>
+            <div class="flex items-baseline gap-space-xs">
+                <span class="font-headline-xl text-headline-xl text-on-surface">{{ k.activeKeys.value }}</span>
+                <span class="font-label-code-sm text-label-code-sm text-tertiary-container font-medium">
+                    {{ k.activeKeys.delta }}
+                </span>
+            </div>
+            <div
+                class="mt-space-sm flex items-center justify-between text-on-surface-variant font-body-sm text-body-sm">
+                <span>{{ k.activeKeys.breakdown }}</span>
+            </div>
+        </div>
+
+        <!-- Daily Requests + Sparkline -->
+        <div class="relative overflow-hidden rounded-xl bg-surface-container-lowest p-space-md shadow-sm">
+            <div class="flex justify-between items-start mb-space-xs">
+                <span class="font-label-caps text-label-caps uppercase text-outline">Requests Diarios</span>
+                <span class="p-1 rounded bg-surface-container text-secondary">
+                    <span class="material-symbols-outlined text-[18px]">data_thresholding</span>
+                </span>
+            </div>
+            <div class="flex items-baseline gap-space-xs">
+                <span class="font-headline-xl text-headline-xl text-on-surface">{{ k.dailyRequests.value }}</span>
+                <span class="font-label-code-sm text-label-code-sm text-on-surface-variant">{{ k.dailyRequests.sub
+                    }}</span>
+            </div>
+            <div class="mt-space-xs h-6 w-full flex items-end">
+                <svg class="w-full h-5 text-primary" fill="none" preserveAspectRatio="none" viewBox="0 0 100 24">
+                    <path [attr.d]="'M0,20 L15,16 L30,19 L45,8 L60,12 L75,4 L90,9 L100,2'" stroke="currentColor"
+                        stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" />
+                    <path d="M0,20 L15,16 L30,19 L45,8 L60,12 L75,4 L90,9 L100,2 L100,24 L0,24 Z" fill="currentColor"
+                        fill-opacity="0.1" />
+                </svg>
+            </div>
+        </div>
+
+        <!-- Expiring -->
+        <div class="relative overflow-hidden rounded-xl bg-surface-container-lowest p-space-md shadow-sm">
+            <div class="flex justify-between items-start mb-space-xs">
+                <span class="font-label-caps text-label-caps uppercase text-outline">Expiración Próxima</span>
+                <span class="p-1 rounded bg-surface-container text-tertiary-container">
+                    <span class="material-symbols-outlined text-[18px]">event_upcoming</span>
+                </span>
+            </div>
+            <div class="flex items-baseline gap-space-xs">
+                <span class="font-headline-xl text-headline-xl text-on-surface">{{ k.expiring.value }}</span>
+                <span class="font-body-sm text-body-sm text-tertiary-container font-medium">{{ k.expiring.status
+                    }}</span>
+            </div>
+            <p class="mt-space-sm font-body-sm text-body-sm text-on-surface-variant">{{ k.expiring.nextExpiry }}</p>
+        </div>
+
+        <!-- Success Rate Ring -->
+        <div class="relative overflow-hidden rounded-xl bg-surface-container-lowest p-space-md shadow-sm">
+            <div class="flex justify-between items-start mb-space-xs">
+                <span class="font-label-caps text-label-caps uppercase text-outline">Tasa de Éxito Auth</span>
+                <span class="p-1 rounded bg-surface-container text-tertiary-container">
+                    <span class="material-symbols-outlined text-[18px]">verified</span>
+                </span>
+            </div>
+            <div class="flex items-center justify-between">
+                <div>
+                    <span class="font-headline-xl text-headline-xl text-on-surface">{{ k.successRate.value }}</span>
+                    <div class="font-label-code-sm text-label-code-sm text-on-surface-variant mt-0.5">{{
+                        k.successRate.slaTarget }}</div>
+                </div>
+                <div class="relative w-12 h-12 flex items-center justify-center shrink-0">
+                    <svg class="w-12 h-12 -rotate-90" viewBox="0 0 36 36">
+                        <path class="text-surface-container"
+                            d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                            fill="none" stroke="currentColor" stroke-width="3" />
+                        <path class="text-tertiary-container"
+                            d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                            fill="none" stroke="currentColor" [attr.stroke-dasharray]="k.successRate.percent + ', 100'"
+                            stroke-linecap="round" stroke-width="3" />
+                    </svg>
+                    <span class="absolute material-symbols-outlined text-[16px] text-tertiary-container">check</span>
+                </div>
+            </div>
+        </div>
+    </section>
+    }
+
+    <!-- ═══ LIVE STREAM DRAWER (collapsible) ════════════ -->
+    @if (liveStreamOpen()) {
+    <div class="mb-space-lg rounded-xl bg-inverse-surface p-space-md text-inverse-on-surface shadow-xl">
+        <div class="flex items-center justify-between pb-space-sm mb-space-sm border-b border-outline/20">
+            <div class="flex items-center gap-space-sm">
+                <span class="w-2.5 h-2.5 rounded-full bg-tertiary-fixed animate-pulse"></span>
+                <span class="font-label-code-md text-label-code-md tracking-wider uppercase font-semibold">
+                    Live M2M Ingestion & Key Usage Telemetry
+                </span>
+            </div>
+            <button type="button" (click)="toggleLiveStream()"
+                class="text-outline-variant hover:text-inverse-on-surface">
+                <span class="material-symbols-outlined text-[18px]">close</span>
+            </button>
+        </div>
+        <div
+            class="font-label-code-sm text-label-code-sm flex flex-col gap-1.5 overflow-x-auto text-inverse-on-surface/90">
+            @for (log of liveLogs(); track log.timestamp) {
+            <div class="flex items-center gap-space-md flex-wrap">
+                <span class="text-outline-variant">{{ log.timestamp }}</span>
+                <span [class]="log.eventType === 'AUTH_GRANTED' ? 'text-tertiary-fixed'
+                : (log.eventType === 'CACHE_HIT' ? 'text-secondary-fixed' : 'text-error')">
+                    [{{ log.eventType }}]
+                </span>
+                <span class="text-primary-fixed">key_id={{ log.keyId }}</span>
+                <span>service="{{ log.service }}"</span>
+                <span class="text-outline-variant">ip={{ log.ip }}</span>
+                <span>action={{ log.action }}</span>
+                <span class="text-tertiary-fixed-dim">{{ log.result }}</span>
+            </div>
+            }
+        </div>
+    </div>
+    }
+
+    <!-- ═══ TOOLBAR ═════════════════════════════════════ -->
+    <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-space-md mb-space-md">
+        <div
+            class="flex items-center gap-space-xs flex-1 max-w-md bg-surface-container-lowest px-space-md py-1.5 rounded-lg shadow-sm">
+            <span class="material-symbols-outlined text-[18px] text-outline">search</span>
+            <input type="text" placeholder="Filtrar por nombre, scope, o prefijo..." [value]="searchQuery()"
+                (input)="onSearch($event)"
+                class="w-full bg-transparent font-body-sm text-body-sm text-on-surface focus:outline-none placeholder:text-outline" />
+        </div>
+
+        <div class="flex items-center gap-space-sm">
+            <div
+                class="flex bg-surface-container p-0.5 rounded-lg text-on-surface-variant font-headline-sm text-headline-sm">
+                <button type="button" (click)="setEnvFilter('all')" class="px-space-md py-1 rounded transition-colors"
+                    [class]="envFilter() === 'all'
+            ? 'bg-surface-container-lowest text-on-surface shadow-sm'
+            : 'hover:text-on-surface'">
+                    Todas ({{ envCounts().all }})
+                </button>
+                <button type="button" (click)="setEnvFilter('production')"
+                    class="px-space-md py-1 rounded transition-colors" [class]="envFilter() === 'production'
+            ? 'bg-surface-container-lowest text-on-surface shadow-sm'
+            : 'hover:text-on-surface'">
+                    Producción ({{ envCounts().production }})
+                </button>
+                <button type="button" (click)="setEnvFilter('staging')"
+                    class="px-space-md py-1 rounded transition-colors" [class]="envFilter() === 'staging'
+            ? 'bg-surface-container-lowest text-on-surface shadow-sm'
+            : 'hover:text-on-surface'">
+                    Staging ({{ envCounts().staging }})
+                </button>
+            </div>
+
+            <button type="button"
+                class="p-2 rounded-lg bg-surface-container-lowest text-on-surface-variant hover:text-on-surface shadow-sm"
+                title="Filtrar columnas">
+                <span class="material-symbols-outlined text-[18px]">filter_list</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- ═══ TABLE ═══════════════════════════════════════ -->
+    <div class="overflow-hidden rounded-xl bg-surface-container-lowest shadow-sm">
+        @if (loading()) {
+        <div class="flex items-center justify-center py-space-xl">
+            <span class="material-symbols-outlined text-[32px] text-outline animate-spin">refresh</span>
+        </div>
+        } @else {
+        <div class="overflow-x-auto">
+            <table class="w-full text-left">
+                <thead
+                    class="bg-surface-container-low text-on-surface-variant font-label-caps text-label-caps uppercase">
+                    <tr>
+                        <th class="py-space-sm px-space-md">Servicio / Identificador</th>
+                        <th class="py-space-sm px-space-md">Prefijo de Clave</th>
+                        <th class="py-space-sm px-space-md">Ambiente</th>
+                        <th class="py-space-sm px-space-md">Scopes Asignados</th>
+                        <th class="py-space-sm px-space-md">Último Uso</th>
+                        <th class="py-space-sm px-space-md">Expiración</th>
+                        <th class="py-space-sm px-space-md text-right">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody class="font-body-sm text-body-sm divide-y divide-surface-container">
+                    @for (key of filteredKeys(); track key.id) {
+                    <tr class="hover:bg-surface-container-low/50 transition-colors group">
+
+                        <!-- Servicio -->
+                        <td class="py-space-md px-space-md">
+                            <div class="flex items-center gap-space-sm">
+                                <div class="w-8 h-8 rounded-lg flex items-center justify-center shrink-0" [class]="key.iconColor === 'primary'
+                        ? 'bg-primary/10 text-primary'
+                        : (key.iconColor === 'secondary'
+                          ? 'bg-secondary-container/10 text-secondary'
+                          : 'bg-surface-container text-on-surface-variant')">
+                                    <span class="material-symbols-outlined text-[18px]">{{ key.icon }}</span>
+                                </div>
+                                <div class="flex flex-col">
+                                    <span class="font-headline-sm text-headline-sm text-on-surface">{{ key.serviceName
+                                        }}</span>
+                                    <span class="font-label-code-sm text-label-code-sm text-outline">{{ key.serviceId
+                                        }}</span>
+                                </div>
+                            </div>
+                        </td>
+
+                        <!-- Prefijo -->
+                        <td class="py-space-md px-space-md">
+                            <div
+                                class="inline-flex items-center gap-space-xs bg-surface-container-low px-2 py-1 rounded">
+                                <span class="font-label-code-md text-label-code-md text-on-surface">{{ key.keyPrefix
+                                    }}</span>
+                                <button type="button" (click)="copyValue(key.keyFullPrefix, 'Prefijo')"
+                                    class="text-outline hover:text-primary transition-colors"
+                                    title="Copiar prefijo completo">
+                                    <span class="material-symbols-outlined text-[16px]">content_copy</span>
+                                </button>
+                            </div>
+                        </td>
+
+                        <!-- Ambiente -->
+                        <td class="py-space-md px-space-md">
+                            <span
+                                class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full font-label-code-sm text-label-code-sm"
+                                [class]="key.environment === 'production'
+                      ? 'bg-tertiary-container/10 text-tertiary'
+                      : 'bg-surface-container text-on-surface-variant'">
+                                <span class="w-1.5 h-1.5 rounded-full"
+                                    [class]="key.environment === 'production' ? 'bg-tertiary-container' : 'bg-outline'"></span>
+                                {{ key.environment === 'production' ? 'Production' : 'Staging' }}
+                            </span>
+                        </td>
+
+                        <!-- Scopes -->
+                        <td class="py-space-md px-space-md">
+                            <div class="flex flex-wrap gap-1 max-w-xs">
+                                @for (scope of key.scopes; track scope) {
+                                <span
+                                    class="px-1.5 py-0.5 rounded bg-surface-container font-label-code-sm text-label-code-sm text-on-surface-variant">
+                                    {{ scope }}
+                                </span>
+                                }
+                                @if (key.scopesOverflow) {
+                                <span
+                                    class="px-1.5 py-0.5 rounded bg-surface-container font-label-code-sm text-label-code-sm text-on-surface-variant">
+                                    +{{ key.scopesOverflow }}
+                                </span>
+                                }
+                            </div>
+                        </td>
+
+                        <!-- Último uso -->
+                        <td class="py-space-md px-space-md">
+                            <div class="flex flex-col">
+                                <span class="font-label-code-sm text-label-code-sm text-on-surface font-medium">
+                                    {{ key.lastUsedRelative }}
+                                </span>
+                                <span class="font-label-code-sm text-label-code-sm text-outline">
+                                    IP: {{ key.lastUsedIp }}
+                                </span>
+                            </div>
+                        </td>
+
+                        <!-- Expiración -->
+                        <td class="py-space-md px-space-md">
+                            <span
+                                class="inline-flex items-center gap-1 font-body-sm text-body-sm text-on-surface font-medium">
+                                <span class="material-symbols-outlined text-[15px]" [class]="key.expiryStatus === 'ok'
+                        ? 'text-tertiary-container'
+                        : (key.expiryStatus === 'never' ? 'text-outline' : 'text-error')">
+                                    {{ key.expiryStatus === 'never' ? 'all_inclusive' : 'check_circle' }}
+                                </span>
+                                {{ key.expiryLabel }}
+                            </span>
+                        </td>
+
+                        <!-- Acciones -->
+                        <td class="py-space-md px-space-md text-right">
+                            <div class="flex items-center justify-end gap-1">
+                                <button type="button" (click)="rotateKey(key.id, key.serviceName)"
+                                    class="p-1.5 rounded hover:bg-surface-container text-on-surface-variant hover:text-primary transition-colors"
+                                    title="Rotar Secreto">
+                                    <span class="material-symbols-outlined text-[18px]">sync</span>
+                                </button>
+                                <button type="button" (click)="editPermissions(key.serviceName)"
+                                    class="p-1.5 rounded hover:bg-surface-container text-on-surface-variant hover:text-on-surface transition-colors"
+                                    title="Editar Scopes">
+                                    <span class="material-symbols-outlined text-[18px]">edit</span>
+                                </button>
+                                <button type="button" (click)="revokeKey(key.id, key.serviceName)"
+                                    class="p-1.5 rounded hover:bg-error-container text-error transition-colors"
+                                    title="Revocar Inmediatamente">
+                                    <span class="material-symbols-outlined text-[18px]">block</span>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        @if (filteredKeys().length === 0) {
+        <div class="flex flex-col items-center justify-center py-space-xl gap-space-sm">
+            <span class="material-symbols-outlined text-[48px] text-outline">key_off</span>
+            <p class="font-headline-sm text-headline-sm text-on-surface">Sin claves API</p>
+            <p class="font-body-sm text-body-sm text-on-surface-variant">Ajusta los filtros o genera una nueva.</p>
+        </div>
+        }
+
+        <!-- Pagination -->
+        <div
+            class="flex items-center justify-between px-space-md py-space-sm bg-surface-container-low text-on-surface-variant font-body-sm text-body-sm">
+            <div class="flex items-center gap-space-xs">
+                <span>Mostrando</span>
+                <span class="font-headline-sm text-headline-sm text-on-surface">{{ filteredKeys().length }}</span>
+                <span>de</span>
+                <span class="font-headline-sm text-headline-sm text-on-surface">{{ keys().length }}</span>
+                <span>credenciales activas</span>
+            </div>
+            <div class="flex items-center gap-space-xs">
+                <button type="button" disabled
+                    class="p-1 rounded bg-surface-container-lowest text-outline shadow-sm opacity-50 cursor-not-allowed">
+                    <span class="material-symbols-outlined text-[16px]">chevron_left</span>
+                </button>
+                <span
+                    class="px-2 py-0.5 rounded bg-surface-container-lowest font-label-code-sm text-on-surface shadow-sm">1
+                    / 1</span>
+                <button type="button"
+                    class="p-1 rounded bg-surface-container-lowest text-outline hover:text-on-surface shadow-sm">
+                    <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+                </button>
+            </div>
+        </div>
+        }
+    </div>
+
+</div>
