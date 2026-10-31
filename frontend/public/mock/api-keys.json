@@ -1,0 +1,138 @@
+{
+    "kpis": {
+        "activeKeys": {
+            "value": "12",
+            "delta": "+2 este mes",
+            "breakdown": "4 M2M Daemons · 8 Gateways"
+        },
+        "dailyRequests": {
+            "value": "1.4M",
+            "sub": "/ 24h",
+            "sparkline": [
+                18,
+                16,
+                19,
+                8,
+                12,
+                4,
+                9,
+                2
+            ]
+        },
+        "expiring": {
+            "value": "0",
+            "status": "Estado óptimo (< 7 días)",
+            "nextExpiry": "Próxima expiración programada en 42 días."
+        },
+        "successRate": {
+            "value": "99.98%",
+            "slaTarget": "SLA target: 99.95%",
+            "percent": 99.98
+        }
+    },
+    "keys": [
+        {
+            "id": "key-1",
+            "serviceName": "Production Gateway",
+            "serviceId": "srv_gw_9942a",
+            "icon": "router",
+            "iconColor": "primary",
+            "keyPrefix": "nex_live_9f8a...••••",
+            "keyFullPrefix": "nex_live_9f8a72b0c1e8d93f",
+            "environment": "production",
+            "scopes": [
+                "users:bulk_read",
+                "auth:validate",
+                "gateway:write"
+            ],
+            "scopesOverflow": 3,
+            "lastUsedRelative": "Hace 2 minutos",
+            "lastUsedIp": "52.84.18.23",
+            "expiryStatus": "ok",
+            "expiryLabel": "En 90 días"
+        },
+        {
+            "id": "key-2",
+            "serviceName": "Data Pipeline Worker",
+            "serviceId": "srv_worker_etl_01",
+            "icon": "schema",
+            "iconColor": "secondary",
+            "keyPrefix": "nex_live_44b2...••••",
+            "keyFullPrefix": "nex_live_44b2fa90a12e33bc",
+            "environment": "production",
+            "scopes": [
+                "telemetry:write",
+                "events:stream"
+            ],
+            "lastUsedRelative": "Hace 45 segundos",
+            "lastUsedIp": "34.201.99.12",
+            "expiryStatus": "ok",
+            "expiryLabel": "En 42 días"
+        },
+        {
+            "id": "key-3",
+            "serviceName": "CI/CD Deployment Bot",
+            "serviceId": "bot_actions_runner",
+            "icon": "precision_manufacturing",
+            "iconColor": "outline",
+            "keyPrefix": "nex_live_c103...••••",
+            "keyFullPrefix": "nex_live_c10381df4900a6e2",
+            "environment": "production",
+            "scopes": [
+                "deploy:write",
+                "secrets:fetch"
+            ],
+            "lastUsedRelative": "Ayer a las 22:14",
+            "lastUsedIp": "140.82.112.4",
+            "expiryStatus": "never",
+            "expiryLabel": "Nunca (Largo plazo)"
+        },
+        {
+            "id": "key-4",
+            "serviceName": "Staging Auth Test",
+            "serviceId": "test_runner_stg_09",
+            "icon": "biotech",
+            "iconColor": "outline",
+            "keyPrefix": "nex_test_77d1...••••",
+            "keyFullPrefix": "nex_test_77d189ca003f21ed",
+            "environment": "staging",
+            "scopes": [
+                "debug:all",
+                "mock:tokens"
+            ],
+            "lastUsedRelative": "Hace 3 días",
+            "lastUsedIp": "198.51.100.44",
+            "expiryStatus": "ok",
+            "expiryLabel": "En 14 días"
+        }
+    ],
+    "liveLogs": [
+        {
+            "timestamp": "14:02:18.421",
+            "eventType": "AUTH_GRANTED",
+            "keyId": "nex_live_9f8a...",
+            "service": "Production Gateway",
+            "ip": "52.84.18.23",
+            "action": "users:bulk_read",
+            "result": "200 OK (11ms)"
+        },
+        {
+            "timestamp": "14:02:17.890",
+            "eventType": "AUTH_GRANTED",
+            "keyId": "nex_live_44b2...",
+            "service": "Data Pipeline Worker",
+            "ip": "34.201.99.12",
+            "action": "telemetry:write",
+            "result": "200 OK (8ms)"
+        },
+        {
+            "timestamp": "14:01:54.103",
+            "eventType": "CACHE_HIT",
+            "keyId": "nex_live_9f8a...",
+            "service": "Production Gateway",
+            "ip": "52.84.18.23",
+            "action": "auth:validate_token",
+            "result": "204 (1ms)"
+        }
+    ]
+}
