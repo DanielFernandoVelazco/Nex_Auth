@@ -1,0 +1,100 @@
+<tr class="transition-colors" [class]="rowClass()">
+
+    <!-- Scope identifier (RFC 6749) -->
+    <td class="py-space-md px-space-md">
+        <div class="flex items-center gap-space-xs">
+            <span class="font-label-code-md text-label-code-md px-2 py-0.5 rounded" [class]="scopeCodeClass()">
+                {{ permission().scopeIdentifier }}
+            </span>
+            <app-copy-button [value]="permission().scopeIdentifier" [title]="'Copiar scope'" />
+        </div>
+        <span class="font-label-code-sm text-label-code-sm block mt-0.5" [class]="urnClass()">
+            {{ permission().urnIdentifier }}
+        </span>
+    </td>
+
+    <!-- Recurso / API Server -->
+    <td class="py-space-md px-space-md">
+        <div class="flex items-center gap-space-xs">
+            <span class="material-symbols-outlined text-[16px]" [class]="resourceIconColorClass()">
+                {{ permission().resourceServerIcon }}
+            </span>
+            <span class="font-headline-sm text-headline-sm text-on-surface">
+                {{ permission().resourceServerLabel }}
+            </span>
+        </div>
+        <span class="font-label-code-sm text-label-code-sm text-outline">
+            {{ permission().resourceServerMeta }}
+        </span>
+    </td>
+
+    <!-- Descripción & Consent -->
+    <td class="py-space-md px-space-md max-w-xs">
+        <p class="font-body-md text-body-md text-on-surface" [class.font-medium]="isHigh()">
+            {{ permission().consentDescription }}
+        </p>
+
+        @if (permission().requiresStepUp) {
+        <div class="mt-1 flex items-center gap-1 text-error font-label-code-sm text-label-code-sm font-semibold">
+            <span class="material-symbols-outlined text-[14px]">lock_reset</span>
+            Requiere Step-Up MFA
+        </div>
+        }
+        @if (permission().requiresElevation) {
+        <div class="mt-1 flex items-center gap-1 text-error font-label-code-sm text-label-code-sm font-semibold">
+            <span class="material-symbols-outlined text-[14px]">shield</span>
+            Requiere Elevación Temporal
+        </div>
+        }
+        @if (permission().requiresDoubleApproval) {
+        <div class="mt-1 flex items-center gap-1 text-error font-label-code-sm text-label-code-sm font-semibold">
+            <span class="material-symbols-outlined text-[14px]">vpn_key_alert</span>
+            Requiere Doble Aprobación
+        </div>
+        }
+        @if (permission().consentPrompt) {
+        <span class="font-label-code-sm text-label-code-sm text-outline italic block mt-1">
+            Consent: "{{ permission().consentPrompt }}"
+        </span>
+        }
+    </td>
+
+    <!-- Criticidad -->
+    <td class="py-space-md px-space-md text-center">
+        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full font-label-code-sm text-label-code-sm"
+            [class]="criticalityBadgeClass()">
+            <span class="w-1.5 h-1.5 rounded-full" [class]="criticalityDotClass()"></span>
+            {{ criticalityLabel() }}
+        </span>
+    </td>
+
+    <!-- Consumidores -->
+    <td class="py-space-md px-space-md text-center">
+        <div class="inline-flex items-center gap-2">
+            <span
+                class="font-label-code-md text-label-code-md bg-surface-container-high px-2 py-0.5 rounded text-on-surface font-medium">
+                {{ permission().consumers.rolesCount }} roles
+            </span>
+            <span
+                class="font-label-code-md text-label-code-md bg-surface-container-high px-2 py-0.5 rounded text-on-surface font-medium">
+                {{ permission().consumers.appsCount }} apps
+            </span>
+        </div>
+    </td>
+
+    <!-- Acciones -->
+    <td class="py-space-md px-space-md text-right">
+        <div class="flex items-center justify-end gap-space-xs">
+            <button type="button" class="p-1 rounded text-outline hover:text-on-surface hover:bg-surface-container-high"
+                title="Configurar Scope">
+                <span class="material-symbols-outlined text-[18px]">tune</span>
+            </button>
+            <button type="button" class="p-1 rounded text-outline hover:text-primary hover:bg-surface-container-high"
+                [title]="isHigh() ? 'Auditar uso reciente' : 'Inspeccionar JSON Claim'">
+                <span class="material-symbols-outlined text-[18px]">
+                    {{ isHigh() ? 'history' : 'code' }}
+                </span>
+            </button>
+        </div>
+    </td>
+</tr>
