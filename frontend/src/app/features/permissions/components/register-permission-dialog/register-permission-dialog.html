@@ -1,0 +1,129 @@
+<div class="flex flex-col bg-surface-container-lowest">
+
+    <!-- Header -->
+    <div class="p-space-lg bg-surface-container-low flex items-center justify-between">
+        <div class="flex items-center gap-space-sm">
+            <div class="w-9 h-9 rounded-lg bg-primary-container text-on-primary flex items-center justify-center">
+                <span class="material-symbols-outlined text-[20px]">add_moderator</span>
+            </div>
+            <div class="flex flex-col">
+                <h3 class="font-headline-md text-headline-md text-on-surface">
+                    Registrar Permiso / Scope OAuth2
+                </h3>
+                <p class="font-body-sm text-body-sm text-on-surface-variant">
+                    Define una nueva aserción técnica conforme a RFC 6749 y RFC 7519
+                </p>
+            </div>
+        </div>
+        <button type="button" (click)="cancel()"
+            class="text-outline hover:text-on-surface p-1 rounded-lg hover:bg-surface-container-high transition-colors">
+            <span class="material-symbols-outlined text-[20px]">close</span>
+        </button>
+    </div>
+
+    <!-- Body -->
+    <div class="p-space-lg flex flex-col gap-space-md">
+
+        <!-- Resource Server -->
+        <div class="flex flex-col gap-1">
+            <label class="font-headline-sm text-headline-sm text-on-surface">
+                API / Recurso Destino
+            </label>
+            <select [value]="resourceServerId()" (change)="onResourceChange($event)"
+                class="bg-surface-container-low text-on-surface font-body-md text-body-md rounded-lg px-3 py-2 focus:outline-none focus:ring-1 focus:ring-primary shadow-sm">
+                @for (res of resources; track res.id) {
+                <option [value]="res.id">{{ res.label }} ({{ res.url }})</option>
+                }
+            </select>
+            <span class="font-body-sm text-body-sm text-on-surface-variant">
+                Resource Server que evaluará la validez del scope durante la introspección.
+            </span>
+        </div>
+
+        <!-- Scope Identifier -->
+        <div class="flex flex-col gap-1">
+            <label class="font-headline-sm text-headline-sm text-on-surface">
+                Identificador RFC del Scope
+            </label>
+            <input type="text" placeholder="ej. users:profile:delete o audit:read:sensitive" [value]="scopeIdentifier()"
+                (input)="onScopeInput($event)"
+                class="w-full bg-surface-container-low font-label-code-md text-label-code-md text-on-surface rounded-lg px-3 py-2 focus:outline-none focus:ring-1 focus:ring-primary shadow-sm placeholder:text-outline" />
+            <span class="font-label-code-sm text-label-code-sm text-outline">
+                Formato canónico recomendado: [recurso]:[acción] o [recurso]:[entidad]:[operación]
+            </span>
+        </div>
+
+        <!-- Consent Description -->
+        <div class="flex flex-col gap-1">
+            <label class="font-headline-sm text-headline-sm text-on-surface">
+                Descripción para Consentimiento OAuth (User Prompt)
+            </label>
+            <textarea rows="2" placeholder="Texto presentado al usuario en la pantalla de autorización OAuth..."
+                [value]="consentDescription()" (input)="onConsentInput($event)"
+                class="w-full bg-surface-container-low font-body-md text-body-md text-on-surface rounded-lg px-3 py-2 focus:outline-none focus:ring-1 focus:ring-primary shadow-sm placeholder:text-outline"></textarea>
+            <span class="font-body-sm text-body-sm text-on-surface-variant">
+                Claridad obligatoria bajo directivas de consentimiento GDPR / CCPA.
+            </span>
+        </div>
+
+        <!-- Criticality -->
+        <div class="flex flex-col gap-1">
+            <label class="font-headline-sm text-headline-sm text-on-surface">
+                Nivel de Criticidad Operacional
+            </label>
+            <div class="grid grid-cols-3 gap-space-sm mt-1">
+                <button type="button" (click)="setCriticality('low')"
+                    class="flex items-center gap-space-xs p-space-sm rounded-lg bg-surface-container-low hover:bg-surface-container cursor-pointer transition-colors"
+                    [class.ring-2]="criticality() === 'low'" [class.ring-primary]="criticality() === 'low'">
+                    <span class="w-3 h-3 rounded-full"
+                        [class]="criticality() === 'low' ? 'bg-primary' : 'bg-outline-variant'"></span>
+                    <span class="font-body-md text-body-md text-on-surface font-medium">Bajo</span>
+                </button>
+                <button type="button" (click)="setCriticality('medium')"
+                    class="flex items-center gap-space-xs p-space-sm rounded-lg bg-surface-container-low hover:bg-surface-container cursor-pointer transition-colors"
+                    [class.ring-2]="criticality() === 'medium'" [class.ring-primary]="criticality() === 'medium'">
+                    <span class="w-3 h-3 rounded-full"
+                        [class]="criticality() === 'medium' ? 'bg-secondary-container' : 'bg-outline-variant'"></span>
+                    <span class="font-body-md text-body-md text-on-surface font-medium">Medio</span>
+                </button>
+                <button type="button" (click)="setCriticality('high')"
+                    class="flex items-center gap-space-xs p-space-sm rounded-lg bg-surface-container-low hover:bg-surface-container cursor-pointer transition-colors"
+                    [class.ring-2]="criticality() === 'high'" [class.ring-error]="criticality() === 'high'">
+                    <span class="w-3 h-3 rounded-full"
+                        [class]="criticality() === 'high' ? 'bg-error' : 'bg-outline-variant'"></span>
+                    <span class="font-body-md text-body-md text-error font-bold">Alto / Sensible</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Step-up Toggle -->
+        <div class="p-space-md rounded-lg bg-surface-container-low flex items-start gap-space-sm mt-1">
+            <input type="checkbox" [checked]="requiresStepUp()" (change)="toggleStepUp()"
+                class="mt-1 h-4 w-4 text-primary rounded focus:ring-0 cursor-pointer" />
+            <div class="flex flex-col cursor-pointer" (click)="toggleStepUp()">
+                <span class="font-headline-sm text-headline-sm text-on-surface flex items-center gap-1">
+                    Requiere elevación de privilegios (Step-up MFA)
+                    <span class="material-symbols-outlined text-[16px] text-error">lock</span>
+                </span>
+                <span class="font-body-sm text-body-sm text-on-surface-variant">
+                    Invalida claims heredados; el usuario o servicio consumidor deberá suministrar un assert FIDO2
+                    reciente (&lt; 5 min) o reautenticación criptográfica.
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="px-space-lg py-space-md flex items-center justify-end gap-space-sm bg-surface-container-low">
+        <button type="button" (click)="cancel()"
+            class="px-space-md py-space-sm rounded-lg bg-surface-container-lowest hover:bg-surface-container text-on-surface font-headline-sm text-headline-sm transition-colors">
+            Cancelar
+        </button>
+        <button type="button" (click)="submit()" [disabled]="!isValid()"
+            class="px-space-lg py-space-sm rounded-lg bg-primary-container text-on-primary font-headline-sm text-headline-sm shadow-md hover:bg-primary transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2">
+            <span class="material-symbols-outlined text-[16px]">publish</span>
+            Registrar e Indexar Scope
+        </button>
+    </div>
+
+</div>
