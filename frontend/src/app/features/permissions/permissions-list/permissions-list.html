@@ -1,1 +1,265 @@
-<p>permissions-list works!</p>
+<div class="flex flex-col w-full pb-margin-desktop">
+
+    <!-- ═══ HEADER + KPIs ════════════════════════════════ -->
+    <div class="flex flex-col gap-space-md mb-space-lg">
+        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-md">
+            <div class="flex flex-col">
+                <div
+                    class="flex items-center gap-space-xs text-on-surface-variant font-label-caps text-label-caps uppercase">
+                    <span>Control de Acceso</span>
+                    <span>/</span>
+                    <span class="text-primary font-semibold">Scopes & Grants</span>
+                </div>
+                <h1 class="font-headline-xl text-headline-xl text-on-surface tracking-tight mt-0.5">
+                    Catálogo de Permisos & Scopes OAuth2/API
+                </h1>
+                <p class="font-body-md text-body-md text-on-surface-variant max-w-3xl mt-1">
+                    Definición granular de directivas RFC 6749, control de aserción criptográfica y mapeo de
+                    autorización para servicios federados.
+                </p>
+            </div>
+
+            <div class="flex items-center gap-space-sm flex-wrap">
+                <button type="button" (click)="exportSpec()"
+                    class="inline-flex items-center gap-space-xs px-space-md py-space-sm rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-headline-sm text-headline-sm transition-all shadow-sm">
+                    <span class="material-symbols-outlined text-[18px] text-on-surface-variant">terminal</span>
+                    <span>Exportar Spec OpenID/RFC</span>
+                </button>
+                <button type="button" (click)="openRegisterDialog()"
+                    class="inline-flex items-center gap-space-xs px-space-md py-space-sm rounded-lg bg-primary hover:bg-primary-container text-on-primary font-headline-sm text-headline-sm transition-all shadow-md">
+                    <span class="material-symbols-outlined text-[18px]">add_moderator</span>
+                    <span>Registrar Permiso</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- ── KPIs ── -->
+        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-space-md mt-space-sm">
+            @for (kpi of kpis(); track kpi.id) {
+            <!-- KPI 4 tiene layout especial (barras de riesgo) -->
+            @if (kpi.id === 'risk-distribution') {
+            <div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex flex-col justify-between">
+                <div class="flex items-center justify-between text-on-surface-variant">
+                    <span class="font-label-caps text-label-caps uppercase">{{ kpi.label }}</span>
+                    <span class="material-symbols-outlined text-[20px] text-tertiary">{{ kpi.icon }}</span>
+                </div>
+                @if (risk(); as r) {
+                <div class="mt-space-sm flex items-center gap-space-xs">
+                    <div class="w-full bg-surface-container-high h-2 rounded-full overflow-hidden flex">
+                        <div class="bg-tertiary h-full" [style.width.%]="r.lowPct"></div>
+                        <div class="bg-secondary-container h-full" [style.width.%]="r.mediumPct"></div>
+                        <div class="bg-error h-full" [style.width.%]="r.highPct"></div>
+                    </div>
+                </div>
+                <div
+                    class="flex items-center justify-between font-label-code-sm text-label-code-sm text-on-surface-variant mt-1.5">
+                    <span>B: {{ r.lowPct }}%</span>
+                    <span>M: {{ r.mediumPct }}%</span>
+                    <span class="text-error font-medium">A: {{ r.highPct }}%</span>
+                </div>
+                }
+            </div>
+            } @else {
+            <div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex flex-col justify-between">
+                <div class="flex items-center justify-between text-on-surface-variant">
+                    <span class="font-label-caps text-label-caps uppercase">{{ kpi.label }}</span>
+                    <span class="material-symbols-outlined text-[20px]" [class]="kpi.iconColor === 'error' ? 'text-error'
+                  : (kpi.iconColor === 'primary' ? 'text-primary'
+                  : (kpi.iconColor === 'secondary' ? 'text-secondary' : 'text-tertiary'))">
+                        {{ kpi.icon }}
+                    </span>
+                </div>
+                <div class="mt-space-sm flex items-baseline gap-space-sm">
+                    <span class="font-headline-xl text-headline-xl font-bold"
+                        [class]="kpi.id === 'sensitive-scopes' ? 'text-error' : 'text-on-surface'">
+                        {{ kpi.value }}
+                    </span>
+                    <span class="font-label-code-sm text-label-code-sm font-medium px-1.5 py-0.5 rounded" [class]="kpi.deltaStyle === 'danger'
+                  ? 'text-on-error-container bg-error-container'
+                  : (kpi.deltaStyle === 'success'
+                    ? 'text-tertiary font-semibold'
+                    : 'text-on-surface-variant')">
+                        {{ kpi.deltaLabel }}
+                    </span>
+                </div>
+                <span class="font-body-sm text-body-sm text-on-surface-variant mt-1">{{ kpi.footer }}</span>
+            </div>
+            }
+            }
+        </div>
+    </div>
+
+    <!-- ═══ FILTER BAR ═══════════════════════════════════ -->
+    <div
+        class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm mb-space-md flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-space-md">
+
+        <div class="flex items-center gap-space-xs overflow-x-auto pb-1 lg:pb-0">
+            @for (f of filters(); track f.id) {
+            <button type="button" (click)="setFilter(f.id)"
+                class="px-space-md py-space-xs rounded-full font-label-code-md text-label-code-md transition-colors whitespace-nowrap shadow-sm"
+                [class]="activeFilter() === f.id
+            ? 'bg-primary text-on-primary'
+            : 'bg-surface-container hover:bg-surface-container-high text-on-surface'">
+                {{ f.label }} ({{ f.count }})
+            </button>
+            }
+        </div>
+
+        <div class="flex items-center gap-space-sm shrink-0">
+            <div class="relative w-full sm:w-64">
+                <span class="material-symbols-outlined absolute left-2.5 top-2.5 text-[18px] text-outline">search</span>
+                <input type="text" placeholder="Filtrar por scope o URI..." (input)="onSearch($event)"
+                    class="w-full pl-8 pr-3 py-1.5 bg-surface-container-low rounded-lg text-on-surface font-body-sm text-body-sm focus:outline-none focus:bg-surface-container-lowest shadow-sm placeholder:text-outline" />
+            </div>
+
+            <button type="button" (click)="toggleCriticalOnly()"
+                class="flex items-center gap-space-xs px-space-sm py-1.5 rounded-lg font-label-code-sm text-label-code-sm transition-colors"
+                [class]="onlyCritical()
+          ? 'bg-error text-on-error'
+          : 'bg-surface-container-low text-on-surface hover:bg-surface-container'">
+                <span class="w-2 h-2 rounded-full" [class]="onlyCritical() ? 'bg-on-error' : 'bg-error'"></span>
+                <span>Sensibles Solo</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- ═══ TABLE ════════════════════════════════════════ -->
+    <div class="bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden flex flex-col">
+        @if (loading()) {
+        <div class="flex items-center justify-center py-space-xl">
+            <span class="material-symbols-outlined text-[32px] text-outline animate-spin">refresh</span>
+        </div>
+        } @else {
+        <div class="overflow-x-auto">
+            <table class="w-full text-left">
+                <thead>
+                    <tr
+                        class="bg-surface-container-low text-on-surface-variant font-label-caps text-label-caps uppercase">
+                        <th class="py-space-sm px-space-md font-semibold">Scope Identifier (RFC 6749)</th>
+                        <th class="py-space-sm px-space-md font-semibold">Recurso / API Server</th>
+                        <th class="py-space-sm px-space-md font-semibold">Consentimiento & Descripción</th>
+                        <th class="py-space-sm px-space-md font-semibold text-center">Criticidad</th>
+                        <th class="py-space-sm px-space-md font-semibold text-center">Consumidores</th>
+                        <th class="py-space-sm px-space-md font-semibold text-right">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody class="text-body-md font-body-md text-on-surface">
+                    @for (perm of filteredPermissions(); track perm.id) {
+                    <app-permission-row [permission]="perm" />
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        @if (filteredPermissions().length === 0) {
+        <div class="flex flex-col items-center justify-center py-space-xl gap-space-sm">
+            <span class="material-symbols-outlined text-[48px] text-outline">search_off</span>
+            <p class="font-headline-sm text-headline-sm text-on-surface">Sin resultados</p>
+            <p class="font-body-sm text-body-sm text-on-surface-variant">Ajusta los filtros o el término de búsqueda.
+            </p>
+        </div>
+        }
+
+        <!-- Pagination -->
+        <div
+            class="bg-surface-container-low px-space-md py-space-sm flex flex-col sm:flex-row items-center justify-between gap-space-sm">
+            <div class="flex items-center gap-space-sm text-outline font-label-code-sm text-label-code-sm">
+                <span>Mostrando {{ filteredPermissions().length }} de 48 directivas</span>
+                <span>·</span>
+                <span>Validación OIDC Core 1.0 Passed</span>
+            </div>
+            <div class="flex items-center gap-space-xs">
+                <button type="button"
+                    class="px-space-sm py-1 rounded bg-surface-container-lowest text-outline font-label-code-sm opacity-50 cursor-not-allowed">
+                    Anterior
+                </button>
+                <span
+                    class="px-space-sm py-1 font-label-code-sm font-semibold bg-primary text-on-primary rounded">1</span>
+                <button type="button"
+                    class="px-space-sm py-1 rounded bg-surface-container-lowest hover:bg-surface-container text-on-surface font-label-code-sm">
+                    Siguiente
+                </button>
+            </div>
+        </div>
+        }
+    </div>
+
+    <!-- ═══ JWT INSPECTOR + POLICIES ═══════════════════ -->
+    <div class="grid grid-cols-1 xl:grid-cols-3 gap-space-lg mt-space-lg">
+
+        <!-- JWT Preview (2 cols) -->
+        <div
+            class="xl:col-span-2 bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col justify-between">
+            <div class="flex items-center justify-between mb-space-sm">
+                <div>
+                    <h2 class="font-headline-md text-headline-md text-on-surface">Payload JWT / Access Token Evaluado
+                    </h2>
+                    <p class="font-body-sm text-body-sm text-on-surface-variant">Claims inyectados para el contexto
+                        delegado actual bajo RFC 9068</p>
+                </div>
+                <div class="flex items-center gap-space-xs bg-surface-container-high px-space-sm py-1 rounded-lg">
+                    <span class="w-2 h-2 rounded-full bg-tertiary"></span>
+                    <span class="font-label-code-sm text-label-code-sm text-on-surface">Alg: RS256 (2048-bit)</span>
+                </div>
+            </div>
+
+            <div
+                class="bg-inverse-surface rounded-lg p-space-md text-inverse-on-surface font-label-code-md overflow-x-auto shadow-inner">
+                <div class="flex items-center justify-between pb-2 mb-2 text-outline font-label-code-sm">
+                    <span>HEADER + PAYLOAD VERIFICATION</span>
+                    <span class="text-tertiary-fixed-dim">SIGNATURE_VALIDATED</span>
+                </div>
+                <pre class="leading-relaxed text-tertiary-fixed-dim whitespace-pre">{{ jwtPreviewJson() }}</pre>
+            </div>
+
+            <div class="mt-space-md flex items-center justify-between flex-wrap gap-space-sm">
+                <span class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-1">
+                    <span class="material-symbols-outlined text-[16px] text-tertiary">verified_user</span>
+                    Firmado por Key ID (kid): <code
+                        class="font-label-code-sm bg-surface-container px-1 rounded">{{ jwtKid() }}</code>
+                </span>
+                <button type="button" (click)="copyJwt()"
+                    class="text-primary hover:text-primary-container font-headline-sm text-headline-sm flex items-center gap-1">
+                    Copiar JSON
+                    <span class="material-symbols-outlined text-[16px]">content_copy</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Zero-Trust Policies (1 col) -->
+        <div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col justify-between">
+            <div>
+                <div class="flex items-center gap-space-xs text-error font-label-caps text-label-caps uppercase">
+                    <span class="material-symbols-outlined text-[18px]">policy</span>
+                    <span>Políticas de Elevación Step-Up</span>
+                </div>
+                <h3 class="font-headline-md text-headline-md text-on-surface mt-1">Reglas de Restricción Zero-Trust</h3>
+                <p class="font-body-sm text-body-sm text-on-surface-variant mt-2 leading-relaxed">
+                    Los scopes marcados con criticidad alta fuerzan un handshake interactivo de segundo factor vía
+                    WebAuthn/FIDO2 si el token emitido excede 15 minutos de antigüedad.
+                </p>
+
+                <div class="mt-space-md flex flex-col gap-space-sm">
+                    @for (policy of policies(); track policy.id) {
+                    <div class="p-space-sm rounded-lg bg-surface-container-low flex items-center justify-between">
+                        <div class="flex flex-col">
+                            <span class="font-headline-sm text-headline-sm text-on-surface">{{ policy.label }}</span>
+                            <span class="font-body-sm text-body-sm text-on-surface-variant">{{ policy.description
+                                }}</span>
+                        </div>
+                        <span class="w-3 h-3 rounded-full shrink-0"
+                            [class]="policy.enabled ? 'bg-tertiary' : 'bg-outline'"></span>
+                    </div>
+                    }
+                </div>
+            </div>
+
+            <button type="button" (click)="openPolicyManager()"
+                class="mt-space-md w-full flex items-center justify-center gap-space-xs py-space-sm px-space-md rounded-lg bg-surface-container text-on-surface hover:bg-surface-container-high font-headline-sm text-headline-sm transition-colors">
+                Gestionar Matriz de Seguridad
+                <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+            </button>
+        </div>
+    </div>
+
+</div>
