@@ -1,1 +1,219 @@
-<p>sessions-monitor works!</p>
+<div class="flex flex-col w-full pb-space-xl">
+
+    <!-- ═══ HEADER + KPIs ════════════════════════════════ -->
+    <div class="flex flex-col gap-space-lg mb-space-xl mt-space-md">
+
+        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-md">
+            <div class="flex flex-col gap-space-sm">
+                <div
+                    class="flex items-center gap-space-xs font-label-caps text-label-caps text-outline uppercase tracking-wider">
+                    <span class="w-2 h-2 rounded-full bg-tertiary-container animate-ping"></span>
+                    <span>Zero Trust · Token Lifecycle Stream</span>
+                    <span class="text-outline-variant">/</span>
+                    <span class="font-label-code-sm text-primary">REALTIME_SUBSCRIPTION_ACTIVE</span>
+                </div>
+                <h1 class="font-headline-xl text-headline-xl text-on-surface">
+                    Monitoreo de Sesiones Concurrentes & Revocación
+                </h1>
+                <p class="font-body-md text-body-md text-on-surface-variant mt-1">
+                    Supervisión en vivo de refresh tokens, emisión de grants JWT y mitigación inmediata contra anomalías
+                    de sesión.
+                </p>
+            </div>
+
+            <div class="flex items-center gap-space-sm flex-wrap">
+                <button type="button" (click)="refreshTelemetry()"
+                    class="flex items-center gap-space-xs px-space-md py-space-sm rounded-lg bg-surface-container-high text-on-surface hover:bg-surface-container-highest transition-colors font-headline-sm text-headline-sm shadow-sm">
+                    <span class="material-symbols-outlined text-[18px]">sync</span>
+                    <span>Actualizar Telemetría</span>
+                </button>
+                <button type="button" (click)="revokeAllAnomalies()"
+                    class="flex items-center gap-space-xs px-space-md py-space-sm rounded-lg bg-error text-on-error hover:opacity-95 transition-all shadow-md font-headline-sm text-headline-sm">
+                    <span class="material-symbols-outlined text-[18px]">gpp_maybe</span>
+                    <span>Revocar Sesiones Sospechosas</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- KPIs -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-space-md">
+            @for (kpi of kpis(); track kpi.id) {
+            <div
+                class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col justify-between relative overflow-hidden">
+                <div
+                    class="absolute -right-4 -bottom-4 w-24 h-24 bg-primary/5 rounded-full blur-xl pointer-events-none">
+                </div>
+
+                <div class="flex items-center justify-between text-on-surface-variant mb-space-md">
+                    <span class="font-label-caps text-label-caps uppercase">{{ kpi.label }}</span>
+                    <span class="p-space-xs rounded-lg bg-surface-container-low flex items-center justify-center"
+                        [class]="kpi.iconColor === 'error' ? 'text-error'
+                : (kpi.iconColor === 'secondary' ? 'text-secondary'
+                : (kpi.iconColor === 'tertiary' ? 'text-tertiary' : 'text-primary'))">
+                        <span class="material-symbols-outlined text-[20px]">{{ kpi.icon }}</span>
+                    </span>
+                </div>
+
+                <div>
+                    <div class="flex items-baseline gap-space-sm">
+                        <span class="font-headline-xl text-headline-xl font-bold"
+                            [class]="kpi.id === 'anomalies' ? 'text-error' : 'text-on-surface'">
+                            {{ kpi.value }}
+                        </span>
+                        <span class="font-label-code-sm text-label-code-sm flex items-center gap-0.5" [class]="kpi.deltaStyle === 'danger'
+                  ? 'text-on-error-container bg-error-container px-1.5 py-0.5 rounded uppercase'
+                  : (kpi.deltaStyle === 'success'
+                    ? 'text-tertiary-container'
+                    : 'text-on-surface-variant')">
+                            @if (kpi.deltaStyle === 'success') {
+                            <span class="material-symbols-outlined text-[14px]">trending_up</span>
+                            }
+                            {{ kpi.delta }}
+                        </span>
+                    </div>
+
+                    <div
+                        class="mt-space-sm flex items-center justify-between font-label-code-sm text-label-code-sm text-on-surface-variant">
+                        <span>{{ kpi.footer }}</span>
+                        @if (kpi.footerHighlight) {
+                        <span class="font-semibold"
+                            [class]="kpi.deltaStyle === 'danger' ? 'text-error' : 'text-tertiary'">
+                            {{ kpi.footerHighlight }}
+                        </span>
+                        }
+                    </div>
+
+                    @if (kpi.progress !== undefined) {
+                    <div class="w-full bg-surface-container-high h-1.5 rounded-full overflow-hidden mt-space-xs">
+                        <div class="h-full rounded-full" [class]="kpi.progressColor === 'error' ? 'bg-error'
+                    : (kpi.progressColor === 'secondary-container' ? 'bg-secondary-container'
+                    : (kpi.progressColor === 'tertiary-container' ? 'bg-tertiary-container' : 'bg-tertiary'))"
+                            [style.width.%]="kpi.progress"></div>
+                    </div>
+                    }
+                </div>
+            </div>
+            }
+        </div>
+    </div>
+
+    <!-- ═══ SPLIT VIEW ═══════════════════════════════════ -->
+    <div class="grid grid-cols-1 xl:grid-cols-12 gap-space-lg items-start">
+
+        <!-- ═══ Table (8 cols) ═══════════════════════════ -->
+        <div class="xl:col-span-8 flex flex-col bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden">
+
+            <!-- Filters -->
+            <div
+                class="p-space-md bg-surface-container-low flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-space-sm">
+                <div class="flex items-center gap-space-sm flex-1 max-w-md">
+                    <div class="relative w-full">
+                        <span
+                            class="material-symbols-outlined absolute left-2.5 top-1/2 -translate-y-1/2 text-outline text-[18px]">search</span>
+                        <input type="text" placeholder="Filtrar por usuario, IP, dispositivo..." [value]="searchQuery()"
+                            (input)="onSearch($event)"
+                            class="w-full pl-8 pr-3 py-1.5 rounded-lg bg-surface-container-lowest text-on-surface placeholder:text-outline font-body-sm text-body-sm shadow-none focus:outline-none focus:ring-1 focus:ring-primary" />
+                    </div>
+                </div>
+
+                <div class="flex items-center bg-surface-container-lowest rounded-lg p-0.5 shadow-sm text-outline">
+                    <button type="button" (click)="setTab('all')"
+                        class="px-2.5 py-1 rounded font-body-sm text-body-sm transition-colors"
+                        [class]="tabFilter() === 'all' ? 'text-primary bg-surface-container-high font-headline-sm' : 'hover:text-on-surface'">
+                        Todas ({{ sessions().length }})
+                    </button>
+                    <button type="button" (click)="setTab('suspicious')"
+                        class="px-2.5 py-1 rounded font-body-sm text-body-sm transition-colors"
+                        [class]="tabFilter() === 'suspicious' ? 'text-primary bg-surface-container-high font-headline-sm' : 'hover:text-on-surface'">
+                        Sospechosas
+                    </button>
+                    <button type="button" (click)="setTab('fido2')"
+                        class="px-2.5 py-1 rounded font-body-sm text-body-sm transition-colors"
+                        [class]="tabFilter() === 'fido2' ? 'text-primary bg-surface-container-high font-headline-sm' : 'hover:text-on-surface'">
+                        MFA FIDO2
+                    </button>
+                </div>
+            </div>
+
+            <!-- Table -->
+            @if (loading()) {
+            <div class="flex items-center justify-center py-space-xl">
+                <span class="material-symbols-outlined text-[32px] text-outline animate-spin">refresh</span>
+            </div>
+            } @else {
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr
+                            class="bg-surface-container-low/60 text-on-surface-variant font-label-caps text-label-caps uppercase tracking-wider">
+                            <th class="py-space-sm px-space-md">Usuario</th>
+                            <th class="py-space-sm px-space-md">Dispositivo / Entorno</th>
+                            <th class="py-space-sm px-space-md">Geolocalización & IP</th>
+                            <th class="py-space-sm px-space-md">Método de Auth</th>
+                            <th class="py-space-sm px-space-md">Refresh Grant</th>
+                            <th class="py-space-sm px-space-md">Última Actividad</th>
+                            <th class="py-space-sm px-space-md text-right">Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody class="font-body-md text-body-md text-on-surface">
+                        @for (session of filteredSessions(); track session.id) {
+                        <app-session-row [session]="session" [selected]="selectedId() === session.id"
+                            (clicked)="selectSession($event)" />
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            @if (filteredSessions().length === 0) {
+            <div class="flex flex-col items-center justify-center py-space-xl gap-space-sm">
+                <span class="material-symbols-outlined text-[48px] text-outline">devices_off</span>
+                <p class="font-headline-sm text-headline-sm text-on-surface">Sin sesiones</p>
+                <p class="font-body-sm text-body-sm text-on-surface-variant">Ajusta los filtros.</p>
+            </div>
+            }
+
+            <!-- Footer -->
+            <div
+                class="p-space-md bg-surface-container-low flex flex-col sm:flex-row items-center justify-between gap-space-sm text-on-surface-variant font-body-sm text-body-sm">
+                <div class="flex items-center gap-space-xs">
+                    <span>Mostrando {{ filteredSessions().length }} de {{ sessions().length }} sesiones</span>
+                    <span class="text-outline-variant">·</span>
+                    <span class="font-label-code-sm text-tertiary-container flex items-center gap-1">
+                        <span class="w-1.5 h-1.5 rounded-full bg-tertiary-container animate-pulse"></span>
+                        Websocket sincronizado
+                    </span>
+                </div>
+                <div class="flex items-center gap-space-xs">
+                    <button type="button" disabled
+                        class="px-2 py-1 rounded bg-surface-container-lowest text-on-surface-variant opacity-40 cursor-not-allowed">
+                        Anterior
+                    </button>
+                    <span class="px-2 font-label-code-sm text-on-surface font-semibold">Página 1 de 782</span>
+                    <button type="button"
+                        class="px-2 py-1 rounded bg-surface-container-lowest text-on-surface-variant hover:text-on-surface">
+                        Siguiente
+                    </button>
+                </div>
+            </div>
+            }
+        </div>
+
+        <!-- ═══ Inspector (4 cols) ═══════════════════════ -->
+        <div class="xl:col-span-4">
+            @if (selectedSession(); as s) {
+            <app-jwt-inspector [session]="s" [revoke]="revokeSelected.bind(this)"
+                [stepUp]="stepUpSelected.bind(this)" />
+            } @else {
+            <div
+                class="bg-surface-container-lowest rounded-xl shadow-sm p-space-xl flex flex-col items-center justify-center gap-space-sm min-h-[400px]">
+                <span class="material-symbols-outlined text-[64px] text-outline">token</span>
+                <p class="font-headline-md text-headline-md text-on-surface">Selecciona una sesión</p>
+                <p class="font-body-sm text-body-sm text-on-surface-variant text-center max-w-xs">
+                    Elige una fila de la izquierda para inspeccionar el JWT y sus claims.
+                </p>
+            </div>
+            }
+        </div>
+    </div>
+
+</div>
