@@ -1,0 +1,285 @@
+{
+    "kpis": [
+        {
+            "id": "ingested",
+            "label": "Eventos Ingeridos (24h)",
+            "value": "1,489,204",
+            "delta": "+12.4%",
+            "deltaStyle": "success",
+            "icon": "receipt_long",
+            "iconColor": "primary",
+            "progress": 82,
+            "progressColor": "primary"
+        },
+        {
+            "id": "anomalies",
+            "label": "Anomalías Detectadas",
+            "value": "42",
+            "delta": "Requieren Revisión",
+            "deltaStyle": "error",
+            "icon": "shield_with_heart",
+            "iconColor": "error",
+            "progress": 35,
+            "progressColor": "error"
+        },
+        {
+            "id": "integrity",
+            "label": "Integridad Criptográfica",
+            "value": "100.00%",
+            "delta": "Merkle Root Valid",
+            "deltaStyle": "success",
+            "icon": "verified",
+            "iconColor": "tertiary-container",
+            "progress": 100,
+            "progressColor": "tertiary-container"
+        },
+        {
+            "id": "auth-failure",
+            "label": "Tasa de Fallos de Auth",
+            "value": "0.084%",
+            "delta": "Baseline Óptimo",
+            "deltaStyle": "neutral",
+            "icon": "lock_reset",
+            "iconColor": "secondary",
+            "progress": 14,
+            "progressColor": "secondary-container"
+        }
+    ],
+    "logs": [
+        {
+            "id": "log-1",
+            "timestamp": "2025-05-18 14:32:09.849201",
+            "relativeTime": "12s atrás",
+            "severity": "critical",
+            "eventType": "anomaly.ip_blocked",
+            "actor": {
+                "type": "system_agent",
+                "initials": "SYS",
+                "initialsBg": "neutral",
+                "name": "Shield AI Sentinel",
+                "subLabel": "agent_id: ag_0994"
+            },
+            "geo": {
+                "city": "San Petersburgo",
+                "country": "RU",
+                "flag": "🇷🇺",
+                "networkType": "TOR Exit Node",
+                "isError": true
+            },
+            "target": {
+                "primary": "waf_rule: brute_force_block",
+                "secondary": "realm: enterprise-us-east"
+            },
+            "status": "blocked",
+            "statusLabel": "Bloqueado",
+            "statusIcon": "check",
+            "detail": {
+                "merkleLeafIndex": 8294022,
+                "hmacPayload": "8a4f10cd93a105cbe04a4309e53094bbca19fdfb28e67f78103d3c75d40026e1",
+                "prevMerkleRoot": "33a9c72e4521bc19e3bbdf43831b084931a7bc8100ffdc01783457aee299f123",
+                "asn": "AS44050 (St. Petersburg DC)",
+                "ja3": "771,4865-4866-4867,0-23-65281,29-23-24",
+                "tlsVersion": "TLSv1.3 / Cipher: AES_128_GCM",
+                "requestId": "req_8849202a0b81c",
+                "policy": "Automated Geo & Threat Intelligence WAF",
+                "trigger": "120 credential attempts in 4.2 seconds",
+                "blacklistTtl": "86,400 segundos (24h)",
+                "receptorNotified": "SecOps PagerDuty Incident #8392",
+                "rawJson": "{\n  \"event_id\": \"evt_98319f001-c81\",\n  \"timestamp_utc\": \"2025-05-18T14:32:09.849201Z\",\n  \"severity\": \"CRITICAL\",\n  \"action\": \"anomaly.ip_blocked\",\n  \"status\": \"SUCCESS\",\n  \"actor\": {\n    \"type\": \"system_agent\",\n    \"identifier\": \"Shield AI Sentinel\",\n    \"agent_id\": \"ag_0994\"\n  },\n  \"network\": {\n    \"client_ip\": \"198.51.100.44\",\n    \"country\": \"RU\",\n    \"city\": \"St Petersburg\",\n    \"asn\": 44050\n  },\n  \"target\": {\n    \"resource_type\": \"iam.realm\",\n    \"resource_id\": \"enterprise-us-east\",\n    \"mitigation\": \"drop_traffic_and_block\"\n  },\n  \"merkle_verification\": {\n    \"tree_depth\": 24,\n    \"leaf_index\": 8294022,\n    \"digest\": \"sha256:8a4f10cd93a105cbe04a4309e53094bbca19fdfb28e67f78103d3c75d40026e1\"\n  }\n}"
+            }
+        },
+        {
+            "id": "log-2",
+            "timestamp": "2025-05-18 14:31:42.102941",
+            "relativeTime": "39s atrás",
+            "severity": "warning",
+            "eventType": "role.permission_changed",
+            "actor": {
+                "type": "user",
+                "initials": "SA",
+                "initialsBg": "primary",
+                "name": "sofia.alarcon@nexauth.com",
+                "subLabel": "role: Security Admin"
+            },
+            "geo": {
+                "city": "CDMX",
+                "country": "MX",
+                "flag": "🇲🇽",
+                "networkType": "Corp VPN"
+            },
+            "target": {
+                "primary": "role: BillingOps_Dev",
+                "secondary": "+kms:decrypt, -iam:list"
+            },
+            "status": "success",
+            "statusLabel": "Success",
+            "statusIcon": "check",
+            "detail": {
+                "merkleLeafIndex": 8294021,
+                "hmacPayload": "3c82af01b9d4e7f02a89c53dd10b7e9fbb2c3fa0b88e4473d9051ae0e299f102",
+                "prevMerkleRoot": "8a4f10cd93a105cbe04a4309e53094bbca19fdfb28e67f78103d3c75d40026e1",
+                "asn": "AS28548 (Corp MX)",
+                "ja3": "771,4865-4866-4867,0-23-65281,29-23-24",
+                "tlsVersion": "TLSv1.3 / Cipher: AES_256_GCM",
+                "requestId": "req_8839201a9b7c1",
+                "policy": "RBAC Change Approval Flow",
+                "trigger": "Approved by ciso_approvals_bot",
+                "blacklistTtl": "N/A",
+                "receptorNotified": "Security Team Slack #audit-channel",
+                "rawJson": "{\n  \"event_id\": \"evt_98319f000-b77\",\n  \"timestamp_utc\": \"2025-05-18T14:31:42.102941Z\",\n  \"severity\": \"WARNING\",\n  \"action\": \"role.permission_changed\",\n  \"actor\": {\n    \"user_id\": \"usr_sofia_alarcon_prod\",\n    \"email\": \"sofia.alarcon@nexauth.com\",\n    \"session_auth\": \"mfa_webauthn_fido2\"\n  },\n  \"diff\": {\n    \"target_role\": \"BillingOps_Dev\",\n    \"permissions_added\": [\"kms:decrypt\"],\n    \"permissions_removed\": [\"iam:list\"]\n  },\n  \"compliance\": {\n    \"ticket_ref\": \"SEC-44910\",\n    \"approved_by\": \"ciso_approvals_bot\"\n  }\n}"
+            }
+        },
+        {
+            "id": "log-3",
+            "timestamp": "2025-05-18 14:28:15.553109",
+            "relativeTime": "4m atrás",
+            "severity": "info",
+            "eventType": "api_key.rotated",
+            "actor": {
+                "type": "service",
+                "initials": "KEY",
+                "initialsBg": "neutral",
+                "name": "srv-lambda-sync",
+                "subLabel": "key_id: nak_883011.."
+            },
+            "geo": {
+                "city": "Virginia",
+                "country": "US",
+                "flag": "🇺🇸",
+                "networkType": "AWS VPC-09f"
+            },
+            "target": {
+                "primary": "key: nak_991209_sec",
+                "secondary": "Grace period: 48h activo"
+            },
+            "status": "success",
+            "statusLabel": "Success",
+            "statusIcon": "check",
+            "detail": {
+                "merkleLeafIndex": 8294018,
+                "hmacPayload": "7a8f1c9e4b02d3a18f993cc5dd07e9b92fa0bb2c1cf6cd50912b4a8101e5a2f9",
+                "prevMerkleRoot": "3c82af01b9d4e7f02a89c53dd10b7e9fbb2c3fa0b88e4473d9051ae0e299f102",
+                "asn": "AS16509 (AWS us-east-1)",
+                "ja3": "771,4865-4866-4867,0-23-65281,29-23-24",
+                "tlsVersion": "TLSv1.3 / Cipher: AES_256_GCM",
+                "requestId": "req_8841200b801c2",
+                "policy": "Automatic Key Rotation Policy",
+                "trigger": "Scheduled rotation (90d cycle)",
+                "blacklistTtl": "N/A",
+                "receptorNotified": "Notificación al servicio srv-lambda-sync",
+                "rawJson": "{\n  \"event_id\": \"evt_98319eff-a01\",\n  \"timestamp_utc\": \"2025-05-18T14:28:15.553109Z\",\n  \"severity\": \"INFO\",\n  \"action\": \"api_key.rotated\",\n  \"actor\": {\n    \"client_id\": \"srv-lambda-sync\",\n    \"ip\": \"54.210.82.119\"\n  },\n  \"cryptography\": {\n    \"algorithm\": \"Ed25519-SignedToken\",\n    \"old_key_sha256\": \"d3b07384d113edec49eaa6238ad5ff00\",\n    \"new_key_id\": \"nak_991209_sec\",\n    \"dual_verification_window_secs\": 172800\n  }\n}"
+            }
+        },
+        {
+            "id": "log-4",
+            "timestamp": "2025-05-18 14:19:02.004812",
+            "relativeTime": "13m atrás",
+            "severity": "info",
+            "eventType": "user.password_reset",
+            "actor": {
+                "type": "user",
+                "initials": "UD",
+                "initialsBg": "neutral",
+                "name": "diego.morales@corp.io",
+                "subLabel": "role: Engineer"
+            },
+            "geo": {
+                "city": "Santiago",
+                "country": "CL",
+                "flag": "🇨🇱",
+                "networkType": "Claro Res"
+            },
+            "target": {
+                "primary": "auth_factor: webauthn_passkey",
+                "secondary": "Passwordless Upgrade"
+            },
+            "status": "success",
+            "statusLabel": "Success",
+            "statusIcon": "check",
+            "detail": {
+                "merkleLeafIndex": 8294015,
+                "hmacPayload": "1f9bcd0e88a123f48de021b9c77e5d8c4a2fb30987ef00c59d99a1b8110a0d8e",
+                "prevMerkleRoot": "7a8f1c9e4b02d3a18f993cc5dd07e9b92fa0bb2c1cf6cd50912b4a8101e5a2f9",
+                "asn": "AS27995 (Claro Chile)",
+                "ja3": "771,4865-4866-4867,0-23-65281,29-23-24",
+                "tlsVersion": "TLSv1.3 / Cipher: AES_128_GCM",
+                "requestId": "req_8839001a800c3",
+                "policy": "User Self-Service Credential Reset",
+                "trigger": "WebAuthn passkey enrollment",
+                "blacklistTtl": "N/A",
+                "receptorNotified": "Notificación a diego.morales@corp.io",
+                "rawJson": "{\n  \"event_id\": \"evt_98319ec8-f14\",\n  \"timestamp_utc\": \"2025-05-18T14:19:02.004812Z\",\n  \"severity\": \"INFO\",\n  \"action\": \"user.password_reset\",\n  \"actor\": {\n    \"user_id\": \"usr_diego_morales_cl\",\n    \"email\": \"diego.morales@corp.io\"\n  },\n  \"security_factor\": {\n    \"method\": \"passkey_registration\",\n    \"aaguid\": \"ea9b8d66-4d01-1d21-3ce2-b6b32cb5ac24\",\n    \"device_platform\": \"Apple TouchID iCloud Keychain\"\n  }\n}"
+            }
+        },
+        {
+            "id": "log-5",
+            "timestamp": "2025-05-18 14:12:44.912400",
+            "relativeTime": "20m atrás",
+            "severity": "critical",
+            "eventType": "login.success",
+            "actor": {
+                "type": "root",
+                "initials": "ROOT",
+                "initialsBg": "error",
+                "name": "breakglass-admin",
+                "subLabel": "Emergency Credential",
+                "isError": true
+            },
+            "geo": {
+                "city": "Reston",
+                "country": "US",
+                "flag": "🇺🇸",
+                "networkType": "BGP Route Altered",
+                "isError": true
+            },
+            "target": {
+                "primary": "target: Global_Root_KMS",
+                "secondary": "Hardware YubiKey #441",
+                "isError": true
+            },
+            "status": "success",
+            "statusLabel": "Alert Triggered",
+            "statusIcon": "security_update_warning",
+            "detail": {
+                "merkleLeafIndex": 8294012,
+                "hmacPayload": "c4d7e2f18b03a951ed82bcf71a0e5d4a21f09e3b87cd00fc1a2205e0ef9812a1",
+                "prevMerkleRoot": "1f9bcd0e88a123f48de021b9c77e5d8c4a2fb30987ef00c59d99a1b8110a0d8e",
+                "asn": "AS33438 (Reston US)",
+                "ja3": "771,4865-4866-4867,0-23-65281,29-23-24",
+                "tlsVersion": "TLSv1.3 / Cipher: AES_256_GCM",
+                "requestId": "req_8838001a700c4",
+                "policy": "Break-Glass Emergency Access Protocol",
+                "trigger": "Dual-Quorum Hardware FIDO2 + Master HSM",
+                "blacklistTtl": "N/A",
+                "receptorNotified": "PagerDuty + Executive Team + CISO",
+                "rawJson": "{\n  \"event_id\": \"evt_98319e99-001\",\n  \"timestamp_utc\": \"2025-05-18T14:12:44.912400Z\",\n  \"severity\": \"CRITICAL\",\n  \"action\": \"login.success\",\n  \"actor\": {\n    \"account\": \"breakglass-admin\",\n    \"auth_mechanism\": \"Dual-Quorum Hardware FIDO2 + Master HSM\"\n  },\n  \"context\": {\n    \"vault_status\": \"unsealed\",\n    \"dual_custody_approved_by\": [\"vp_sec_ops\", \"infra_lead\"],\n    \"session_expiry_epoch\": 1747581164\n  }\n}"
+            }
+        }
+    ],
+    "quickFilters": [
+        {
+            "id": "critical",
+            "label": "severity:critical",
+            "query": "severity:critical",
+            "isCritical": true
+        },
+        {
+            "id": "anomaly",
+            "label": "anomaly.ip_blocked",
+            "query": "action:anomaly.ip_blocked",
+            "isCritical": false
+        },
+        {
+            "id": "role-perm",
+            "label": "role.permission_changed",
+            "query": "action:role.permission_changed",
+            "isCritical": false
+        },
+        {
+            "id": "failed",
+            "label": "status:failed",
+            "query": "status:failed",
+            "isCritical": false
+        }
+    ]
+}
