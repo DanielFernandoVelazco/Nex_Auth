@@ -1,0 +1,252 @@
+{
+    "kpis": [
+        {
+            "id": "active-sessions",
+            "label": "Sesiones Activas Globales",
+            "value": "3,124",
+            "delta": "+4.2%",
+            "deltaStyle": "success",
+            "icon": "hub",
+            "iconColor": "primary",
+            "footer": "Pool de Refresh Tokens",
+            "footerHighlight": "99.98% valid",
+            "progress": 94,
+            "progressColor": "tertiary"
+        },
+        {
+            "id": "concurrency",
+            "label": "Concurrencia Promedio",
+            "value": "2.1",
+            "delta": "por usuario activo",
+            "deltaStyle": "neutral",
+            "icon": "devices",
+            "iconColor": "secondary",
+            "footer": "Límite de política (Soft Cap: 4)",
+            "footerHighlight": "52.5% max",
+            "progress": 52,
+            "progressColor": "secondary-container"
+        },
+        {
+            "id": "anomalies",
+            "label": "Ubicaciones Inusuales",
+            "value": "18",
+            "delta": "Revisión Requerida",
+            "deltaStyle": "danger",
+            "icon": "travel_explore",
+            "iconColor": "error",
+            "footer": "Anomalía IP/ASN",
+            "footerHighlight": "11 países nuevos",
+            "progress": 65,
+            "progressColor": "error"
+        },
+        {
+            "id": "latency",
+            "label": "Latencia Refresh Token",
+            "value": "45ms",
+            "delta": "p99 < 90ms",
+            "deltaStyle": "success",
+            "icon": "bolt",
+            "iconColor": "tertiary",
+            "footer": "Edge Redis / DynamoDB",
+            "footerHighlight": "32 regiones",
+            "progress": 38,
+            "progressColor": "tertiary-container"
+        }
+    ],
+    "sessions": [
+        {
+            "id": "sess_89f0a21b3",
+            "userName": "Elena Vance",
+            "userEmail": "elena.vance@blackmesa.internal",
+            "userInitials": "EV",
+            "avatarBg": "error",
+            "online": true,
+            "device": {
+                "browser": "Chrome 124",
+                "os": "macOS Sonoma (14.4.1)",
+                "icon": "desktop_windows"
+            },
+            "geo": {
+                "flag": "🇷🇴",
+                "city": "Bucarest",
+                "country": "RO",
+                "ip": "185.220.101.54",
+                "networkType": "VPN/Tor",
+                "isAnomaly": true
+            },
+            "authMethod": {
+                "icon": "pin",
+                "label": "Password + TOTP",
+                "iconColor": "secondary"
+            },
+            "refreshGrantPrefix": "rft_99f2...81a",
+            "lastActivity": {
+                "relative": "Hace 45 seg",
+                "endpoint": "POST /api/v1/clusters",
+                "isCritical": true
+            },
+            "riskLevel": "high",
+            "riskScore": 84,
+            "jwt": {
+                "iss": "https://auth.nexauth.cloud/oauth/v2",
+                "sub": "usr_9981293cba",
+                "aud": "api://nexauth-core-iam",
+                "exp": 1716301200,
+                "iat": 1716297600,
+                "amr": [
+                    "pwd",
+                    "totp"
+                ],
+                "jti": "jti_44bc19de8892",
+                "scope": "openid profile email read:audit-logs write:infrastructure",
+                "algorithm": "RS256 (RSA 4096)",
+                "ttlLabel": "58m 12s"
+            }
+        },
+        {
+            "id": "sess_011d88cb4",
+            "userName": "Marcus Sterling",
+            "userEmail": "marcus.sterling@nexauth.corp",
+            "userInitials": "MS",
+            "avatarBg": "primary",
+            "online": true,
+            "device": {
+                "browser": "Safari 17.4",
+                "os": "macOS Sonoma (14.4.1)",
+                "icon": "laptop_mac"
+            },
+            "geo": {
+                "flag": "🇺🇸",
+                "city": "Ashburn",
+                "country": "US",
+                "ip": "54.234.19.82",
+                "networkType": "Corporate NAT",
+                "isAnomaly": false
+            },
+            "authMethod": {
+                "icon": "key",
+                "label": "Passkey FIDO2 (YubiKey)",
+                "iconColor": "tertiary"
+            },
+            "refreshGrantPrefix": "rft_20e1...77b",
+            "lastActivity": {
+                "relative": "Hace 2 min",
+                "endpoint": "GET /v2/sessions/active"
+            },
+            "riskLevel": "low",
+            "riskScore": 4,
+            "jwt": {
+                "iss": "https://auth.nexauth.cloud/oauth/v2",
+                "sub": "usr_5541098afe",
+                "aud": "api://nexauth-core-iam",
+                "exp": 1716387600,
+                "iat": 1716297600,
+                "amr": [
+                    "fido2",
+                    "passkey",
+                    "hardware"
+                ],
+                "jti": "jti_9901aa7211",
+                "scope": "openid profile email read:users write:roles admin",
+                "algorithm": "RS256 (RSA 4096)",
+                "ttlLabel": "24h 12m"
+            }
+        },
+        {
+            "id": "sess_bc44728ef",
+            "userName": "Aisha Morales",
+            "userEmail": "aisha.m@partner-solutions.io",
+            "userInitials": "AM",
+            "avatarBg": "secondary",
+            "online": true,
+            "device": {
+                "browser": "Safari Mobile 17.4",
+                "os": "Apple iOS 17.4.1 (iPhone 15 Pro)",
+                "icon": "phone_iphone"
+            },
+            "geo": {
+                "flag": "🇪🇸",
+                "city": "Madrid",
+                "country": "ES",
+                "ip": "83.42.119.201",
+                "networkType": "Telefónica 5G",
+                "isAnomaly": false
+            },
+            "authMethod": {
+                "icon": "account_circle",
+                "label": "Google SSO (Workspace)",
+                "iconColor": "primary"
+            },
+            "refreshGrantPrefix": "rft_11ca...99c",
+            "lastActivity": {
+                "relative": "Hace 14 min",
+                "endpoint": "POST /oauth/token/refresh"
+            },
+            "riskLevel": "low",
+            "riskScore": 12,
+            "jwt": {
+                "iss": "https://auth.nexauth.cloud/oauth/v2",
+                "sub": "usr_1102984cc3",
+                "aud": "api://partner-portal-gateway",
+                "exp": 1716304800,
+                "iat": 1716297600,
+                "amr": [
+                    "sso",
+                    "google_workspace"
+                ],
+                "jti": "jti_55f201ccde",
+                "scope": "openid email profile read:reports",
+                "algorithm": "RS256 (RSA 4096)",
+                "ttlLabel": "52m 03s"
+            }
+        },
+        {
+            "id": "sess_fd90241aa",
+            "userName": "David Chen",
+            "userEmail": "david.chen@nexauth.corp",
+            "userInitials": "DC",
+            "avatarBg": "secondary",
+            "online": true,
+            "device": {
+                "browser": "NexAuth CLI v3.8.1",
+                "os": "Arch Linux (Kernel 6.8.9)",
+                "icon": "terminal"
+            },
+            "geo": {
+                "flag": "🇩🇪",
+                "city": "Frankfurt",
+                "country": "DE",
+                "ip": "194.12.78.11",
+                "networkType": "Hetzner Cloud",
+                "isAnomaly": false
+            },
+            "authMethod": {
+                "icon": "terminal",
+                "label": "OAuth2 Device Code",
+                "iconColor": "tertiary"
+            },
+            "refreshGrantPrefix": "rft_88a4...021",
+            "lastActivity": {
+                "relative": "Hace 1 min",
+                "endpoint": "POST /api/v2/tokens/sign"
+            },
+            "riskLevel": "low",
+            "riskScore": 8,
+            "jwt": {
+                "iss": "https://auth.nexauth.cloud/oauth/v2",
+                "sub": "usr_8829104bbb",
+                "aud": "api://nexauth-developer-cli",
+                "exp": 1716308400,
+                "iat": 1716297600,
+                "amr": [
+                    "cli_device_code",
+                    "fido2"
+                ],
+                "jti": "jti_7761ef29ab",
+                "scope": "openid profile email write:api-keys read:secrets",
+                "algorithm": "RS256 (RSA 4096)",
+                "ttlLabel": "55m 30s"
+            }
+        }
+    ]
+}
