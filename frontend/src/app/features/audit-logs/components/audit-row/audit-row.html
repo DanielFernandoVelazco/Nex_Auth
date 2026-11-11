@@ -1,0 +1,179 @@
+<!-- ═══ FILA PRINCIPAL ═══ -->
+<tr (click)="toggle()" class="hover:bg-surface-container-low/60 cursor-pointer transition-colors">
+
+    <!-- Chevron -->
+    <td class="py-space-sm px-space-md text-center text-outline">
+        <span class="material-symbols-outlined text-[18px] transition-transform duration-200 inline-block"
+            [class.rotate-90]="expanded()">
+            chevron_right
+        </span>
+    </td>
+
+    <!-- Timestamp -->
+    <td class="py-space-sm px-space-md">
+        <span class="font-label-code-sm text-label-code-sm text-on-surface font-medium block">{{ log().timestamp
+            }}</span>
+        <span class="font-label-code-sm text-label-code-sm text-outline">{{ log().relativeTime }}</span>
+    </td>
+
+    <!-- Severidad -->
+    <td class="py-space-sm px-space-md">
+        <span
+            class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full font-label-code-sm text-label-code-sm font-semibold"
+            [class]="severityBadgeClass()">
+            <span class="w-1.5 h-1.5 rounded-full" [class]="severityDotClass()"></span>
+            {{ severityLabel() }}
+        </span>
+    </td>
+
+    <!-- Evento -->
+    <td class="py-space-sm px-space-md">
+        <div class="flex items-center gap-1.5">
+            <span class="font-label-code-md text-label-code-md" [class]="eventClass()">
+                {{ log().eventType }}
+            </span>
+            <button type="button" (click)="$event.stopPropagation(); copyEventType()"
+                class="text-outline hover:text-on-surface" title="Copiar evento">
+                <span class="material-symbols-outlined text-[14px]">content_copy</span>
+            </button>
+        </div>
+    </td>
+
+    <!-- Actor -->
+    <td class="py-space-sm px-space-md">
+        <div class="flex items-center gap-2">
+            <div class="w-6 h-6 rounded flex items-center justify-center font-label-code-sm font-bold shrink-0"
+                [class]="actorInitialsClass()">
+                {{ log().actor.initials }}
+            </div>
+            <div class="flex flex-col min-w-0">
+                <span class="font-body-md text-body-md font-medium truncate"
+                    [class]="log().actor.isError ? 'text-error' : 'text-on-surface'">
+                    {{ log().actor.name }}
+                </span>
+                <span class="font-label-code-sm text-label-code-sm text-outline truncate">{{ log().actor.subLabel
+                    }}</span>
+            </div>
+        </div>
+    </td>
+
+    <!-- Origen -->
+    <td class="py-space-sm px-space-md">
+        <div class="flex flex-col">
+            <span class="font-label-code-md text-label-code-md text-on-surface">{{ log().geo.flag }} {{ log().geo.city
+                }}, {{ log().geo.country }}</span>
+            <span class="font-body-sm text-body-sm flex items-center gap-1"
+                [class]="log().geo.isError ? 'text-error font-medium' : 'text-on-surface-variant'">
+                <span>{{ log().geo.networkType }}</span>
+            </span>
+        </div>
+    </td>
+
+    <!-- Target -->
+    <td class="py-space-sm px-space-md">
+        <div class="flex flex-col">
+            <span class="font-label-code-sm text-label-code-sm"
+                [class]="log().target.isError ? 'text-error' : 'text-on-surface'">
+                {{ log().target.primary }}
+            </span>
+            <span class="font-label-code-sm text-label-code-sm text-outline">{{ log().target.secondary }}</span>
+        </div>
+    </td>
+
+    <!-- Estado -->
+    <td class="py-space-sm px-space-md text-right">
+        <span
+            class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full font-label-code-sm text-label-code-sm font-semibold"
+            [class]="statusBadgeClass()">
+            <span class="material-symbols-outlined text-[12px]">{{ log().statusIcon }}</span>
+            {{ log().statusLabel }}
+        </span>
+    </td>
+</tr>
+
+<!-- ═══ FILA EXPANDIDA ═══ -->
+@if (expanded()) {
+<tr class="bg-inverse-surface">
+    <td colspan="8" class="p-0">
+        <div class="p-space-lg flex flex-col gap-space-md text-inverse-on-surface">
+
+            <!-- Header de la expansión -->
+            <div
+                class="flex items-center justify-between pb-space-xs border-b border-surface-container-highest/20 flex-wrap gap-space-sm">
+                <div class="flex items-center gap-space-sm flex-wrap">
+                    <span class="font-label-caps text-label-caps uppercase text-secondary-fixed-dim">
+                        Detalles Forenses & Contexto HTTP
+                    </span>
+                    <span
+                        class="font-label-code-sm text-label-code-sm bg-surface-container-highest/20 px-2 py-0.5 rounded text-inverse-on-surface">
+                        Merkle Leaf #{{ log().detail.merkleLeafIndex }}
+                    </span>
+                </div>
+                <div class="flex items-center gap-space-sm">
+                    <button type="button" (click)="copyRawJson()"
+                        class="flex items-center gap-1 px-space-sm py-1 rounded bg-surface-container-highest/20 hover:bg-surface-container-highest/30 font-label-code-sm text-inverse-on-surface transition-colors">
+                        <span class="material-symbols-outlined text-[14px]">content_copy</span>
+                        <span>Copiar JSON</span>
+                    </button>
+                    <button type="button"
+                        class="flex items-center gap-1 px-space-sm py-1 rounded bg-surface-container-highest/20 hover:bg-surface-container-highest/30 font-label-code-sm text-inverse-on-surface transition-colors">
+                        <span class="material-symbols-outlined text-[14px]">verified_user</span>
+                        <span>Verificar Hash</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- 3 cards de contexto -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-space-md">
+
+                <!-- Firma criptográfica -->
+                <div class="flex flex-col gap-space-xs">
+                    <span class="font-label-caps text-label-caps text-outline uppercase">Firma Criptográfica</span>
+                    <div
+                        class="bg-surface-container-lowest/5 p-space-sm rounded-lg font-label-code-sm text-label-code-sm flex flex-col gap-1">
+                        <div class="text-outline">HMAC-SHA256:</div>
+                        <span class="break-all text-secondary-fixed">{{ log().detail.hmacPayload }}</span>
+                        <div class="text-outline mt-1">Prev Merkle Root:</div>
+                        <span class="break-all text-outline-variant">{{ log().detail.prevMerkleRoot }}</span>
+                    </div>
+                </div>
+
+                <!-- Headers + Red -->
+                <div class="flex flex-col gap-space-xs">
+                    <span class="font-label-caps text-label-caps text-outline uppercase">Cabeceras & Contexto</span>
+                    <div
+                        class="bg-surface-container-lowest/5 p-space-sm rounded-lg font-label-code-sm text-label-code-sm flex flex-col gap-1">
+                        <div><span class="text-outline">ASN:</span> {{ log().detail.asn }}</div>
+                        <div><span class="text-outline">JA3:</span> <span class="text-secondary-fixed break-all">{{
+                                log().detail.ja3 }}</span></div>
+                        <div><span class="text-outline">TLS:</span> {{ log().detail.tlsVersion }}</div>
+                        <div><span class="text-outline">Req ID:</span> {{ log().detail.requestId }}</div>
+                    </div>
+                </div>
+
+                <!-- Mitigación -->
+                <div class="flex flex-col gap-space-xs">
+                    <span class="font-label-caps text-label-caps text-outline uppercase">Mitigación Aplicada</span>
+                    <div
+                        class="bg-surface-container-lowest/5 p-space-sm rounded-lg font-label-code-sm text-label-code-sm flex flex-col gap-1">
+                        <div><span class="text-outline">Policy:</span> {{ log().detail.policy }}</div>
+                        <div><span class="text-outline">Trigger:</span> {{ log().detail.trigger }}</div>
+                        <div><span class="text-outline">Blacklist TTL:</span> {{ log().detail.blacklistTtl }}</div>
+                        <div><span class="text-outline">Notificado:</span> {{ log().detail.receptorNotified }}</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- JSON raw -->
+            <div class="flex flex-col gap-space-xs">
+                <span class="font-label-caps text-label-caps text-outline uppercase">Payload JSON Crudo</span>
+                <div class="bg-[#020617] p-space-md rounded-lg overflow-x-auto">
+                    <pre
+                        class="font-label-code-sm text-label-code-sm text-emerald-400 leading-relaxed whitespace-pre-wrap"><code>{{ log().detail.rawJson }}</code></pre>
+                </div>
+            </div>
+
+        </div>
+    </td>
+</tr>
+}
