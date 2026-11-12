@@ -1,0 +1,181 @@
+<div class="min-h-screen w-full flex items-center justify-center p-space-md bg-background">
+    <div class="flex flex-col w-full items-center justify-center py-space-xl px-space-md relative overflow-hidden">
+
+        <!-- Ambient -->
+        <div
+            class="absolute -top-32 -left-20 w-96 h-96 bg-primary-fixed-dim/30 rounded-full blur-3xl pointer-events-none">
+        </div>
+        <div
+            class="absolute -bottom-24 -right-16 w-80 h-80 bg-secondary-fixed/40 rounded-full blur-3xl pointer-events-none">
+        </div>
+
+        <!-- Card -->
+        <div
+            class="w-full max-w-md bg-surface-container-lowest rounded-xl shadow-xl p-space-lg md:p-space-xl relative z-10">
+
+            <!-- Header -->
+            <div class="flex flex-col items-center text-center">
+                <div
+                    class="w-14 h-14 rounded-lg bg-surface-container flex items-center justify-center mb-space-md shadow-sm">
+                    <div
+                        class="w-10 h-10 rounded-lg bg-primary-container flex items-center justify-center text-on-primary">
+                        <span class="material-symbols-outlined text-[24px]">shield_person</span>
+                    </div>
+                </div>
+
+                <div
+                    class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-surface-container-high text-primary font-label-caps text-label-caps mb-space-xs uppercase tracking-wider">
+                    <span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
+                    Consola de Identidad v2.4
+                </div>
+
+                <h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">
+                    Iniciar sesión en NexAuth
+                </h1>
+                <p class="font-body-md text-body-md text-on-surface-variant mt-1 max-w-xs">
+                    Bienvenido de nuevo. Accede a tu consola y aplicaciones.
+                </p>
+            </div>
+
+            <!-- Passkey + OAuth -->
+            <div class="mt-space-lg flex flex-col gap-2.5">
+                <button type="button" (click)="loginWithPasskey()"
+                    class="w-full flex items-center justify-center gap-3 px-4 py-2.5 rounded-lg bg-surface-container-low hover:bg-surface-container text-on-surface font-headline-sm text-headline-sm shadow-sm transition-all duration-150 group">
+                    <span
+                        class="material-symbols-outlined text-primary group-hover:scale-110 transition-transform text-[20px]">fingerprint</span>
+                    <span>Continuar con Passkey / Llave biométrica</span>
+                </button>
+
+                <div class="grid grid-cols-2 gap-2.5">
+                    <button type="button" (click)="loginWithSso('GitHub')"
+                        class="flex items-center justify-center gap-2.5 px-3 py-2.5 rounded-lg bg-surface-container-low hover:bg-surface-container text-on-surface font-body-md text-body-md shadow-sm transition-all">
+                        <svg class="w-4 h-4 fill-current text-on-surface" viewBox="0 0 24 24">
+                            <path clip-rule="evenodd"
+                                d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+                                fill-rule="evenodd" />
+                        </svg>
+                        <span>GitHub</span>
+                    </button>
+                    <button type="button" (click)="loginWithSso('Google')"
+                        class="flex items-center justify-center gap-2.5 px-3 py-2.5 rounded-lg bg-surface-container-low hover:bg-surface-container text-on-surface font-body-md text-body-md shadow-sm transition-all">
+                        <svg class="w-4 h-4" viewBox="0 0 24 24">
+                            <path
+                                d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.665-5.17 3.665-9.17z"
+                                fill="#4285F4" />
+                            <path
+                                d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.15C3.26 21.36 7.33 24 12 24z"
+                                fill="#34A853" />
+                            <path
+                                d="M5.28 14.27a7.195 7.195 0 0 1 0-4.54V6.58H1.25a11.97 11.97 0 0 0 0 10.84l4.03-3.15z"
+                                fill="#FBBC05" />
+                            <path
+                                d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.33 0 3.26 2.64 1.25 6.58l4.03 3.15c.95-2.83 3.6-4.98 6.72-4.98z"
+                                fill="#EA4335" />
+                        </svg>
+                        <span>Google</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Divider -->
+            <div class="relative my-space-lg flex items-center justify-center">
+                <div class="w-full h-px bg-surface-container-high"></div>
+                <span class="absolute bg-surface-container-lowest px-3 font-body-sm text-body-sm text-outline">
+                    o continuar con correo electrónico
+                </span>
+            </div>
+
+            <!-- Form -->
+            <form class="space-y-space-md" (submit)="onSubmit($event)">
+
+                <div class="flex flex-col gap-1.5">
+                    <label
+                        class="font-body-sm text-body-sm font-semibold text-on-surface flex items-center justify-between">
+                        <span>Correo electrónico corporativo</span>
+                        <span class="font-label-code-sm text-outline">SAML / Passkey compatible</span>
+                    </label>
+                    <div class="relative flex items-center">
+                        <span
+                            class="material-symbols-outlined absolute left-3 text-outline text-[18px]">alternate_email</span>
+                        <input type="email" placeholder="nombre@empresa.com" [value]="email()"
+                            (input)="onEmailInput($event)" required
+                            class="w-full pl-9 pr-3 py-2.5 rounded-lg bg-surface-container-lowest text-on-surface placeholder:text-outline font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-primary/20 shadow-sm" />
+                    </div>
+                </div>
+
+                <div class="flex flex-col gap-1.5">
+                    <div class="flex items-center justify-between">
+                        <label class="font-body-sm text-body-sm font-semibold text-on-surface">Contraseña</label>
+                        <a class="font-body-sm text-primary hover:text-primary-container transition-colors" href="#">
+                            ¿Olvidaste tu contraseña?
+                        </a>
+                    </div>
+                    <div class="relative flex items-center">
+                        <span class="material-symbols-outlined absolute left-3 text-outline text-[18px]">lock</span>
+                        <input [type]="passwordVisible() ? 'text' : 'password'" placeholder="••••••••••••"
+                            [value]="password()" (input)="onPasswordInput($event)" required
+                            class="w-full pl-9 pr-10 py-2.5 rounded-lg bg-surface-container-lowest text-on-surface placeholder:text-outline font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-primary/20 shadow-sm" />
+                        <button type="button" (click)="togglePassword()"
+                            class="absolute right-2.5 p-1 rounded hover:bg-surface-container text-outline hover:text-on-surface transition-colors flex items-center justify-center"
+                            title="Alternar visibilidad">
+                            <span class="material-symbols-outlined text-[18px]">{{ passwordVisible() ? 'visibility_off'
+                                : 'visibility' }}</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="flex items-center justify-between pt-1">
+                    <label class="flex items-center gap-2.5 cursor-pointer select-none">
+                        <input type="checkbox" [checked]="rememberDevice()" (change)="toggleRemember()"
+                            class="w-4 h-4 rounded bg-surface-container text-primary accent-primary cursor-pointer" />
+                        <span class="font-body-sm text-body-sm text-on-surface-variant">Recordar este dispositivo por 30
+                            días</span>
+                    </label>
+                </div>
+
+                <button type="submit"
+                    class="w-full mt-2 py-2.5 px-4 rounded-lg bg-primary hover:bg-primary-container text-on-primary font-headline-sm text-headline-sm flex items-center justify-center gap-2 shadow-md hover:shadow-lg transition-all active:scale-[0.99]">
+                    <span>Iniciar Sesión</span>
+                    <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+                </button>
+            </form>
+
+            <!-- SSO link -->
+            <div class="mt-space-md text-center">
+                <button type="button" (click)="ssoEnterprise()"
+                    class="inline-flex items-center gap-1.5 font-body-sm text-body-sm text-secondary hover:text-primary transition-colors">
+                    <span class="material-symbols-outlined text-[16px]">domain</span>
+                    <span>¿Continuar con SSO Empresarial (SAML / Okta)?</span>
+                </button>
+            </div>
+
+            <!-- Register anchor -->
+            <div class="mt-space-lg pt-space-md bg-surface-container-low rounded-lg text-center p-3">
+                <p class="font-body-sm text-body-sm text-on-surface-variant">
+                    ¿No tienes una cuenta aún?
+                    <a routerLink="/auth/register" class="font-semibold text-primary hover:underline ml-1">
+                        Registrarse gratis
+                    </a>
+                </p>
+            </div>
+
+        </div>
+
+        <!-- Trust footer -->
+        <div class="w-full max-w-md mt-space-md flex flex-col items-center gap-2 text-center">
+            <div
+                class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container font-label-code-sm text-outline">
+                <span class="material-symbols-outlined text-[14px] text-tertiary">verified_user</span>
+                <span>Conexión cifrada TLS 1.3 · Cumplimiento SOC2 Tipo II</span>
+            </div>
+            <div class="flex items-center justify-center gap-4 font-body-sm text-body-sm text-outline">
+                <a class="hover:text-on-surface transition-colors" href="#">Términos</a>
+                <span class="w-1 h-1 rounded-full bg-outline"></span>
+                <a class="hover:text-on-surface transition-colors" href="#">Privacidad</a>
+                <span class="w-1 h-1 rounded-full bg-outline"></span>
+                <a class="hover:text-on-surface transition-colors" href="#">Estado</a>
+            </div>
+        </div>
+
+    </div>
+</div>
