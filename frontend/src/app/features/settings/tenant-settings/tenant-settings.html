@@ -1,1 +1,429 @@
-<p>tenant-settings works!</p>
+<div class="flex flex-col w-full pb-space-xl">
+
+    <!-- ═══ HEADER ════════════════════════════════════════ -->
+    <div class="flex flex-col gap-space-sm pt-space-md mb-space-lg">
+        <div class="flex flex-wrap items-center justify-between gap-space-md">
+            <div class="flex flex-col">
+                <div
+                    class="flex items-center gap-space-xs text-outline font-label-code-sm text-label-code-sm uppercase tracking-wider mb-1">
+                    <span>Configuración Core</span>
+                    <span>/</span>
+                    <span class="text-primary font-medium">Tenant Global</span>
+                </div>
+                <h1 class="font-headline-xl text-headline-xl text-on-surface">
+                    Configuración del Tenant & Plataforma
+                </h1>
+                <p class="font-body-md text-body-md text-on-surface-variant mt-0.5">
+                    Administra identidades multi-región, políticas de tokens y transporte criptográfico SMTP.
+                </p>
+            </div>
+
+            <div class="flex items-center gap-space-sm">
+                @if (health()?.synced) {
+                <div
+                    class="hidden sm:flex items-center gap-space-xs px-space-md py-space-xs rounded-lg bg-surface-container-low shadow-sm">
+                    <span class="w-2 h-2 rounded-full bg-tertiary-container animate-pulse"></span>
+                    <span class="font-label-code-sm text-label-code-sm text-on-surface font-medium">Sincronizado</span>
+                    <span class="text-outline text-label-code-sm">·</span>
+                    <span class="font-label-code-sm text-label-code-sm text-on-surface-variant">
+                        Cluster {{ health()?.cluster }}
+                    </span>
+                </div>
+                }
+
+                <button type="button" (click)="saveChanges()"
+                    class="flex items-center gap-space-xs px-space-md py-space-sm rounded-lg bg-primary-container text-on-primary hover:bg-secondary-container transition-all shadow-sm font-headline-sm text-headline-sm">
+                    <span class="material-symbols-outlined text-[18px]">save</span>
+                    <span>Guardar Cambios</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Tabs -->
+        <nav
+            class="flex items-center gap-space-xs bg-surface-container-low p-1.5 rounded-xl shadow-sm mt-space-sm overflow-x-auto">
+            @for (tab of tabs; track tab.id) {
+            <button type="button" (click)="setTab(tab.id)"
+                class="flex items-center gap-space-xs px-space-md py-space-sm rounded-lg font-headline-sm text-headline-sm transition-all whitespace-nowrap"
+                [class]="activeTab() === tab.id
+            ? 'bg-surface-container-lowest text-primary shadow-sm'
+            : 'text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high'">
+                <span class="material-symbols-outlined text-[18px]">{{ tab.icon }}</span>
+                <span>{{ tab.label }}</span>
+                @if (activeTab() === tab.id) {
+                <span
+                    class="ml-1 px-1.5 py-0.5 rounded-full text-[10px] font-label-code-sm bg-primary-fixed text-on-primary-fixed">Activo</span>
+                }
+            </button>
+            }
+        </nav>
+    </div>
+
+    <!-- ═══ MAIN GRID ═════════════════════════════════════ -->
+    <div class="grid grid-cols-1 xl:grid-cols-12 gap-gutter-desktop items-start">
+
+        <!-- ═══ LEFT COLUMN (7 cols) ═════════════════════ -->
+        <div class="xl:col-span-7 flex flex-col gap-space-lg">
+
+            <!-- Section 1: Identidad del Tenant -->
+            <section class="bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden flex flex-col">
+                <div class="px-space-lg py-space-md bg-surface-container-low/60 flex items-center justify-between">
+                    <div class="flex items-center gap-space-sm">
+                        <span class="material-symbols-outlined text-[20px] text-primary">domain</span>
+                        <div class="flex flex-col">
+                            <h2 class="font-headline-md text-headline-md text-on-surface">Identidad del Tenant</h2>
+                            <span class="font-body-sm text-body-sm text-on-surface-variant">
+                                Metadatos primarios y direccionamiento federado
+                            </span>
+                        </div>
+                    </div>
+                    <span
+                        class="px-space-sm py-0.5 rounded-full bg-surface-container font-label-code-sm text-on-surface-variant">ID:
+                        01-CORE</span>
+                </div>
+
+                @if (identity(); as ident) {
+                <div class="p-space-lg flex flex-col gap-space-md">
+
+                    <!-- Org Name -->
+                    <div class="flex flex-col gap-1.5">
+                        <label
+                            class="font-headline-sm text-headline-sm text-on-surface flex items-center justify-between">
+                            <span>Nombre de la Organización</span>
+                            <span class="font-label-caps text-label-caps text-outline uppercase">Requerido</span>
+                        </label>
+                        <input type="text" [value]="ident.organizationName" (input)="onOrgNameInput($event)"
+                            class="w-full bg-surface-container-low text-on-surface font-body-md text-body-md px-space-md py-2 rounded-lg focus:bg-surface-container-lowest focus:outline-none transition-all shadow-sm" />
+                    </div>
+
+                    <!-- Tenant ID -->
+                    <div class="flex flex-col gap-1.5">
+                        <label
+                            class="font-headline-sm text-headline-sm text-on-surface flex items-center justify-between">
+                            <span>Tenant Identifier (CUID)</span>
+                            <span class="font-label-caps text-label-caps text-tertiary font-medium">Inmutable</span>
+                        </label>
+                        <div
+                            class="flex items-center justify-between px-space-md py-2 bg-surface-container-low rounded-lg shadow-sm">
+                            <div class="flex items-center gap-space-xs font-label-code-md text-on-surface font-medium">
+                                <span class="material-symbols-outlined text-[16px] text-outline">key</span>
+                                <span>{{ ident.tenantId }}</span>
+                            </div>
+                            <button type="button" (click)="copyTenantId()"
+                                class="font-label-code-sm px-space-sm py-1 rounded bg-surface-container-lowest text-primary hover:bg-primary hover:text-on-primary transition-colors shadow-sm">
+                                Copiar
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Custom Domain -->
+                    <div class="flex flex-col gap-1.5">
+                        <label
+                            class="font-headline-sm text-headline-sm text-on-surface flex items-center justify-between">
+                            <span>Dominio Personalizado (Custom Domain)</span>
+                            <span class="font-label-code-sm text-on-surface-variant">CNAME
+                                auth-ingress.nexauth.io</span>
+                        </label>
+                        <div class="grid grid-cols-1 sm:grid-cols-12 gap-space-xs items-center">
+                            <div
+                                class="sm:col-span-8 flex items-center bg-surface-container-low rounded-lg px-space-md py-2 shadow-sm">
+                                <span class="font-label-code-sm text-outline select-none">https://</span>
+                                <input type="text" [value]="ident.customDomain"
+                                    class="bg-transparent text-on-surface font-label-code-md ml-1 w-full focus:outline-none" />
+                            </div>
+                            @if (ident.sslStatus.active) {
+                            <div
+                                class="sm:col-span-4 flex items-center justify-center gap-1.5 px-space-sm py-2 rounded-lg bg-tertiary/10 text-tertiary font-headline-sm text-headline-sm">
+                                <span class="w-2 h-2 rounded-full bg-tertiary animate-ping"></span>
+                                <span class="material-symbols-outlined text-[16px]">verified</span>
+                                <span>{{ ident.sslStatus.label }}</span>
+                            </div>
+                            }
+                        </div>
+                        <p class="font-body-sm text-body-sm text-outline mt-1">
+                            Certificado Wildcard Cloudflare Auto-Managed emitido hasta el {{ ident.sslStatus.expiresOn
+                            }}.
+                        </p>
+                    </div>
+                </div>
+                }
+            </section>
+
+            <!-- Section 2: Sesión & Token -->
+            <section class="bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden flex flex-col">
+                <div class="px-space-lg py-space-md bg-surface-container-low/60 flex items-center justify-between">
+                    <div class="flex items-center gap-space-sm">
+                        <span class="material-symbols-outlined text-[20px] text-primary">timelapse</span>
+                        <div class="flex flex-col">
+                            <h2 class="font-headline-md text-headline-md text-on-surface">Ajustes de Sesión & Token</h2>
+                            <span class="font-body-sm text-body-sm text-on-surface-variant">
+                                Parámetros de expiración, revocación activa y concurrencia
+                            </span>
+                        </div>
+                    </div>
+                    <span
+                        class="px-space-sm py-0.5 rounded-full bg-surface-container font-label-code-sm text-on-surface-variant">JWT
+                        RS256</span>
+                </div>
+
+                @if (session(); as sess) {
+                <div class="p-space-lg flex flex-col gap-space-lg">
+
+                    <!-- Mini cards -->
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-space-md">
+                        <div class="p-space-md rounded-lg bg-surface-container-low flex flex-col gap-1">
+                            <span class="font-label-caps text-label-caps text-outline uppercase">Vida de Access
+                                Token</span>
+                            <div class="flex items-baseline gap-1 mt-1">
+                                <span class="font-headline-lg text-headline-lg text-primary">{{ sess.accessTokenTtl
+                                    }}</span>
+                                <span class="font-headline-sm text-headline-sm text-on-surface-variant">minutos</span>
+                            </div>
+                            <span class="font-body-sm text-body-sm text-outline">Reexpedición vía Refresh</span>
+                        </div>
+                        <div class="p-space-md rounded-lg bg-surface-container-low flex flex-col gap-1">
+                            <span class="font-label-caps text-label-caps text-outline uppercase">Idle Timeout</span>
+                            <div class="flex items-baseline gap-1 mt-1">
+                                <span class="font-headline-lg text-headline-lg text-on-surface">{{ sess.idleTimeout
+                                    }}</span>
+                                <span class="font-headline-sm text-headline-sm text-on-surface-variant">minutos</span>
+                            </div>
+                            <span class="font-body-sm text-body-sm text-outline">Inactividad por usuario</span>
+                        </div>
+                        <div class="p-space-md rounded-lg bg-surface-container-low flex flex-col gap-1">
+                            <span class="font-label-caps text-label-caps text-outline uppercase">Máx.
+                                Concurrencia</span>
+                            <div class="flex items-baseline gap-1 mt-1">
+                                <span class="font-headline-lg text-headline-lg text-on-surface">{{ sess.maxConcurrency
+                                    }}</span>
+                                <span
+                                    class="font-headline-sm text-headline-sm text-on-surface-variant">dispositivos</span>
+                            </div>
+                            <span class="font-body-sm text-body-sm text-outline">Revocación First-Out</span>
+                        </div>
+                    </div>
+
+                    <!-- Controls -->
+                    <div class="flex flex-col gap-space-md">
+
+                        <div
+                            class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm pb-space-sm bg-surface-container-low/30 p-space-sm rounded-lg">
+                            <div>
+                                <p class="font-headline-sm text-headline-sm text-on-surface">Access Token TTL</p>
+                                <p class="font-body-sm text-body-sm text-on-surface-variant">Vigencia del token
+                                    stateless portado por cabecera Bearer.</p>
+                            </div>
+                            <div class="flex items-center gap-space-xs">
+                                <input type="number" [value]="sess.accessTokenTtl"
+                                    class="w-20 px-space-sm py-1.5 text-center bg-surface-container-lowest text-on-surface font-label-code-md rounded-lg shadow-sm" />
+                                <select
+                                    class="px-space-sm py-1.5 bg-surface-container-lowest text-on-surface font-body-sm rounded-lg shadow-sm focus:outline-none">
+                                    <option selected>Minutos</option>
+                                    <option>Horas</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div
+                            class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm pb-space-sm bg-surface-container-low/30 p-space-sm rounded-lg">
+                            <div>
+                                <p class="font-headline-sm text-headline-sm text-on-surface">Idle Session Timeout</p>
+                                <p class="font-body-sm text-body-sm text-on-surface-variant">Cierre automático de sesión
+                                    sin eventos de cursor o requests.</p>
+                            </div>
+                            <div class="flex items-center gap-space-xs">
+                                <input type="number" [value]="sess.idleTimeout"
+                                    class="w-20 px-space-sm py-1.5 text-center bg-surface-container-lowest text-on-surface font-label-code-md rounded-lg shadow-sm" />
+                                <span
+                                    class="font-body-sm text-body-sm text-on-surface-variant px-space-xs">Minutos</span>
+                            </div>
+                        </div>
+
+                        <div
+                            class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm pb-space-sm bg-surface-container-low/30 p-space-sm rounded-lg">
+                            <div>
+                                <p class="font-headline-sm text-headline-sm text-on-surface">Sesiones Simultáneas
+                                    Concurrentes</p>
+                                <p class="font-body-sm text-body-sm text-on-surface-variant">Límite por usuario para
+                                    mitigar filtración de credenciales.</p>
+                            </div>
+                            <select
+                                class="px-space-md py-1.5 bg-surface-container-lowest text-on-surface font-body-sm rounded-lg shadow-sm focus:outline-none">
+                                <option>1 (Estricto)</option>
+                                <option [selected]="sess.maxConcurrency === 3">3 (Recomendado)</option>
+                                <option>5 (Flexible)</option>
+                                <option>Ilimitadas</option>
+                            </select>
+                        </div>
+
+                        <!-- Backchannel toggle -->
+                        <div class="flex items-center justify-between p-space-md bg-surface-container-low rounded-lg">
+                            <div class="flex items-center gap-space-sm">
+                                <span class="material-symbols-outlined text-[20px] text-tertiary">lock_reset</span>
+                                <div class="flex flex-col">
+                                    <span class="font-headline-sm text-headline-sm text-on-surface">Revocación Global en
+                                        Cascada (Backchannel Logout)</span>
+                                    <span class="font-body-sm text-body-sm text-on-surface-variant">
+                                        Notifica a todos los clientes OIDC federados al cerrar sesión activa.
+                                    </span>
+                                </div>
+                            </div>
+                            <button type="button" (click)="onBackchannelToggle()"
+                                class="relative inline-flex items-center cursor-pointer w-10 h-6 rounded-full transition-colors shrink-0 ml-4"
+                                [class]="sess.backchannelLogout ? 'bg-primary-container' : 'bg-surface-container-high'">
+                                <span class="absolute w-5 h-5 bg-white rounded-full shadow-sm transition-transform"
+                                    [class]="sess.backchannelLogout ? 'translate-x-[20px]' : 'translate-x-0.5'"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                }
+            </section>
+        </div>
+
+        <!-- ═══ RIGHT COLUMN (5 cols) ═════════════════════ -->
+        <div class="xl:col-span-5 flex flex-col gap-space-lg">
+
+            <!-- Section 3: Email & SMTP -->
+            <section class="bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden flex flex-col">
+                <div class="px-space-lg py-space-md bg-surface-container-low/60 flex items-center justify-between">
+                    <div class="flex items-center gap-space-sm">
+                        <span class="material-symbols-outlined text-[20px] text-primary">forward_to_inbox</span>
+                        <div class="flex flex-col">
+                            <h2 class="font-headline-md text-headline-md text-on-surface">Email & SMTP Transaccional
+                            </h2>
+                            <span class="font-body-sm text-body-sm text-on-surface-variant">Entrega de tokens y enlaces
+                                mágicos</span>
+                        </div>
+                    </div>
+                    <span
+                        class="px-space-sm py-0.5 rounded-full bg-tertiary/10 text-tertiary font-label-code-sm font-medium">
+                        99.98% Deliverability
+                    </span>
+                </div>
+
+                @if (email(); as em) {
+                <div class="p-space-lg flex flex-col gap-space-md">
+
+                    <!-- Provider picker -->
+                    <div class="flex flex-col gap-1.5">
+                        <label class="font-headline-sm text-headline-sm text-on-surface">Proveedor de Correo</label>
+                        <div class="grid grid-cols-3 gap-space-xs">
+                            @for (provider of emailProviders; track provider.id) {
+                            <button type="button" (click)="onProviderClick(provider.id)"
+                                class="flex flex-col items-center justify-center p-space-sm rounded-lg font-headline-sm text-headline-sm transition-all shadow-sm"
+                                [class]="em.provider === provider.id
+                      ? 'bg-surface-container text-primary'
+                      : 'bg-surface-container-low text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high'">
+                                <span class="material-symbols-outlined text-[20px]">{{ provider.icon }}</span>
+                                <span class="mt-1">{{ provider.label }}</span>
+                            </button>
+                            }
+                        </div>
+                    </div>
+
+                    <!-- DNS verification -->
+                    <div class="flex flex-col gap-space-xs bg-surface-container-low p-space-md rounded-lg">
+                        <span class="font-label-caps text-label-caps text-outline uppercase tracking-wider">Validación
+                            Criptográfica DNS</span>
+                        @for (dns of em.dnsVerifications; track dns.id) {
+                        <div class="flex items-center justify-between mt-1">
+                            <div class="flex items-center gap-space-xs">
+                                <span class="material-symbols-outlined text-[18px] text-tertiary">check_circle</span>
+                                <span class="font-label-code-md text-on-surface font-medium">{{ dns.label }}</span>
+                            </div>
+                            <span
+                                class="px-space-xs py-0.5 rounded bg-tertiary/10 text-tertiary font-label-code-sm font-semibold">
+                                {{ dns.statusLabel }}
+                            </span>
+                        </div>
+                        }
+                    </div>
+
+                    <!-- Template preview -->
+                    <div class="mt-1">
+                        <app-smtp-preview [templates]="em.templates" [activeTemplate]="activeTemplate()"
+                            [senderEmail]="em.senderEmail" (changed)="onTemplateChange($event)" />
+                    </div>
+                </div>
+                }
+            </section>
+
+            <!-- Section 4: Danger Zone -->
+            <section class="bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden flex flex-col">
+                <div class="px-space-lg py-space-md bg-error-container/40 flex items-center gap-space-sm">
+                    <span class="material-symbols-outlined text-[20px] text-error">warning</span>
+                    <div class="flex flex-col">
+                        <h2 class="font-headline-md text-headline-md text-on-error-container">Zona de Peligro (Danger
+                            Zone)</h2>
+                        <span class="font-body-sm text-body-sm text-on-error-container/80">Acciones críticas e
+                            irreversibles sobre este tenant</span>
+                    </div>
+                </div>
+
+                <div class="p-space-lg flex flex-col gap-space-md">
+
+                    <!-- Transfer -->
+                    <div
+                        class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm p-space-md bg-surface-container-low rounded-lg">
+                        <div class="flex flex-col">
+                            <span class="font-headline-sm text-headline-sm text-on-surface">Transferir Propiedad</span>
+                            <span class="font-body-sm text-body-sm text-on-surface-variant">
+                                Cede los derechos de superadministrador y facturación a otra cuenta.
+                            </span>
+                        </div>
+                        <button type="button" (click)="transferOwnership()"
+                            class="px-space-md py-space-sm rounded-lg bg-surface-container-lowest text-on-surface hover:bg-surface-container-high font-headline-sm text-headline-sm shadow-sm whitespace-nowrap transition-colors">
+                            Transferir
+                        </button>
+                    </div>
+
+                    <!-- Delete -->
+                    <div
+                        class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm p-space-md bg-error-container/20 rounded-lg">
+                        <div class="flex flex-col">
+                            <span class="font-headline-sm text-headline-sm text-error font-semibold">Eliminar Tenant
+                                Permanente</span>
+                            <span class="font-body-sm text-body-sm text-on-surface-variant">
+                                Revoca tokens, purga identidades y cancela suscripciones activas.
+                            </span>
+                        </div>
+                        <button type="button" (click)="deleteTenant()"
+                            class="px-space-md py-space-sm rounded-lg bg-error text-on-error hover:bg-error/90 font-headline-sm text-headline-sm shadow-sm whitespace-nowrap transition-colors">
+                            Eliminar Tenant
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- ═══ BOTTOM SAVE BAR ═════════════════════════════ -->
+    @if (hasChanges()) {
+    <div
+        class="mt-space-xl p-space-md bg-surface-container-lowest rounded-xl shadow-md flex flex-wrap items-center justify-between gap-space-md">
+        <div class="flex items-center gap-space-sm">
+            <span class="material-symbols-outlined text-[20px] text-tertiary">cloud_done</span>
+            <div class="flex flex-col">
+                <span class="font-headline-sm text-headline-sm text-on-surface">Configuración en memoria lista para
+                    sincronizar</span>
+                <span class="font-body-sm text-body-sm text-on-surface-variant">
+                    Último despliegue a edges globales: {{ health()?.lastSync }}
+                </span>
+            </div>
+        </div>
+        <div class="flex items-center gap-space-sm">
+            <button type="button" (click)="discardChanges()"
+                class="px-space-md py-space-sm rounded-lg bg-surface-container-high text-on-surface hover:bg-surface-variant font-headline-sm text-headline-sm transition-colors">
+                Descartar Cambios
+            </button>
+            <button type="button" (click)="saveChanges()"
+                class="flex items-center gap-space-xs px-space-lg py-space-sm rounded-lg bg-primary-container text-on-primary hover:bg-secondary-container shadow-md font-headline-sm text-headline-sm transition-all">
+                <span class="material-symbols-outlined text-[18px]">cloud_sync</span>
+                <span>Guardar Cambios</span>
+            </button>
+        </div>
+    </div>
+    }
+
+</div>
