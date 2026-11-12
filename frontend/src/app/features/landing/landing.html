@@ -1,0 +1,518 @@
+<div class="min-h-screen bg-background">
+
+    <!-- ═══ HEADER ═══════════════════════════════════════ -->
+    <header class="fixed top-0 w-full z-50 bg-surface/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]">
+        <div class="h-16 max-w-7xl mx-auto px-6 lg:px-12 flex items-center justify-between">
+
+            <div class="flex items-center gap-space-lg">
+                <a routerLink="/" class="flex items-center gap-space-sm">
+                    <div
+                        class="w-8 h-8 rounded-lg bg-primary-container flex items-center justify-center text-on-primary">
+                        <span class="material-symbols-outlined text-[20px]">shield_person</span>
+                    </div>
+                    <span class="font-headline-md text-headline-md tracking-tight text-on-surface">NexAuth</span>
+                </a>
+                <nav class="hidden md:flex items-center gap-space-md ml-space-md">
+                    <a class="font-body-md text-body-md text-on-surface-variant hover:text-on-surface px-space-md py-space-sm rounded-lg transition-colors"
+                        href="#">Productos</a>
+                    <a class="font-body-md text-body-md text-on-surface-variant hover:text-on-surface px-space-md py-space-sm rounded-lg transition-colors"
+                        href="#">Documentación</a>
+                    <a class="font-body-md text-body-md text-on-surface-variant hover:text-on-surface px-space-md py-space-sm rounded-lg transition-colors"
+                        href="#">Precios</a>
+                    <a class="font-body-md text-body-md text-on-surface-variant hover:text-on-surface px-space-md py-space-sm rounded-lg transition-colors"
+                        href="#">Blog</a>
+                </nav>
+            </div>
+
+            <div class="flex items-center gap-space-md">
+                <a routerLink="/auth/login"
+                    class="font-headline-sm text-headline-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high px-space-md py-space-sm rounded-lg transition-colors">
+                    Iniciar Sesión
+                </a>
+                <a routerLink="/auth/register"
+                    class="font-headline-sm text-headline-sm bg-primary-container text-on-primary hover:bg-primary px-space-lg py-space-sm rounded-lg transition-colors shadow-[0_1px_4px_rgba(79,70,229,0.2)]">
+                    Comenzar Gratis
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="w-full pt-16 bg-surface">
+
+        <!-- ═══ HERO + AMBIENT GLOW ═══════════════════════════ -->
+        <div class="relative w-full overflow-hidden">
+            <div
+                class="absolute -top-32 left-1/2 -translate-x-1/2 w-[700px] h-[400px] bg-primary-fixed-dim/30 rounded-full blur-[140px] pointer-events-none -z-10">
+            </div>
+
+            <section class="max-w-7xl mx-auto px-6 lg:px-12 pt-8 pb-16 lg:pt-14 lg:pb-24">
+
+                <!-- Announcement pill -->
+                <div
+                    class="inline-flex items-center gap-space-sm bg-surface-container-high px-space-md py-1.5 rounded-full mb-6 shadow-sm">
+                    <span class="flex h-2 w-2 rounded-full bg-primary animate-ping"></span>
+                    <span class="font-label-caps text-label-caps text-primary uppercase tracking-wider">NexAuth v4.18 ya
+                        disponible</span>
+                    <span class="text-outline-variant">•</span>
+                    <span class="font-body-sm text-body-sm text-on-surface-variant">Compatibilidad RFC 9068 & Passkeys
+                        nativas</span>
+                    <span class="material-symbols-outlined text-primary text-[16px]">arrow_forward</span>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+
+                    <!-- Hero text -->
+                    <div class="lg:col-span-6 flex flex-col items-start">
+                        <div class="inline-flex items-center gap-2 mb-3">
+                            <div
+                                class="w-6 h-6 rounded-lg bg-primary-container flex items-center justify-center text-on-primary">
+                                <span class="material-symbols-outlined text-[14px]">shield_person</span>
+                            </div>
+                            <span
+                                class="font-label-code-sm text-label-code-sm uppercase tracking-widest text-secondary font-semibold">
+                                Zero-Trust IAM Kernel
+                            </span>
+                        </div>
+
+                        <h1 class="font-headline-xl text-headline-xl text-on-surface mb-5 leading-tight tracking-tight">
+                            La infraestructura de identidad construida para desarrolladores
+                        </h1>
+
+                        <p class="font-body-lg text-body-lg text-on-surface-variant mb-8 max-w-xl">
+                            Integra autenticación segura, directorios federados, passkeys WebAuthn, RBAC granular y
+                            monitoreo de sesiones con una sola línea de código en tu stack moderno.
+                        </p>
+
+                        <div class="flex flex-wrap items-center gap-space-md mb-8">
+                            <a routerLink="/auth/register"
+                                class="inline-flex items-center justify-center gap-2 bg-primary-container text-on-primary font-headline-sm text-headline-sm px-space-lg py-3 rounded-lg hover:bg-primary shadow-[0_4px_12px_rgba(79,70,229,0.28)] transition-all transform active:scale-95">
+                                <span>Crear Cuenta Gratis</span>
+                                <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+                            </a>
+                            <a href="#"
+                                class="inline-flex items-center justify-center gap-2 bg-surface-container text-on-surface font-headline-sm text-headline-sm px-space-lg py-3 rounded-lg hover:bg-surface-container-high transition-colors">
+                                <span class="material-symbols-outlined text-[18px]">terminal</span>
+                                <span>Explorar Documentación</span>
+                            </a>
+                        </div>
+
+                        <div
+                            class="flex flex-wrap items-center gap-4 text-on-surface-variant font-label-code-sm text-label-code-sm">
+                            <div class="flex items-center gap-1.5 bg-surface-container-low px-2.5 py-1 rounded-md">
+                                <span class="material-symbols-outlined text-tertiary text-[16px]">verified</span>
+                                <span>WebAuthn FIDO2</span>
+                            </div>
+                            <div class="flex items-center gap-1.5 bg-surface-container-low px-2.5 py-1 rounded-md">
+                                <span
+                                    class="material-symbols-outlined text-secondary text-[16px]">format_image_left</span>
+                                <span>SAML 2.0 / OIDC</span>
+                            </div>
+                            <div class="flex items-center gap-1.5 bg-surface-container-low px-2.5 py-1 rounded-md">
+                                <span class="material-symbols-outlined text-primary text-[16px]">bolt</span>
+                                <span>&lt; 14ms latency</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Code snippet -->
+                    <div class="lg:col-span-6 w-full">
+                        <div class="rounded-xl shadow-xl overflow-hidden bg-[#0a0f1d] text-slate-100">
+
+                            <!-- Window bar -->
+                            <div class="flex items-center justify-between px-4 py-3 bg-[#050811] text-xs">
+                                <div class="flex items-center gap-2">
+                                    <span class="w-3 h-3 rounded-full bg-rose-500/80"></span>
+                                    <span class="w-3 h-3 rounded-full bg-amber-500/80"></span>
+                                    <span class="w-3 h-3 rounded-full bg-emerald-500/80"></span>
+                                    <span
+                                        class="ml-2 font-label-code-sm text-slate-400 font-mono">nexauth-identity-engine</span>
+                                </div>
+                                <div class="flex items-center gap-1">
+                                    <span
+                                        class="inline-flex items-center px-2 py-0.5 rounded bg-emerald-950 text-emerald-300 font-label-code-sm">
+                                        ACTIVE
+                                    </span>
+                                </div>
+                            </div>
+
+                            <!-- Tabs -->
+                            <div class="flex items-center border-b border-slate-800 bg-[#0f172a] px-2">
+                                @for (lang of languages; track lang.id) {
+                                <button type="button" (click)="setLang(lang.id)"
+                                    class="px-4 py-2 font-label-code-sm border-b-2 transition-colors" [class]="activeLang() === lang.id
+                      ? 'border-primary-container text-white'
+                      : 'border-transparent text-slate-400 hover:text-white'">
+                                    {{ lang.label }}
+                                </button>
+                                }
+                            </div>
+
+                            <!-- Code panel -->
+                            <div class="p-5 font-label-code-md leading-relaxed overflow-x-auto min-h-[290px]">
+                                <div class="flex items-center justify-between text-slate-500 mb-2">
+                                    <span>// implementation code</span>
+                                    <button (click)="copySnippet()" class="text-xs text-primary-fixed hover:text-white">
+                                        Copiar
+                                    </button>
+                                </div>
+                                <pre
+                                    class="text-slate-300 whitespace-pre-wrap"><code>{{ currentSnippet() }}</code></pre>
+
+                                <div
+                                    class="mt-4 pt-3 border-t border-slate-800 text-xs text-emerald-400 font-mono flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-[14px]">check_circle</span>
+                                    <span>JWT Verificado • Hardware Token FIDO2 atestiguado</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+        </div>
+
+        <!-- ═══ TRUSTED BY ═══════════════════════════════════ -->
+        <section class="w-full bg-surface-container-low py-12">
+            <div class="max-w-7xl mx-auto px-6 lg:px-12 text-center">
+                <p class="font-label-caps text-label-caps uppercase tracking-widest text-on-surface-variant mb-8">
+                    Empresas y desarrolladores de infraestructura confían en NexAuth
+                </p>
+
+                <div class="grid grid-cols-2 md:grid-cols-5 gap-6 items-center justify-items-center opacity-80">
+                    @for (logo of trustedLogos; track logo.id) {
+                    <div class="flex items-center gap-2 hover:opacity-100 transition-opacity">
+                        @switch (logo.type) {
+                        @case ('vercel') {
+                        <svg class="h-5 w-5 text-on-surface fill-current" viewBox="0 0 115 100">
+                            <polygon points="57.5 0 115 100 0 100"></polygon>
+                        </svg>
+                        }
+                        @case ('supabase') {
+                        <svg class="h-6 w-6 text-emerald-600 fill-current" viewBox="0 0 24 24">
+                            <path
+                                d="M21.362 9.354H12V.396a.396.396 0 0 0-.716-.234L.648 13.626a.396.396 0 0 0 .317.648H12v8.958a.396.396 0 0 0 .716.234l10.636-13.464a.396.396 0 0 0-.317-.648z">
+                            </path>
+                        </svg>
+                        }
+                        @case ('linear') {
+                        <svg class="h-5 w-5 text-on-surface fill-current" viewBox="0 0 100 100">
+                            <circle cx="50" cy="50" fill="none" r="45" stroke="currentColor" stroke-width="8"></circle>
+                        </svg>
+                        }
+                        @case ('fintech') {
+                        <span class="material-symbols-outlined text-secondary text-[24px]">account_balance</span>
+                        }
+                        }
+                        <span class="font-headline-sm text-headline-sm font-bold tracking-tight"
+                            [class]="logo.type === 'stripe' ? 'text-indigo-700 text-headline-lg' : 'text-on-surface'">
+                            {{ logo.label }}
+                        </span>
+                    </div>
+                    }
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══ BENTO FEATURES ═══════════════════════════════ -->
+        <section class="max-w-7xl mx-auto px-6 lg:px-12 py-20">
+
+            <div class="text-center max-w-2xl mx-auto mb-14">
+                <span class="font-label-caps text-label-caps uppercase tracking-wider text-primary font-semibold">
+                    Capacidades del Motor IAM
+                </span>
+                <h2 class="font-headline-xl text-headline-xl text-on-surface mt-2 mb-3">
+                    Seguridad de nivel militar, DX para creadores de software
+                </h2>
+                <p class="font-body-md text-body-md text-on-surface-variant">
+                    Arquitectura desacoplada lista para despliegues multi-tenant, microservicios y clientes móviles
+                    nativos.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                @for (feat of bentoFeatures; track feat.id) {
+                <div class="bg-surface-container-lowest p-8 rounded-xl shadow-sm flex flex-col justify-between relative overflow-hidden group"
+                    [class]="feat.span === 'large' ? 'md:col-span-2' : ''">
+                    <div
+                        class="absolute -right-10 -bottom-10 w-64 h-64 bg-primary-fixed/30 rounded-full blur-3xl pointer-events-none group-hover:scale-110 transition-transform">
+                    </div>
+
+                    <div>
+                        <div class="w-12 h-12 rounded-lg bg-surface-container-high flex items-center justify-center mb-6"
+                            [class]="feat.iconColor === 'primary' ? 'text-primary'
+                  : (feat.iconColor === 'secondary' ? 'text-secondary' : 'text-error')">
+                            <span class="material-symbols-outlined text-[28px]">{{ feat.icon }}</span>
+                        </div>
+
+                        <span class="font-label-caps text-label-caps uppercase font-bold tracking-wider" [class]="feat.badgeColor === 'primary' ? 'text-primary'
+                  : (feat.badgeColor === 'secondary' ? 'text-secondary' : 'text-error')">
+                            {{ feat.badge }}
+                        </span>
+                        <h3 class="font-headline-lg text-headline-lg text-on-surface mt-1 mb-3">{{ feat.title }}</h3>
+                        <p class="font-body-md text-body-md text-on-surface-variant max-w-md mb-6">
+                            {{ feat.description }}
+                        </p>
+                    </div>
+
+                    <!-- Extra visual -->
+                    @switch (feat.extraType) {
+                    @case ('auth') {
+                    <div
+                        class="bg-surface-container-low p-4 rounded-lg flex items-center justify-between max-w-md shadow-inner">
+                        <div class="flex items-center gap-3">
+                            <div
+                                class="w-10 h-10 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center">
+                                <span class="material-symbols-outlined text-[20px]">check</span>
+                            </div>
+                            <div>
+                                <p class="font-headline-sm text-headline-sm text-on-surface">TouchID Validado</p>
+                                <p class="font-label-code-sm text-label-code-sm text-on-surface-variant">ES256 •
+                                    Hardware Enclave Signature</p>
+                            </div>
+                        </div>
+                        <span
+                            class="font-label-code-sm text-label-code-sm px-2.5 py-1 bg-surface-container-lowest text-tertiary rounded font-medium">0.3s</span>
+                    </div>
+                    }
+                    @case ('sso') {
+                    <div
+                        class="flex items-center gap-2 pt-4 border-t border-surface-container text-xs text-on-surface-variant font-label-code-sm">
+                        <span class="w-2 h-2 rounded-full bg-primary"></span>
+                        <span>SAML Metadata Auto-Sync</span>
+                    </div>
+                    }
+                    @case ('threat') {
+                    <div class="bg-red-50 text-red-700 p-2.5 rounded text-xs flex items-center gap-2 font-mono">
+                        <span class="material-symbols-outlined text-[16px]">warning</span>
+                        <span>Credential Stuffing detectado & mitigado</span>
+                    </div>
+                    }
+                    @case ('rbac') {
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 bg-surface-container-low p-4 rounded-lg">
+                        <div class="bg-surface-container-lowest p-3 rounded">
+                            <p class="font-label-caps text-label-caps text-outline uppercase">Rol</p>
+                            <p class="font-headline-sm text-headline-sm text-on-surface">FinOps Admin</p>
+                        </div>
+                        <div class="bg-surface-container-lowest p-3 rounded">
+                            <p class="font-label-caps text-label-caps text-outline uppercase">Scopes</p>
+                            <p class="font-headline-sm text-headline-sm text-on-surface">14 permisos</p>
+                        </div>
+                        <div class="bg-surface-container-lowest p-3 rounded">
+                            <p class="font-label-caps text-label-caps text-outline uppercase">Expiración</p>
+                            <p class="font-headline-sm text-headline-sm text-on-surface">900 seg</p>
+                        </div>
+                    </div>
+                    }
+                    }
+                </div>
+                }
+            </div>
+        </section>
+
+        <!-- ═══ CRYPTO SECTION ═══════════════════════════════ -->
+        <section class="w-full bg-surface-container-low py-20">
+            <div class="max-w-7xl mx-auto px-6 lg:px-12">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+
+                    <div class="lg:col-span-5">
+                        <div
+                            class="inline-flex items-center gap-2 bg-surface-container-high px-3 py-1 rounded-full mb-4">
+                            <span class="material-symbols-outlined text-primary text-[18px]">verified_user</span>
+                            <span class="font-label-caps text-label-caps uppercase text-on-surface">SOC2 Type II • ISO
+                                27001</span>
+                        </div>
+
+                        <h2 class="font-headline-xl text-headline-xl text-on-surface mb-4">
+                            Arquitectura Criptográfica y Auditoría Inmutable
+                        </h2>
+                        <p class="font-body-lg text-body-lg text-on-surface-variant mb-6">
+                            NexAuth no almacena secretos en claro jamás. Cada evento de emisión, delegación o revocación
+                            genera una firma criptográfica encadenada en un registro append-only exportable a Datadog,
+                            Splunk o tu SIEM preferido.
+                        </p>
+
+                        <ul class="space-y-4 font-body-md text-body-md text-on-surface">
+                            <li class="flex items-start gap-3">
+                                <span
+                                    class="material-symbols-outlined text-tertiary text-[20px] mt-0.5">check_circle</span>
+                                <div>
+                                    <strong>Tokens Criptográficamente Firmados:</strong> Claves asimétricas RS256/EdDSA
+                                    rotadas cada 30 días sin downtime.
+                                </div>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span
+                                    class="material-symbols-outlined text-tertiary text-[20px] mt-0.5">check_circle</span>
+                                <div>
+                                    <strong>Revocación Instantánea Global:</strong> Listas distribuidas vía Edge CDN con
+                                    propagación en menos de 100ms.
+                                </div>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span
+                                    class="material-symbols-outlined text-tertiary text-[20px] mt-0.5">check_circle</span>
+                                <div>
+                                    <strong>Streaming SIEM en Vivo:</strong> Webhooks firmados y conexiones gRPC para
+                                    cumplimiento estricto.
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- JWT mockup -->
+                    <div class="lg:col-span-7">
+                        <div class="bg-surface-container-lowest p-6 rounded-xl shadow-lg">
+                            <div class="flex items-center justify-between pb-4 mb-4 border-b border-surface-container">
+                                <div class="flex items-center gap-2 font-headline-sm text-headline-sm text-on-surface">
+                                    <span class="material-symbols-outlined text-primary">data_object</span>
+                                    <span>Decodificador de Token RFC 9068</span>
+                                </div>
+                                <span
+                                    class="font-label-code-sm text-label-code-sm bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded font-mono">
+                                    Firma Válida
+                                </span>
+                            </div>
+
+                            <div class="space-y-3 font-mono text-xs">
+                                <div class="bg-rose-50 p-3 rounded text-rose-900 overflow-x-auto">
+                                    <span class="text-rose-600 font-bold">// JOSE Header</span><br />
+                                    &#123; "alg": "EdDSA", "typ": "at+jwt", "kid": "nex_key_2025_03" &#125;
+                                </div>
+                                <div class="bg-indigo-50 p-3 rounded text-indigo-950 overflow-x-auto">
+                                    <span class="text-indigo-600 font-bold">// JWT Payload Claims</span><br />
+                                    &#123;<br />
+                                    &nbsp;&nbsp;"iss": "https://auth.nexauth.io/v1",<br />
+                                    &nbsp;&nbsp;"sub": "usr_99847291a0c4",<br />
+                                    &nbsp;&nbsp;"scope": "openid profile payments:execute",<br />
+                                    &nbsp;&nbsp;"amr": ["fido2", "mfa"]<br />
+                                    &#125;
+                                </div>
+                                <div class="bg-cyan-50 p-3 rounded text-cyan-950 overflow-x-auto">
+                                    <span class="text-cyan-700 font-bold">// Verified Signature</span><br />
+                                    d7a8f10b2e...c4a92e10 (Ed25519)
+                                </div>
+                            </div>
+
+                            <div
+                                class="mt-4 pt-4 border-t border-surface-container flex items-center justify-between text-xs text-on-surface-variant font-label-code-sm">
+                                <span class="flex items-center gap-1.5">
+                                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                                    Webhook SIEM: Emitido hacia AWS S3 / Datadog
+                                </span>
+                                <span class="text-outline">Latency: 9ms</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══ FINAL CTA ════════════════════════════════════ -->
+        <section class="max-w-7xl mx-auto px-6 lg:px-12 py-20">
+            <div
+                class="bg-primary text-on-primary rounded-2xl p-10 lg:p-16 relative overflow-hidden shadow-2xl flex flex-col lg:flex-row items-center justify-between gap-8">
+                <div
+                    class="absolute -right-20 -bottom-20 w-96 h-96 bg-white/10 rounded-full blur-2xl pointer-events-none">
+                </div>
+
+                <div class="max-w-2xl">
+                    <span
+                        class="font-label-caps text-label-caps uppercase tracking-wider text-on-primary-container font-semibold">
+                        Despliega en minutos
+                    </span>
+                    <h2 class="font-headline-xl text-headline-xl text-on-primary mt-2 mb-4">
+                        Comienza con 10,000 MAU gratis hoy mismo
+                    </h2>
+                    <p class="font-body-lg text-body-lg text-on-primary-container">
+                        Sin tarjeta de crédito. Acceso total a WebAuthn Passkeys, SAML SSO para 1 conexión y soporte
+                        directo en Discord.
+                    </p>
+                </div>
+
+                <div class="flex flex-col sm:flex-row items-center gap-4 w-full lg:w-auto shrink-0">
+                    <a routerLink="/auth/register"
+                        class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white text-primary font-headline-sm px-8 py-3.5 rounded-lg shadow-md hover:bg-slate-100 transition-all font-semibold">
+                        <span>Registrarse ahora</span>
+                        <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+                    </a>
+                    <a href="#"
+                        class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-transparent text-white border border-white/30 font-headline-sm px-6 py-3.5 rounded-lg hover:bg-white/10 transition-colors">
+                        <span>Ver Planes Enterprise</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ═══ FOOTER ═══════════════════════════════════════ -->
+    <footer class="w-full bg-surface-container-low pt-space-xl pb-space-xl">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12">
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-space-xl mb-space-xl">
+
+                <div class="col-span-2">
+                    <div class="flex items-center gap-space-sm mb-space-md">
+                        <div
+                            class="w-6 h-6 rounded-lg bg-primary-container flex items-center justify-center text-on-primary">
+                            <span class="material-symbols-outlined text-[16px]">shield_person</span>
+                        </div>
+                        <span class="font-headline-sm text-on-surface">NexAuth</span>
+                    </div>
+                    <p class="font-body-sm text-body-sm text-on-surface-variant max-w-sm mb-space-md">
+                        Engine de IAM nativo para desarrolladores. Arquitectura zero-trust, gestión granular de tokens y
+                        observabilidad criptográfica continua.
+                    </p>
+                    <span
+                        class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-surface-container-highest text-tertiary font-label-code-sm">
+                        <span class="w-1.5 h-1.5 rounded-full bg-tertiary-container animate-pulse"></span>
+                        Systems Operational
+                    </span>
+                </div>
+
+                <div>
+                    <h4 class="font-label-caps text-label-caps text-on-surface uppercase tracking-wider mb-space-md">
+                        Desarrollo</h4>
+                    <ul class="space-y-space-sm font-body-sm text-body-sm text-on-surface-variant">
+                        <li><a class="hover:text-on-surface transition-colors" href="#">@nexauth/node</a></li>
+                        <li><a class="hover:text-on-surface transition-colors" href="#">@nexauth/react</a></li>
+                        <li><a class="hover:text-on-surface transition-colors" href="#">nexauth-go</a></li>
+                        <li><a class="hover:text-on-surface transition-colors" href="#">API Reference</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-label-caps text-label-caps text-on-surface uppercase tracking-wider mb-space-md">
+                        Cumplimiento</h4>
+                    <ul class="space-y-space-sm font-body-sm text-body-sm text-on-surface-variant">
+                        <li><a class="hover:text-on-surface transition-colors" href="#">SOC2 Type II</a></li>
+                        <li><a class="hover:text-on-surface transition-colors" href="#">ISO/IEC 27001</a></li>
+                        <li><a class="hover:text-on-surface transition-colors" href="#">Zero-Trust Audit</a></li>
+                        <li><a class="hover:text-on-surface transition-colors" href="#">Security</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-label-caps text-label-caps text-on-surface uppercase tracking-wider mb-space-md">
+                        Operación</h4>
+                    <ul class="space-y-space-sm font-body-sm text-body-sm text-on-surface-variant">
+                        <li><a class="hover:text-on-surface transition-colors" href="#">Estado (99.99%)</a></li>
+                        <li><a class="hover:text-on-surface transition-colors" href="#">Security Bulletins</a></li>
+                        <li><a class="hover:text-on-surface transition-colors" href="#">Enterprise Plans</a></li>
+                        <li><a class="hover:text-on-surface transition-colors" href="#">Privacy</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div
+                class="pt-space-lg flex flex-col sm:flex-row items-center justify-between gap-space-md font-label-code-sm text-outline">
+                <p>© 2025 NexAuth Identity Systems Inc. Todos los derechos reservados.</p>
+                <div class="flex items-center gap-space-lg">
+                    <span>SHA-256 Verified Build</span>
+                    <span>Latency • 14ms global avg</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</div>
