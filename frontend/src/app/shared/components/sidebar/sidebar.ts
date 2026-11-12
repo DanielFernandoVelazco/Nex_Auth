@@ -15,15 +15,15 @@ interface NavItem {
 })
 export class Sidebar {
   protected readonly navItems = signal<NavItem[]>([
-    { label: 'Dashboard', path: '/dashboard', icon: 'grid_view' },
-    { label: 'Users', path: '/users', icon: 'group' },
-    { label: 'Roles', path: '/roles', icon: 'admin_panel_settings' },
-    { label: 'Permissions', path: '/permissions', icon: 'key' },
-    { label: 'Applications', path: '/applications', icon: 'apps' },
-    { label: 'API Keys', path: '/api-keys', icon: 'vpn_key' },
-    { label: 'Sessions', path: '/sessions', icon: 'devices' },
-    { label: 'Audit Logs', path: '/audit-logs', icon: 'receipt_long' },
-    { label: 'Security', path: '/security', icon: 'security' },
-    { label: 'Settings', path: '/settings', icon: 'settings' },
+    { label: 'Dashboard', path: '/app/dashboard', icon: 'grid_view' },
+    { label: 'Users', path: '/app/users', icon: 'group' },
+    { label: 'Roles', path: '/app/roles', icon: 'admin_panel_settings' },
+    { label: 'Permissions', path: '/app/permissions', icon: 'key' },
+    { label: 'Applications', path: '/app/applications', icon: 'apps' },
+    { label: 'API Keys', path: '/app/api-keys', icon: 'vpn_key' },
+    { label: 'Sessions', path: '/app/sessions', icon: 'devices' },
+    { label: 'Audit Logs', path: '/app/audit-logs', icon: 'receipt_long' },
+    { label: 'Security', path: '/app/security', icon: 'security' },
+    { label: 'Settings', path: '/app/settings', icon: 'settings' },
   ]);
 }
