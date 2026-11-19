@@ -1,0 +1,108 @@
+// backend/prisma/schema.prisma
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma" // Prisma 7 requiere salida explícita
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ─── Tenant / Organización ──────────────────────────────
+model Organization {
+  id        String   @id @default(cuid())
+  name      String
+  slug      String   @unique
+  domain    String?  @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  users     UserOrganization[]
+  roles     Role[]
+}
+
+// ─── Usuario ────────────────────────────────────────────
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  name         String?
+  isActive     Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  organizations UserOrganization[]
+  sessions      Session[]
+}
+
+// ─── Relación Usuario-Organización-Rol ──────────────────
+model UserOrganization {
+  id             String       @id @default(cuid())
+  userId         String
+  organizationId String
+  roleId         String?
+  createdAt      DateTime     @default(now())
+
+  user         User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  role         Role?        @relation(fields: [roleId], references: [id], onDelete: SetNull)
+
+  @@unique([userId, organizationId])
+}
+
+// ─── Rol RBAC ───────────────────────────────────────────
+model Role {
+  id             String   @id @default(cuid())
+  name           String
+  description    String?
+  isSystem       Boolean  @default(false)
+  organizationId String?
+  createdAt      DateTime @default(now())
+
+  organization    Organization? @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  users           UserOrganization[]
+  permissions     RolePermission[]
+
+  @@unique([name, organizationId])
+}
+
+// ─── Permiso (recurso + acción) ─────────────────────────
+model Permission {
+  id          String @id @default(cuid())
+  resource    String // ej. 'users', 'applications', 'audit-logs'
+  action      String // ej. 'read', 'write', 'delete'
+  description String?
+
+  roles       RolePermission[]
+
+  @@unique([resource, action])
+}
+
+// ─── Relación Rol-Permiso ───────────────────────────────
+model RolePermission {
+  roleId       String
+  permissionId String
+
+  role       Role       @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  permission Permission @relation(fields: [permissionId], references: [id], onDelete: Cascade)
+
+  @@id([roleId, permissionId])
+}
+
+// ─── Sesión (para refresh tokens rotativos) ─────────────
+model Session {
+  id               String   @id @default(cuid())
+  userId           String
+  tokenHash        String   @unique // sha256 del refresh token actual
+  previousTokenHash String? // para detectar reuso
+  userAgent        String?
+  ipAddress        String?
+  expiresAt        DateTime
+  revokedAt        DateTime?
+  createdAt        DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
