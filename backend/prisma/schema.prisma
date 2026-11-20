@@ -1,108 +1,94 @@
-// backend/prisma/schema.prisma
-generator client {
-  provider = "prisma-client-js"
-  output   = "../generated/prisma" // Prisma 7 requiere salida explícita
-}
+// ─── Application (clientes OAuth2/OIDC) ─────────────────
+model Application {
+  id                  String   @id @default(cuid())
+  name                String
+  subtitle            String
+  icon                String
+  iconColor           String   @default("primary")
+  clientId            String   @unique
+  type                String   // 'spa' | 'web' | 'm2m' | 'native'
+  status              String   @default("active")   // 'active' | 'staging' | 'disabled'
+  statusLabel         String
+  domainLabel         String
+  domainValue         String
+  domainIcon          String   @default("lock")
+  metricLabel         String
+  metricValue         String
+  metricSecondary     String?
+  metricSecondaryIcon String?
+  organizationId      String
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
 
-datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
-}
-
-// ─── Tenant / Organización ──────────────────────────────
-model Organization {
-  id        String   @id @default(cuid())
-  name      String
-  slug      String   @unique
-  domain    String?  @unique
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  users     UserOrganization[]
-  roles     Role[]
-}
-
-// ─── Usuario ────────────────────────────────────────────
-model User {
-  id           String   @id @default(cuid())
-  email        String   @unique
-  passwordHash String
-  name         String?
-  isActive     Boolean  @default(true)
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-
-  organizations UserOrganization[]
-  sessions      Session[]
-}
-
-// ─── Relación Usuario-Organización-Rol ──────────────────
-model UserOrganization {
-  id             String       @id @default(cuid())
-  userId         String
-  organizationId String
-  roleId         String?
-  createdAt      DateTime     @default(now())
-
-  user         User         @relation(fields: [userId], references: [id], onDelete: Cascade)
   organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
-  role         Role?        @relation(fields: [roleId], references: [id], onDelete: SetNull)
+  apiKeys      ApiKey[]
 
-  @@unique([userId, organizationId])
+  @@index([organizationId])
+  @@index([type])
 }
 
-// ─── Rol RBAC ───────────────────────────────────────────
-model Role {
-  id             String   @id @default(cuid())
-  name           String
-  description    String?
-  isSystem       Boolean  @default(false)
-  organizationId String?
-  createdAt      DateTime @default(now())
+// ─── API Key (credenciales M2M) ─────────────────────────
+model ApiKey {
+  id             String    @id @default(cuid())
+  serviceName    String
+  serviceId      String    @unique
+  icon           String    @default("vpn_key")
+  iconColor      String    @default("primary")
+  keyPrefix      String
+  keyHash        String    // SHA-256 del valor completo (NUNCA guardes el plaintext)
+  environment    String    // 'production' | 'staging'
+  scopes         String[]
+  lastUsedAt     DateTime?
+  lastUsedIp     String?
+  expiresAt      DateTime?
+  revokedAt      DateTime?
+  organizationId String
+  applicationId  String?
+  createdAt      DateTime  @default(now())
 
-  organization    Organization? @relation(fields: [organizationId], references: [id], onDelete: Cascade)
-  users           UserOrganization[]
-  permissions     RolePermission[]
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  application  Application? @relation(fields: [applicationId], references: [id], onDelete: SetNull)
 
-  @@unique([name, organizationId])
+  @@index([organizationId])
+  @@index([environment])
 }
 
-// ─── Permiso (recurso + acción) ─────────────────────────
-model Permission {
-  id          String @id @default(cuid())
-  resource    String // ej. 'users', 'applications', 'audit-logs'
-  action      String // ej. 'read', 'write', 'delete'
-  description String?
-
-  roles       RolePermission[]
-
-  @@unique([resource, action])
-}
-
-// ─── Relación Rol-Permiso ───────────────────────────────
-model RolePermission {
-  roleId       String
-  permissionId String
-
-  role       Role       @relation(fields: [roleId], references: [id], onDelete: Cascade)
-  permission Permission @relation(fields: [permissionId], references: [id], onDelete: Cascade)
-
-  @@id([roleId, permissionId])
-}
-
-// ─── Sesión (para refresh tokens rotativos) ─────────────
-model Session {
+// ─── Audit Log (eventos inmutables) ─────────────────────
+model AuditLog {
   id               String   @id @default(cuid())
-  userId           String
-  tokenHash        String   @unique // sha256 del refresh token actual
-  previousTokenHash String? // para detectar reuso
-  userAgent        String?
-  ipAddress        String?
-  expiresAt        DateTime
-  revokedAt        DateTime?
+  timestamp        DateTime @default(now())
+  severity         String   // 'critical' | 'warning' | 'info'
+  eventType        String   // 'anomaly.ip_blocked', 'login.success', etc.
+
+  actorType        String   // 'system_agent' | 'user' | 'service' | 'root'
+  actorName        String
+  actorSubLabel    String
+  actorInitials    String
+  actorInitialsBg  String
+  actorIsError     Boolean  @default(false)
+
+  geoCity          String?
+  geoCountry       String?
+  geoFlag          String?
+  geoNetworkType   String?
+  geoIsError       Boolean  @default(false)
+
+  targetPrimary    String
+  targetSecondary  String?
+  targetIsError    Boolean  @default(false)
+
+  status           String   // 'success' | 'failed' | 'blocked'
+  statusLabel      String
+  statusIcon       String
+
+  detail           Json?    // merkle, hashes, ja3, raw JSON, etc.
+
+  organizationId   String
   createdAt        DateTime @default(now())
 
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
 
-  @@index([userId])
+  @@index([organizationId, timestamp])
+  @@index([severity])
+  @@index([eventType])
 }
