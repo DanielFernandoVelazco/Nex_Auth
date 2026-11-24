@@ -12,10 +12,20 @@ import { JwtStrategy } from './jwt.strategy';
         JwtModule.registerAsync({
             imports: [ConfigModule],
             inject: [ConfigService],
-            useFactory: (config: ConfigService) => ({
-                secret: config.get<string>('JWT_SECRET'),
-                signOptions: { expiresIn: config.get<string>('JWT_ACCESS_EXPIRES_IN', '15m') },
-            }),
+            useFactory: (config: ConfigService) => {
+                const secret = config.get<string>('JWT_SECRET');
+                if (!secret) {
+                    throw new Error('JWT_SECRET no está definido en el .env');
+                }
+
+                return {
+                    secret,
+                    signOptions: {
+                        // expiresIn acepta number (segundos) — 900 = 15 minutos
+                        expiresIn: 900,
+                    },
+                };
+            },
         }),
     ],
     controllers: [AuthController],
