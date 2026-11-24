@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
+import { authGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
-    // ─── Públicas ─────────────────────────────────────────
     {
         path: '',
         loadComponent: () => import('./features/landing/landing').then(m => m.Landing),
@@ -15,10 +15,9 @@ export const routes: Routes = [
         path: 'auth/register',
         loadComponent: () => import('./features/auth/register/register').then(m => m.Register),
     },
-
-    // ─── App autenticada (con shell) ─────────────────────
     {
         path: 'app',
+        canActivate: [authGuard],
         loadComponent: () =>
             import('./layout/main-layout/main-layout').then(m => m.MainLayout),
         children: [
@@ -70,6 +69,5 @@ export const routes: Routes = [
             },
         ],
     },
-
     { path: '**', redirectTo: '' },
 ];
