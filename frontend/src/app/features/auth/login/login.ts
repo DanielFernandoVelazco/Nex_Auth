@@ -1,6 +1,7 @@
 import { Component, signal, inject } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { ToastService } from '../../../core/services/toast.service';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
     selector: 'app-login',
@@ -11,9 +12,10 @@ import { ToastService } from '../../../core/services/toast.service';
 export class Login {
     private readonly router = inject(Router);
     private readonly toast = inject(ToastService);
+    private readonly auth = inject(AuthService);
 
-    protected readonly email = signal('');
-    protected readonly password = signal('');
+    protected readonly email = signal('sofia.alarcon@acme.com');
+    protected readonly password = signal('admin123');
     protected readonly rememberDevice = signal(true);
     protected readonly passwordVisible = signal(false);
 
@@ -33,33 +35,31 @@ export class Login {
         this.rememberDevice.update(v => !v);
     }
 
-    protected loginWithPasskey(): void {
-        this.toast.info('Passkey', 'Abre el sensor biométrico para autenticarte...');
-        setTimeout(() => {
-            this.toast.success('Autenticado', 'Bienvenido de nuevo.');
-            this.router.navigate(['/app/applications']);
-        }, 800);
+    protected async loginWithPasskey(): Promise<void> {
+        this.toast.info('Passkey', 'Función próximamente — usa email/password por ahora.');
     }
 
     protected loginWithSso(provider: string): void {
-        this.toast.info(provider, 'Redirigiendo al proveedor...');
-        setTimeout(() => {
-            this.toast.success('Autenticado', `Login con ${provider} exitoso.`);
-            this.router.navigate(['/app/applications']);
-        }, 900);
+        this.toast.info(provider, 'SSO próximamente disponible.');
     }
 
-    protected onSubmit(event: Event): void {
+    protected async onSubmit(event: Event): Promise<void> {
         event.preventDefault();
         if (!this.email() || !this.password()) {
             this.toast.error('Campos requeridos', 'Completa email y contraseña.');
             return;
         }
-        this.toast.success('Login exitoso', 'Bienvenido a NexAuth.');
-        this.router.navigate(['/app/applications']);
+
+        const success = await this.auth.login(this.email(), this.password());
+        if (success) {
+            this.toast.success('Login exitoso', 'Bienvenido a NexAuth.');
+            this.router.navigate(['/app/applications']);
+        } else {
+            this.toast.error('Credenciales inválidas', 'Verifica tu email y contraseña.');
+        }
     }
 
     protected ssoEnterprise(): void {
-        this.toast.info('SSO Empresarial', 'Introduce tu dominio corporativo para continuar.');
+        this.toast.info('SSO Empresarial', 'Próximamente disponible.');
     }
 }
