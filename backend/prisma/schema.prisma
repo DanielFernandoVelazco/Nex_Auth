@@ -1,3 +1,118 @@
+// ────────────────────────────────────────────────────────
+// Prisma Schema — NexAuth IAM
+// ────────────────────────────────────────────────────────
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ─── Organización / Tenant ──────────────────────────────
+model Organization {
+  id        String   @id @default(cuid())
+  name      String
+  slug      String   @unique
+  domain    String?  @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  users        UserOrganization[]
+  roles        Role[]
+  applications Application[]
+  apiKeys      ApiKey[]
+  auditLogs    AuditLog[]
+}
+
+// ─── Usuario ────────────────────────────────────────────
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  name         String?
+  isActive     Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  organizations UserOrganization[]
+  sessions      Session[]
+}
+
+// ─── Relación Usuario ↔ Organización ↔ Rol ──────────────
+model UserOrganization {
+  id             String   @id @default(cuid())
+  userId         String
+  organizationId String
+  roleId         String?
+  createdAt      DateTime @default(now())
+
+  user         User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  role         Role?        @relation(fields: [roleId], references: [id], onDelete: SetNull)
+
+  @@unique([userId, organizationId])
+  @@index([organizationId])
+}
+
+// ─── Rol (RBAC) ─────────────────────────────────────────
+model Role {
+  id             String   @id @default(cuid())
+  name           String
+  description    String?
+  isSystem       Boolean  @default(false)
+  organizationId String?
+  createdAt      DateTime @default(now())
+
+  organization Organization?    @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  users        UserOrganization[]
+  permissions  RolePermission[]
+
+  @@unique([name, organizationId])
+}
+
+// ─── Permiso ────────────────────────────────────────────
+model Permission {
+  id          String  @id @default(cuid())
+  resource    String
+  action      String
+  description String?
+
+  roles RolePermission[]
+
+  @@unique([resource, action])
+}
+
+// ─── Relación Rol ↔ Permiso ─────────────────────────────
+model RolePermission {
+  roleId       String
+  permissionId String
+
+  role       Role       @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  permission Permission @relation(fields: [permissionId], references: [id], onDelete: Cascade)
+
+  @@id([roleId, permissionId])
+}
+
+// ─── Sesión (refresh tokens rotativos) ──────────────────
+model Session {
+  id                String    @id @default(cuid())
+  userId            String
+  tokenHash         String    @unique
+  previousTokenHash String?
+  userAgent         String?
+  ipAddress         String?
+  expiresAt         DateTime
+  revokedAt         DateTime?
+  createdAt         DateTime  @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
 // ─── Application (clientes OAuth2/OIDC) ─────────────────
 model Application {
   id                  String   @id @default(cuid())
@@ -6,8 +121,8 @@ model Application {
   icon                String
   iconColor           String   @default("primary")
   clientId            String   @unique
-  type                String   // 'spa' | 'web' | 'm2m' | 'native'
-  status              String   @default("active")   // 'active' | 'staging' | 'disabled'
+  type                String
+  status              String   @default("active")
   statusLabel         String
   domainLabel         String
   domainValue         String
@@ -35,8 +150,8 @@ model ApiKey {
   icon           String    @default("vpn_key")
   iconColor      String    @default("primary")
   keyPrefix      String
-  keyHash        String    // SHA-256 del valor completo (NUNCA guardes el plaintext)
-  environment    String    // 'production' | 'staging'
+  keyHash        String
+  environment    String
   scopes         String[]
   lastUsedAt     DateTime?
   lastUsedIp     String?
@@ -55,36 +170,36 @@ model ApiKey {
 
 // ─── Audit Log (eventos inmutables) ─────────────────────
 model AuditLog {
-  id               String   @id @default(cuid())
-  timestamp        DateTime @default(now())
-  severity         String   // 'critical' | 'warning' | 'info'
-  eventType        String   // 'anomaly.ip_blocked', 'login.success', etc.
+  id              String   @id @default(cuid())
+  timestamp       DateTime @default(now())
+  severity        String
+  eventType       String
 
-  actorType        String   // 'system_agent' | 'user' | 'service' | 'root'
-  actorName        String
-  actorSubLabel    String
-  actorInitials    String
-  actorInitialsBg  String
-  actorIsError     Boolean  @default(false)
+  actorType       String
+  actorName       String
+  actorSubLabel   String
+  actorInitials   String
+  actorInitialsBg String
+  actorIsError    Boolean  @default(false)
 
-  geoCity          String?
-  geoCountry       String?
-  geoFlag          String?
-  geoNetworkType   String?
-  geoIsError       Boolean  @default(false)
+  geoCity         String?
+  geoCountry      String?
+  geoFlag         String?
+  geoNetworkType  String?
+  geoIsError      Boolean  @default(false)
 
-  targetPrimary    String
-  targetSecondary  String?
-  targetIsError    Boolean  @default(false)
+  targetPrimary   String
+  targetSecondary String?
+  targetIsError   Boolean  @default(false)
 
-  status           String   // 'success' | 'failed' | 'blocked'
-  statusLabel      String
-  statusIcon       String
+  status          String
+  statusLabel     String
+  statusIcon      String
 
-  detail           Json?    // merkle, hashes, ja3, raw JSON, etc.
+  detail          Json?
 
-  organizationId   String
-  createdAt        DateTime @default(now())
+  organizationId  String
+  createdAt       DateTime @default(now())
 
   organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
 
