@@ -9,6 +9,8 @@ import { PermissionsModule } from './modules/permissions/permissions.module';
 import { ApiKeysModule } from './modules/api-keys/api-keys.module';
 import { SessionsModule } from './modules/sessions/sessions.module';
 import { AuditLogsModule } from './modules/audit-logs/audit-logs.module';
+import { SecurityModule } from './modules/security/security.module';
+import { SettingsModule } from './modules/settings/settings.module';
 
 @Module({
   imports: [
@@ -22,6 +24,8 @@ import { AuditLogsModule } from './modules/audit-logs/audit-logs.module';
     ApiKeysModule,
     SessionsModule,
     AuditLogsModule,
+    SecurityModule,
+    SettingsModule,
   ],
 })
 export class AppModule { }
