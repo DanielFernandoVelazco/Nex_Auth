@@ -25,6 +25,10 @@ model Organization {
   applications Application[]
   apiKeys      ApiKey[]
   auditLogs    AuditLog[]
+
+  // ← AGREGAR ESTAS 2 LÍNEAS
+  securityConfig SecurityConfig?
+  tenantSettings TenantSettings?
 }
 
 // ─── Usuario ────────────────────────────────────────────
@@ -66,7 +70,7 @@ model Role {
   organizationId String?
   createdAt      DateTime @default(now())
 
-  organization Organization?    @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  organization Organization?      @relation(fields: [organizationId], references: [id], onDelete: Cascade)
   users        UserOrganization[]
   permissions  RolePermission[]
 
@@ -170,40 +174,86 @@ model ApiKey {
 
 // ─── Audit Log (eventos inmutables) ─────────────────────
 model AuditLog {
-  id              String   @id @default(cuid())
-  timestamp       DateTime @default(now())
-  severity        String
-  eventType       String
+  id        String   @id @default(cuid())
+  timestamp DateTime @default(now())
+  severity  String
+  eventType String
 
   actorType       String
   actorName       String
   actorSubLabel   String
   actorInitials   String
   actorInitialsBg String
-  actorIsError    Boolean  @default(false)
+  actorIsError    Boolean @default(false)
 
-  geoCity         String?
-  geoCountry      String?
-  geoFlag         String?
-  geoNetworkType  String?
-  geoIsError      Boolean  @default(false)
+  geoCity        String?
+  geoCountry     String?
+  geoFlag        String?
+  geoNetworkType String?
+  geoIsError     Boolean @default(false)
 
   targetPrimary   String
   targetSecondary String?
-  targetIsError   Boolean  @default(false)
+  targetIsError   Boolean @default(false)
 
-  status          String
-  statusLabel     String
-  statusIcon      String
+  status      String
+  statusLabel String
+  statusIcon  String
 
-  detail          Json?
+  detail Json?
 
-  organizationId  String
-  createdAt       DateTime @default(now())
+  organizationId String
+  createdAt      DateTime @default(now())
 
   organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
 
   @@index([organizationId, timestamp])
   @@index([severity])
   @@index([eventType])
+}
+
+// ─── Security Config (uno por organización) ─────────────
+model SecurityConfig {
+  id             String @id @default(cuid())
+  organizationId String @unique
+
+  mfaPolicy         String  @default("required")
+  backchannelLogout Boolean @default(true)
+
+  // JSON: configuraciones complejas (arrays de objetos)
+  socialConnections  Json @default("[]")
+  mfaFactors         Json @default("[]")
+  threats            Json @default("[]")
+  dbConnections      Json @default("[]")
+  passwordlessRoutes Json @default("[]")
+  enterpriseSso      Json @default("[]")
+  dnsVerifications   Json @default("[]")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+}
+
+// ─── Tenant Settings (uno por organización) ─────────────
+model TenantSettings {
+  id             String @id @default(cuid())
+  organizationId String @unique
+
+  customDomain String?
+  sslActive    Boolean   @default(true)
+  sslExpiresOn DateTime?
+
+  accessTokenTtl    Int     @default(60)
+  idleTimeout       Int     @default(15)
+  maxConcurrency    Int     @default(3)
+  backchannelLogout Boolean @default(true)
+
+  emailProvider String @default("resend")
+  senderEmail   String @default("security@acme.com")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
 }
