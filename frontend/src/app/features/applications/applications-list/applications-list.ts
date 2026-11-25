@@ -88,10 +88,14 @@ export class ApplicationsList implements OnInit {
       autoFocus: 'first-tabbable',
     });
 
-    ref.afterClosed().subscribe((result: RegisterApplicationResult | undefined) => {
+    ref.afterClosed().subscribe(async (result: RegisterApplicationResult | undefined) => {
       if (!result) return;
-      const app = this.appService.add(result);
-      this.toast.success('Aplicación creada', `${app.name} fue registrada exitosamente.`);
+      const app = await this.appService.add(result);
+      if (app) {
+        this.toast.success('Aplicación creada', `${app.name} fue registrada exitosamente.`);
+      } else {
+        this.toast.error('Error al crear', 'No se pudo registrar la aplicación.');
+      }
     });
   }
 }
