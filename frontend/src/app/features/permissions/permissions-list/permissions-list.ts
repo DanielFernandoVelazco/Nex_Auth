@@ -88,10 +88,14 @@ export class PermissionsList implements OnInit {
       autoFocus: 'first-tabbable',
     });
 
-    ref.afterClosed().subscribe((result: RegisterPermissionInput | undefined) => {
+    ref.afterClosed().subscribe(async (result: RegisterPermissionInput | undefined) => {
       if (!result) return;
-      const created = this.permService.add(result);
-      this.toast.success('Permiso registrado', `Scope "${created.scopeIdentifier}" fue indexado.`);
+      const created = await this.permService.add(result);
+      if (created) {
+        this.toast.success('Permiso registrado', `Scope "${created.scopeIdentifier}" fue indexado.`);
+      } else {
+        this.toast.error('Error al registrar', 'No se pudo crear el permiso.');
+      }
     });
   }
 
