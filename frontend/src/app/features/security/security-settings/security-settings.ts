@@ -45,8 +45,8 @@ export class SecuritySettings implements OnInit {
     this.activeTab.set(id);
   }
 
-  protected setMfaPolicy(id: MfaPolicyId): void {
-    this.securityService.setMfaPolicy(id);
+  protected async setMfaPolicy(id: string): Promise<void> {
+    await this.securityService.setMfaPolicy(id as MfaPolicyId);
   }
 
   protected onToggleSocialConnection(id: string): void {
