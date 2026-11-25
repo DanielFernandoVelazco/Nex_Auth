@@ -79,13 +79,14 @@ export class ApiKeysList implements OnInit {
       autoFocus: 'first-tabbable',
     });
 
-    ref.afterClosed().subscribe((result: GenerateKeyInput | undefined) => {
+    ref.afterClosed().subscribe(async (result: GenerateKeyInput | undefined) => {
       if (!result) return;
-      const key = this.apiKeyService.generate(result);
-      this.toast.success(
-        'API Key generada',
-        `${key.serviceName} · ${key.keyPrefix}`
-      );
+      const key = await this.apiKeyService.generate(result);
+      if (key) {
+        this.toast.success('API Key generada', `${key.serviceName} · ${key.keyPrefix}`);
+      } else {
+        this.toast.error('Error al generar', 'No se pudo crear la API key.');
+      }
     });
   }
 
