@@ -6,12 +6,6 @@ import { ApplicationDetail } from '../models/application-detail.model';
 import { Kpi } from '../models/kpi.model';
 import { RegisterApplicationResult } from '../../features/applications/components/register-application-dialog/register-application-dialog';
 
-interface ApplicationsMockResponse {
-    kpis: Kpi[];
-    applications: Application[];
-    details: Record<string, ApplicationDetail>;
-}
-
 @Injectable({ providedIn: 'root' })
 export class ApplicationService {
     private readonly http = inject(HttpClient);
@@ -19,7 +13,7 @@ export class ApplicationService {
     private readonly _applications = signal<Application[]>([]);
     private readonly _details = signal<Record<string, ApplicationDetail>>({});
     private readonly _kpis = signal<Kpi[]>([]);
-    private readonly _loading = signal<boolean>(false);
+    private readonly _loading = signal(false);
     private readonly _selectedId = signal<string | null>(null);
 
     readonly applications = this._applications.asReadonly();
@@ -29,22 +23,24 @@ export class ApplicationService {
 
     readonly selectedDetail = computed<ApplicationDetail | null>(() => {
         const id = this._selectedId();
-        if (!id) return null;
-        return this._details()[id] ?? null;
+        return id ? this._details()[id] ?? null : null;
     });
 
     async load(): Promise<void> {
         this._loading.set(true);
         try {
-            const data = await firstValueFrom(
-                this.http.get<ApplicationsMockResponse>('/mock/applications.json')
+            const apps = await firstValueFrom(
+                this.http.get<Application[]>('/api/applications')
             );
-            this._applications.set(data.applications);
-            this._kpis.set(data.kpis);
-            this._details.set(data.details);
+            this._applications.set(apps);
+            this._kpis.set(this.computeKpis(apps));
+            this._details.set(this.buildDetails(apps));
 
-            const preselected = data.applications.find(a => a.isSelected);
-            if (preselected) this._selectedId.set(preselected.id);
+            if (apps.length > 0 && !this._selectedId()) {
+                this._selectedId.set(apps[0].id);
+            }
+        } catch (err) {
+            console.error('[Applications] load failed:', err);
         } finally {
             this._loading.set(false);
         }
@@ -54,48 +50,114 @@ export class ApplicationService {
         this._selectedId.set(id);
     }
 
-    add(input: RegisterApplicationResult): Application {
-        const id = `app-${Date.now()}`;
-        const clientId = this.generateClientId(input.type);
+    async add(input: RegisterApplicationResult): Promise<Application | null> {
+        try {
+            const created = await firstValueFrom(
+                this.http.post<Application>('/api/applications', {
+                    name: input.name,
+                    subtitle: this.subtitleFor(input.type),
+                    type: input.type,
+                    domainValue: input.domain,
+                })
+            );
+            this._applications.update(list => [created, ...list]);
+            this._details.update(d => ({
+                ...d,
+                [created.id]: this.buildDetail(created),
+            }));
+            this._selectedId.set(created.id);
+            return created;
+        } catch (err) {
+            console.error('[Applications] create failed:', err);
+            return null;
+        }
+    }
 
-        const newApp: Application = {
-            id,
-            name: input.name,
-            subtitle: this.subtitleFor(input.type),
-            icon: this.iconFor(input.type),
-            iconColor: 'primary',
-            clientId,
-            type: input.type,
-            status: 'active',
-            statusLabel: 'Activa',
-            domainLabel: 'Dominio Principal',
-            domainValue: input.domain ? `https://${input.domain}` : 'Sin dominio',
-            domainIcon: 'lock',
-            metricLabel: 'Logins (24h)',
-            metricValue: '0',
-            metricSecondary: 'Recién creada',
-        };
+    async remove(id: string): Promise<boolean> {
+        try {
+            await firstValueFrom(this.http.delete(`/api/applications/${id}`));
+            this._applications.update(list => list.filter(a => a.id !== id));
+            this._details.update(d => {
+                const copy = { ...d };
+                delete copy[id];
+                return copy;
+            });
+            if (this._selectedId() === id) this._selectedId.set(null);
+            return true;
+        } catch {
+            return false;
+        }
+    }
 
-        // Agregar al inicio de la lista
-        this._applications.update(list => [newApp, ...list]);
+    // ─── Helpers ─────────────────────────────────────────
+    private computeKpis(apps: Application[]): Kpi[] {
+        const active = apps.filter(a => a.status === 'active').length;
+        return [
+            {
+                id: 'total-apps',
+                label: 'Total Aplicaciones',
+                value: apps.length.toString(),
+                delta: `${active} activas`,
+                trend: 'up',
+                icon: 'apps',
+                color: 'primary',
+                footer: 'Todas las plataformas',
+            },
+            {
+                id: 'active-clients',
+                label: 'Clientes Activos',
+                value: `${active} / ${apps.length}`,
+                delta: `${Math.round((active / Math.max(apps.length, 1)) * 100)}%`,
+                trend: 'neutral',
+                icon: 'verified_user',
+                color: 'tertiary',
+                progress: Math.round((active / Math.max(apps.length, 1)) * 100),
+            },
+            {
+                id: 'spa-count',
+                label: 'SPA Aplicaciones',
+                value: apps.filter(a => a.type === 'spa').length.toString(),
+                delta: 'Frontend',
+                trend: 'neutral',
+                icon: 'web',
+                color: 'primary',
+            },
+            {
+                id: 'm2m-count',
+                label: 'M2M Services',
+                value: apps.filter(a => a.type === 'm2m').length.toString(),
+                delta: 'Server-to-server',
+                trend: 'neutral',
+                icon: 'dns',
+                color: 'secondary',
+            },
+        ];
+    }
 
-        // Crear detalle mínimo para que se pueda ver el panel
-        const detail: ApplicationDetail = {
-            id,
-            name: input.name,
-            icon: newApp.icon,
-            clientId,
-            clientType: this.subtitleFor(input.type),
-            tlsVerified: false,
-            createdBy: '@you',
-            createdAgo: 'hace unos segundos',
+    private buildDetails(apps: Application[]): Record<string, ApplicationDetail> {
+        return apps.reduce((acc, app) => {
+            acc[app.id] = this.buildDetail(app);
+            return acc;
+        }, {} as Record<string, ApplicationDetail>);
+    }
+
+    private buildDetail(app: Application): ApplicationDetail {
+        return {
+            id: app.id,
+            name: app.name,
+            icon: app.icon,
+            clientId: app.clientId,
+            clientType: app.subtitle,
+            tlsVerified: app.status === 'active',
+            createdBy: '@system',
+            createdAgo: 'hace poco',
             issuerDomain: 'auth.nexauth.io',
             issuerSslActive: true,
-            clientSecret: `sec_new_${Math.random().toString(36).slice(2, 18)}`,
+            clientSecret: `sec_${Math.random().toString(36).slice(2, 18)}`,
             lastRotationDays: 0,
-            callbackUrls: '',
+            callbackUrls: app.domainValue,
             logoutUrls: '',
-            corsOrigins: input.domain ? `https://${input.domain}` : '',
+            corsOrigins: app.domainValue,
             accessTokenTtl: 3600,
             refreshTokenTtl: 2592000,
             refreshRotationEnabled: true,
@@ -103,53 +165,19 @@ export class ApplicationService {
             pkceCodeExchanges: 0,
             refreshTokenGrants: 0,
             sdkSnippets: {
-                nodejs: `import { AuthShieldClient } from '@authshield/nextjs';\n\nexport const auth = new AuthShieldClient({\n  domain: 'auth.nexauth.io',\n  clientId: '${clientId}'\n});`,
-                python: `from authshield import AuthShieldClient\n\nauth = AuthShieldClient(\n    domain='auth.nexauth.io',\n    client_id='${clientId}'\n)`,
+                nodejs: `import { AuthShieldClient } from '@authshield/nextjs';\n\nexport const auth = new AuthShieldClient({\n  domain: 'auth.nexauth.io',\n  clientId: '${app.clientId}'\n});`,
+                python: `from authshield import AuthShieldClient\n\nauth = AuthShieldClient(domain='auth.nexauth.io', client_id='${app.clientId}')`,
                 curl: `curl https://auth.nexauth.io/.well-known/openid-configuration`,
             },
         };
-
-        this._details.update(map => ({ ...map, [id]: detail }));
-
-        // Auto-seleccionar la nueva app
-        this._selectedId.set(id);
-
-        return newApp;
-    }
-
-    remove(id: string): void {
-        this._applications.update(list => list.filter(a => a.id !== id));
-        this._details.update(map => {
-            const copy = { ...map };
-            delete copy[id];
-            return copy;
-        });
-        if (this._selectedId() === id) this._selectedId.set(null);
     }
 
     private subtitleFor(type: AppType): string {
-        const map: Record<AppType, string> = {
+        return {
             spa: 'SPA · Single Page App',
             web: 'Regular Web App',
             m2m: 'Machine-to-Machine',
             native: 'Native PKCE · iOS/Android',
-        };
-        return map[type];
-    }
-
-    private iconFor(type: AppType): string {
-        const map: Record<AppType, string> = {
-            spa: 'web',
-            web: 'language',
-            m2m: 'dns',
-            native: 'smartphone',
-        };
-        return map[type];
-    }
-
-    private generateClientId(type: AppType): string {
-        const prefix = type === 'm2m' ? 'm2m_srv_' : 'app_clnt_';
-        const rand = Math.random().toString(16).slice(2, 14);
-        return `${prefix}${rand}`;
+        }[type];
     }
 }
