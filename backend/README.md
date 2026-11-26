@@ -1,98 +1,411 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# 🛡️ NexAuth Backend
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+API REST del sistema IAM **NexAuth**, construida con **NestJS 11**, **Prisma 7** y **PostgreSQL 16**.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+![NestJS](https://img.shields.io/badge/NestJS-11-E0234E?logo=nestjs)
+![Prisma](https://img.shields.io/badge/Prisma-7-2D3748?logo=prisma)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-4169E1?logo=postgresql)
+![JWT](https://img.shields.io/badge/JWT-Refresh_Tokens-black?logo=jsonwebtokens)
 
-## Description
+---
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## 📖 Tabla de contenidos
 
-## Project setup
+- [Descripción](#-descripción)
+- [Tech stack](#-tech-stack)
+- [Módulos](#-módulos)
+- [Requisitos](#-requisitos)
+- [Instalación](#-instalación)
+- [Base de datos](#-base-de-datos)
+- [Variables de entorno](#-variables-de-entorno)
+- [Scripts](#-scripts)
+- [Autenticación](#-autenticación)
+- [API docs (Swagger)](#-api-docs-swagger)
+- [Estructura](#-estructura)
+- [Testing](#-testing)
+- [Deploy](#-deploy)
+
+---
+
+## 🎯 Descripción
+
+Backend modular con arquitectura **multi-tenant** que expone 46 endpoints REST para gestión de identidades y accesos.
+
+### Capacidades
+- Autenticación JWT con refresh tokens rotativos
+- Detección de reuso de refresh tokens → revoca todas las sesiones
+- Multi-tenant: todos los datos se aíslan por `organizationId`
+- RBAC con permisos granulares por recurso/acción
+- API keys con SHA-256 (nunca se guarda el plaintext)
+- Audit logs inmutables con verificación Merkle
+- Configuración por tenant (seguridad, SMTP, MFA)
+
+---
+
+## 🛠 Tech Stack
+
+| Tecnología | Uso |
+|-----------|-----|
+| **NestJS 11** | Framework principal |
+| **Prisma 7** | ORM con driver adapter |
+| **PostgreSQL 16** | Base de datos |
+| **Passport JWT** | Estrategia de autenticación |
+| **bcrypt** | Hash de passwords |
+| **class-validator** | Validación de DTOs |
+| **Swagger** | Documentación auto |
+| **TypeScript 5.7** | Tipado estricto |
+
+---
+
+## 📦 Módulos
+
+| Módulo | Endpoints | Responsabilidad |
+|--------|-----------|-----------------|
+| **Auth** | 3 | Login, refresh, validación |
+| **Applications** | 5 | CRUD de clientes OAuth2/OIDC |
+| **Users** | 6 | CRUD + block de usuarios |
+| **Roles** | 5 | CRUD de roles con permisos |
+| **Permissions** | 5 | CRUD de permisos (recurso/acción) |
+| **ApiKeys** | 5 | Generación, rotación, revocación |
+| **Sessions** | 3 | Listado y revocación |
+| **AuditLogs** | 4 | Eventos + KPIs |
+| **Security** | 5 | Config MFA, OAuth, threats |
+| **Settings** | 2 | Config tenant + SMTP |
+
+**Total: 46 endpoints REST** (ver `/api/docs`)
+
+---
+
+## ✅ Requisitos
+
+- **Node.js** ≥ 20.19
+- **npm** ≥ 10
+- **PostgreSQL** 16 (local o Docker)
+
+---
+
+## 🚀 Instalación
+
+### 1. Clonar e instalar
 
 ```bash
-$ npm install
+cd backend
+npm install
 ```
 
-## Compile and run the project
+### 2. Levantar PostgreSQL
 
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+docker run --name nexauth-db \
+  -e POSTGRES_USER=postgres \
+  -e POSTGRES_PASSWORD=postgres \
+  -e POSTGRES_DB=nexauth_iam \
+  -p 5432:5432 \
+  -d postgres:16
 ```
 
-## Run tests
+### 3. Crear usuario de aplicación
 
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+docker exec -i nexauth-db psql -U postgres << SQL
+CREATE USER nexauth WITH PASSWORD 'nexauth_dev_2025';
+ALTER DATABASE nexauth_iam OWNER TO nexauth;
+\c nexauth_iam
+ALTER SCHEMA public OWNER TO nexauth;
+SQL
 ```
 
-## Deployment
+### 4. Configurar `.env`
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+Crear `backend/.env`:
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+```env
+DATABASE_URL="postgresql://nexauth:nexauth_dev_2025@localhost:5432/nexauth_iam?schema=public"
+
+JWT_SECRET="a7f3e9c2b8d1f6a4e9c3b7d2f8a1e6c4b9d3f7a2e8c1b6d4f9a3e7c2b8d1f6a4"
+JWT_REFRESH_SECRET="c9e2b7d4f1a8c3e6b9d2f7a4c1e8b3d6f9a2c7e4b1d8f3a6c9e2b7d4f1a8c3e6"
+
+PORT=3000
+NODE_ENV=development
+CORS_ORIGIN="http://localhost:4200"
+```
+
+> **Producción**: usar secrets de 64+ caracteres aleatorios (`openssl rand -hex 32`).
+
+### 5. Migrar la base de datos
 
 ```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
+npx prisma generate
+npx prisma migrate dev --name init_complete
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+Esto crea **13 tablas**:
+- `Organization`, `User`, `UserOrganization`
+- `Role`, `Permission`, `RolePermission`
+- `Session`, `Application`, `ApiKey`, `AuditLog`
+- `SecurityConfig`, `TenantSettings`
+- `_prisma_migrations` (interno)
 
-## Resources
+### 6. Cargar datos de prueba
 
-Check out a few resources that may come in handy when working with NestJS:
+```bash
+npx tsx prisma/seed.ts
+```
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+Salida esperada:
+```
+🌱 Iniciando seed...
+✓ Organización: acme-corp
+✓ 13 permisos creados
+✓ Rol: Security Admin
+✓ Usuario: sofia.alarcon@acme.com
+✓ Membership creado
+✓ 3 aplicaciones creadas
 
-## Support
+🎉 SEED COMPLETADO
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+📧 Login: sofia.alarcon@acme.com
+🔑 Password: admin123
+```
 
-## Stay in touch
+### 7. Arrancar
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+```bash
+# Desarrollo con watch
+npm run start:dev
 
-## License
+# Producción
+npm run build
+npm run start:prod
+```
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+Servidor en **http://localhost:3000**
+
+---
+
+## 🗄 Base de datos
+
+### Schema (13 modelos)
+
+```
+Organization (tenant)
+  ├─→ users (via UserOrganization)
+  ├─→ roles
+  ├─→ applications
+  ├─→ apiKeys
+  ├─→ auditLogs
+  ├─→ securityConfig   (1:1)
+  └─→ tenantSettings   (1:1)
+
+User
+  ├─→ organizations (via UserOrganization)
+  └─→ sessions
+
+Role
+  └─→ permissions (via RolePermission)
+
+Application
+  └─→ apiKeys
+```
+
+### Modelos clave
+
+| Modelo | Descripción |
+|--------|-------------|
+| `Organization` | Tenant raíz. Todos los datos cuelgan de aquí |
+| `User` | Identidad global (email único) |
+| `UserOrganization` | Membresía + rol asignado por organización |
+| `Role` | Conjunto de permisos |
+| `Permission` | Recurso + acción (`users:read`, `applications:write`) |
+| `Session` | Refresh token con hash SHA-256 + rotación |
+| `Application` | Cliente OAuth2 con `clientId` único |
+| `ApiKey` | Credencial M2M con hash SHA-256 |
+| `AuditLog` | Eventos inmutables con JSON detail |
+| `SecurityConfig` | Config MFA, OAuth, threats por tenant |
+| `TenantSettings` | Config dominio, SMTP, TTLs |
+
+### Comandos Prisma
+
+```bash
+npx prisma studio              # UI web para la BD
+npx prisma migrate dev         # Nueva migración
+npx prisma migrate reset       # Reset + reseed (⚠️ borra todo)
+npx prisma generate            # Regenerar cliente
+npx prisma format              # Formatear schema
+npx prisma validate            # Validar schema
+```
+
+---
+
+## 🔐 Autenticación
+
+### Flujo JWT + Refresh
+
+1. **Login** → `POST /auth/login` → devuelve `{ access_token, refresh_token, user }`
+2. **Cliente guarda** `access_token` (memory/localStorage) + `refresh_token`
+3. **Cada request** → header `Authorization: Bearer <access_token>`
+4. **Access token expira (15m)** → `401 Unauthorized`
+5. **Cliente hace** `POST /auth/refresh` con `refresh_token` → nuevo par
+6. **Rotación** → el refresh anterior se invalida
+7. **Detección de reuso** → si se usa un refresh ya rotado → **revoca todas las sesiones del usuario**
+
+### Endpoints
+
+```bash
+# Login
+curl -X POST http://localhost:3000/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{"email":"sofia.alarcon@acme.com","password":"admin123"}'
+
+# Refresh
+curl -X POST http://localhost:3000/auth/refresh \
+  -H "Content-Type: application/json" \
+  -d '{"refresh_token":"<token>"}'
+
+# Validar token
+curl -X POST http://localhost:3000/auth/me \
+  -H "Authorization: Bearer <access_token>"
+```
+
+### Estructura del JWT
+
+```json
+{
+  "sub": "cmwty2run000fmicnfsxiqov3",
+  "email": "sofia.alarcon@acme.com",
+  "iat": 1795479567,
+  "exp": 1795480467
+}
+```
+
+---
+
+## 📚 API docs (Swagger)
+
+Con el backend corriendo:
+
+**http://localhost:3000/api/docs**
+
+Interfaz interactiva con:
+- 46 endpoints agrupados en 10 tags
+- Autorización con Bearer JWT
+- Ejemplos de request/response
+- Pruebas desde el navegador
+
+---
+
+## 🧪 Testing
+
+```bash
+# Tests unitarios
+npm run test
+
+# Tests e2e
+npm run test:e2e
+
+# Coverage
+npm run test:cov
+
+# Watch
+npm run test:watch
+```
+
+---
+
+## 🚢 Deploy
+
+### Railway / Render / Fly.io
+
+```bash
+# Build
+npm run build
+
+# Variable crítica
+DATABASE_URL=postgresql://user:pass@host:5432/db
+
+# Arrancar
+node dist/src/main.js
+```
+
+### Variables de entorno en producción
+
+```env
+DATABASE_URL=<production-db-url>
+JWT_SECRET=<64+ chars aleatorios>
+JWT_REFRESH_SECRET=<64+ chars aleatorios>
+NODE_ENV=production
+PORT=3000
+CORS_ORIGIN=<frontend-url>
+```
+
+### Consideraciones de seguridad
+
+- ✅ Usar secrets de 64+ caracteres (`openssl rand -hex 32`)
+- ✅ HTTPS obligatorio en producción
+- ✅ Rate limiting con `@nestjs/throttler`
+- ✅ Helmet para headers de seguridad
+- ✅ CORS estricto al frontend real
+- ✅ `NODE_ENV=production` para ocultar stack traces
+- ✅ Backup automático de PostgreSQL
+
+---
+
+## 📁 Estructura
+
+```
+backend/
+├── prisma/
+│   ├── schema.prisma          # 13 modelos
+│   ├── migrations/            # Historial versionado
+│   └── seed.ts                # Datos iniciales
+├── generated/
+│   └── prisma/                # Cliente generado
+├── src/
+│   ├── auth/
+│   │   ├── auth.controller.ts
+│   │   ├── auth.service.ts
+│   │   ├── auth.module.ts
+│   │   ├── jwt.strategy.ts
+│   │   └── dto/
+│   ├── common/
+│   │   └── decorators/
+│   │       └── current-user.decorator.ts
+│   ├── prisma/
+│   │   ├── prisma.module.ts
+│   │   └── prisma.service.ts
+│   ├── modules/
+│   │   ├── applications/
+│   │   ├── users/
+│   │   ├── roles/
+│   │   ├── permissions/
+│   │   ├── api-keys/
+│   │   ├── sessions/
+│   │   ├── audit-logs/
+│   │   ├── security/
+│   │   └── settings/
+│   ├── app.module.ts
+│   └── main.ts
+├── .env                       # NO commitear
+├── nest-cli.json
+├── prisma7.config.ts
+├── package.json
+└── README.md
+```
+
+---
+
+## 🔒 Seguridad
+
+- **Passwords**: bcrypt (10 rounds)
+- **Refresh tokens**: SHA-256 + rotación + detección de reuso
+- **API keys**: SHA-256 (el plaintext solo se muestra al crear/rotar)
+- **JWT**: HS256, expiración corta
+- **Multi-tenant**: isolation por `organizationId` en cada query
+- **Validación**: class-validator en todos los DTOs
+- **CORS**: whitelist por origen
+
+---
+
+## 📝 Licencia
+
+MIT © 2025
