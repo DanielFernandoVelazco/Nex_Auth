@@ -488,4 +488,4 @@ Y crear los `environment*.ts` con la URL del backend real.
 
 ## 📝 Licencia
 
-MIT © 2025
+MIT © 2026
