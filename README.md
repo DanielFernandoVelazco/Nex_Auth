@@ -339,7 +339,7 @@ Configurar `_redirects` o `vercel.json` para SPA fallback:
 
 ## 📝 Licencia
 
-MIT © 2025 — Proyecto de demostración.
+Proyecto de demostración.
 
 ---
 
@@ -352,5 +352,3 @@ MIT © 2025 — Proyecto de demostración.
 5. Pull Request
 
 ---
-
-**Hecho con ❤️ usando Angular 21 + NestJS 11 + PostgreSQL 16**
